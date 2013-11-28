@@ -31,17 +31,6 @@ CREATE TABLE userGroups(
 );
 
 -- -----------------------------------------------------
--- Create userGroups table
--- -----------------------------------------------------
-
-INSERT INTO userGroups
-  (userGroups_userGroup)
-VALUES
-('admin'),
-('moderator'),
-('user');
-
--- -----------------------------------------------------
 -- Create userInUserGroup table
 -- -----------------------------------------------------
 
