@@ -31,10 +31,10 @@ CREATE TABLE userGroups(
 );
 
 -- -----------------------------------------------------
--- Create userInUserGroup table
+-- Create usersInUserGroup table
 -- -----------------------------------------------------
 
-CREATE TABLE userInUserGroup(
+CREATE TABLE usersInUserGroup(
   usersInUserGroup_username     VARCHAR(30),
   usersInUserGroup_userGroup    VARCHAR(100),
 
