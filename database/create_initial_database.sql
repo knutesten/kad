@@ -43,4 +43,4 @@ CREATE TABLE usersInUserGroup(
     REFERENCES users(users_username),
   FOREIGN KEY (usersInUserGroup_userGroup)
     REFERENCES userGroups(userGroups_userGroup)
-)
+);
