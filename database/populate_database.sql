@@ -15,6 +15,15 @@ VALUES
 INSERT INTO userGroups
   (userGroups_userGroup)
 VALUES
-('admin'),
-('moderator'),
-('user');
+('Administrator'),
+('Moderator'),
+('User');
+
+-- -----------------------------------------------------
+-- Create usersInUserGroup table
+-- -----------------------------------------------------
+
+INSERT INTO usersInUserGroup
+(usersInUserGroup_username, usersInUserGroup_userGroup)
+VALUES
+('admin','Administrator')
