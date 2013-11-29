@@ -9,4 +9,5 @@ import no.mesan.model.User;
  */
 public interface UserDao {
     public void createUser(final User user);
+    public User getUser(final String username);
 }

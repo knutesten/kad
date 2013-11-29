@@ -40,10 +40,11 @@ public class UserDaoImpl implements UserDao {
                                                           user.getEmail(),
                                                           user.getPassword(),
                                                           user.getSalt(),
-                                                          user.getLocale());
+                                                          user.getLocale().toLanguageTag());
     }
 
-    public void test() {
-        jdbcTemplate.getMaxRows();
+    @Override
+    public User getUser(final String username) {
+        return null;
     }
 }
