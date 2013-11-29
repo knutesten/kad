@@ -17,6 +17,8 @@ public class PropertiesProvider {
     public static final String DATABASE_USERNAME = "database_username";
     public static final String DATABASE_PASSWORD = "database_password";
 
+    public static final String CREATE_USER = "create_user";
+
     @Produces @Sql
     public Properties createSqlProperties() throws IOException {
         return getProperties("sql.properties");

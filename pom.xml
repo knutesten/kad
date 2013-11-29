@@ -15,9 +15,15 @@
         <junit.version>4.11</junit.version>
         <mysql.version>5.1.26</mysql.version>
         <javaee.version>7.0</javaee.version>
+        <spring-jdbc.version>3.2.4.RELEASE</spring-jdbc.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring-jdbc.version}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

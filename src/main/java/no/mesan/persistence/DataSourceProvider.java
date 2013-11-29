@@ -1,12 +1,9 @@
 package no.mesan.persistence;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,9 +18,7 @@ import static no.mesan.properties.PropertiesProvider.*;
  *
  * @author Knut Esten Melandsø Nekså
  */
-@Default
-@Singleton
-public class DatabaseImpl implements Database {
+public class DataSourceProvider {
     @Inject
     @DatabaseProperties
     private Properties dbProperties;
@@ -39,10 +34,8 @@ public class DatabaseImpl implements Database {
         }
     }
 
-    @Override
-    public Connection createConnection() throws SQLException {
-        final String username = dbProperties.getProperty(DATABASE_USERNAME);
-        final String password = dbProperties.getProperty(DATABASE_PASSWORD);
-        return dataSource.getConnection(username, password);
+    @Produces
+    public DataSource getDataSource() {
+        return dataSource;
     }
 }
