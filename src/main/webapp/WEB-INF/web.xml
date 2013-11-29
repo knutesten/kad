@@ -11,8 +11,12 @@
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>dean-fjols</realm-name>
+        <auth-method>FORM</auth-method>
+        <realm-name>KAD</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
     </login-config>
 
 </web-app>
