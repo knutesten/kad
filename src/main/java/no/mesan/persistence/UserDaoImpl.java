@@ -1,6 +1,5 @@
 package no.mesan.persistence;
 
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -25,23 +24,26 @@ public class UserDaoImpl implements UserDao {
     private Authentication authentication;
     @Inject @Sql
     private Properties sql;
+    @Inject
+    private DataSource dataSource;
 
     private JdbcTemplate jdbcTemplate;
 
-    @Inject
     @PostConstruct
-    private void initialize(DataSource dataSource) {
+    private void initialize() {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
     public void createUser(final User user) {
-        final String salt = authentication.generateSalt();
-        final String localeTag = Locale.getDefault().toLanguageTag();
         jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
                                                           user.getEmail(),
                                                           user.getPassword(),
-                                                          salt,
-                                                          localeTag);
+                                                          user.getSalt(),
+                                                          user.getLocale());
+    }
+
+    public void test() {
+        jdbcTemplate.getMaxRows();
     }
 }

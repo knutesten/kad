@@ -1,7 +1,6 @@
 -- -----------------------------------------------------
 -- Create kad schema
 -- -----------------------------------------------------
-
 CREATE SCHEMA kad DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE kad;
 
@@ -14,8 +13,8 @@ CREATE TABLE users (
   user_email         VARCHAR(100)  NOT NULL	UNIQUE,
   user_password      VARCHAR(255)  NOT NULL,
   user_salt          VARCHAR(255)  NOT NULL,
-  user_fullName      VARCHAR(255)  NOT NULL,
-  user_country       VARCHAR(255)  NOT NULL,
+  user_fullName      VARCHAR(255),
+  user_country       VARCHAR(255),
   user_locale        VARCHAR(50)   NOT NULL,
 
   PRIMARY KEY (user_id)

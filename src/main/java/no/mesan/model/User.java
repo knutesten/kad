@@ -2,10 +2,6 @@ package no.mesan.model;
 
 import java.util.Locale;
 
-import javax.inject.Inject;
-
-import no.mesan.persistence.UserDao;
-
 /**
  * TODO
  *
@@ -19,9 +15,6 @@ public class User {
     private String fullName;
     private String country;
     private Locale locale;
-
-    @Inject
-    private UserDao userDao;
 
     public User(final String username, final String email, final String password) {
         this.username = username;
