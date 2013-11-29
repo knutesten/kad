@@ -19,17 +19,18 @@
 
 <h:body>
     <h2>LOGIN PAGE! WOOO!</h2>
-    <h:form method="post" action="j_security_check" name="loginForm">
+    <form method="post" action="j_security_check" name="loginForm">
         <h:panelGrid columns="2">
             <h:outputLabel id="userNameLabel" for="j_username" value="Username:" />
             <h:inputText id="j_username" />
             <h:outputLabel id="passwordLabel" for="j_password" value="Password:" />
             <h:inputText id="j_password" />
             <h:panelGroup>
-                <h:commandButton type="submit" value="login" />
+                <h:commandButton action="j_security_check" type="submit" value="login" />
             </h:panelGroup>
         </h:panelGrid>
-    </h:form>
+    </form>
 </h:body>
 
 </html>
+
