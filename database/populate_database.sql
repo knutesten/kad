@@ -24,6 +24,6 @@ VALUES
 -- -----------------------------------------------------
 
 INSERT INTO usersInUserGroup
-(usersInUserGroup_username, usersInUserGroup_userGroup)
+(usersInUserGroup_userId, usersInUserGroup_userGroup)
 VALUES
-('admin','Administrator');
+((select users_id from users where users_username='admin'),'Administrator');

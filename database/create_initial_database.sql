@@ -9,15 +9,16 @@ USE kad;
 -- Create users table
 -- -----------------------------------------------------
 CREATE TABLE users(
-  users_username      VARCHAR(30),
-  users_email         VARCHAR(100)  NOT NULL   UNIQUE ,
+  users_id			  int			NOT NULL	AUTO_INCREMENT,
+  users_username      VARCHAR(30)   NOT NULL	UNIQUE,
+  users_email         VARCHAR(100)  NOT NULL	UNIQUE,
   users_password      VARCHAR(255)  NOT NULL,
   users_salt          VARCHAR(255)  NOT NULL,
   users_fullName      VARCHAR(255)  NOT NULL,
   users_country       VARCHAR(255)  NOT NULL,
   users_locale        VARCHAR(50)   NOT NULL,
 
-  PRIMARY KEY (users_username)
+  PRIMARY KEY (users_id)
 );
 
 -- -----------------------------------------------------
@@ -35,12 +36,12 @@ CREATE TABLE userGroups(
 -- -----------------------------------------------------
 
 CREATE TABLE usersInUserGroup(
-  usersInUserGroup_username     VARCHAR(30),
+  usersInUserGroup_userId     	int,
   usersInUserGroup_userGroup    VARCHAR(100),
 
-  PRIMARY KEY (usersInUserGroup_username, usersInUserGroup_userGroup),
-  FOREIGN KEY (usersInUserGroup_username)
-    REFERENCES users(users_username),
+  PRIMARY KEY (usersInUserGroup_userId, usersInUserGroup_userGroup),
+  FOREIGN KEY (usersInUserGroup_userId)
+    REFERENCES users(users_id),
   FOREIGN KEY (usersInUserGroup_userGroup)
     REFERENCES userGroups(userGroups_userGroup)
 );
