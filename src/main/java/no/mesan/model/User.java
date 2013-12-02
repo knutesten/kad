@@ -16,16 +16,51 @@ public class User {
     private String country;
     private Locale locale;
 
-    public User(final String username, final String email, final String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        salt = generateSalt();
-        locale = Locale.getDefault(); // TODO: This should be set using a locale manager class.
+    public static class Builder {
+        private final String username;
+        private final String email;
+        private final String password;
+        private final String salt;
+        private String fullName;
+        private String country;
+        private Locale locale;
+
+        public Builder (final String username, final String email, final String password, final String salt) {
+            this.username = username;
+            this.email = email;
+            this.password = password;
+            this.salt = salt;
+        }
+
+        public Builder fullName(final String fullName) {
+            this.fullName = fullName;
+            return this;
+        }
+
+        public Builder country(final String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Builder locale(final Locale locale) {
+            this.locale = locale;
+            return this;
+        }
     }
 
-    private String generateSalt() {
-        return "salt";
+    public User(final Builder builder) {
+        username = builder.username;
+        email    = builder.email;
+        password = builder.password;
+        fullName = builder.fullName;
+        country  = builder.country;
+        salt     = builder.salt;
+        locale   = builder.locale;
+    }
+
+    @Override
+    public String toString() {
+        return username;
     }
 
     public String getUsername() {
@@ -36,7 +71,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -44,15 +79,19 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(final String fullName) {
         this.fullName = fullName;
     }
 
@@ -60,7 +99,7 @@ public class User {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
 
@@ -68,11 +107,7 @@ public class User {
         return locale;
     }
 
-    public void setLocale(Locale locale) {
+    public void setLocale(final Locale locale) {
         this.locale = locale;
-    }
-
-    public String getSalt() {
-        return salt;
     }
 }

@@ -1,12 +1,12 @@
 package no.mesan.persistence;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
-import no.mesan.authentication.Authentication;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
 
@@ -20,8 +20,6 @@ import static no.mesan.properties.PropertiesProvider.*;
  * @author Knut Esten Melandsø Nekså
  */
 public class UserDaoImpl implements UserDao {
-    @Inject
-    private Authentication authentication;
     @Inject @Sql
     private Properties sql;
     @Inject
@@ -36,15 +34,35 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void createUser(final User user) {
-        jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
-                                                          user.getEmail(),
-                                                          user.getPassword(),
-                                                          user.getSalt(),
-                                                          user.getLocale().toLanguageTag());
+        updateUser(user);
     }
 
     @Override
-    public User getUser(final String username) {
-        return null;
+    public User getUserByUsername(final String username) {
+        return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), new UserRowMapper(), username);
+    }
+
+    @Override
+    public User getUserByEmail(final String email) {
+        return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), new UserRowMapper(), email);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return jdbcTemplate.query(sql.getProperty(GET_USERS), new UserRowMapper());
+    }
+
+    @Override
+    public void updateUser(final User user) {
+        String localeString = null;
+        if (user.getLocale() != null)
+            localeString = user.getLocale().toLanguageTag();
+        jdbcTemplate.update(sql.getProperty(CREATE_UPDATE_USER), user.getUsername(),
+                                                          user.getEmail(),
+                                                          user.getPassword(),
+                                                          user.getSalt(),
+                                                          user.getFullName(),
+                                                          user.getCountry(),
+                                                          localeString);
     }
 }

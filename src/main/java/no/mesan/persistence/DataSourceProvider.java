@@ -3,6 +3,7 @@ package no.mesan.persistence;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
@@ -18,6 +19,7 @@ import static no.mesan.properties.PropertiesProvider.*;
  *
  * @author Knut Esten Melandsø Nekså
  */
+@ApplicationScoped
 public class DataSourceProvider {
     @Inject
     @DatabaseProperties
