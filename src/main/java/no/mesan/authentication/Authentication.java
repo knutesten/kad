@@ -27,11 +27,11 @@ public class Authentication {
     public String generatePasswordHash(final char[] newPassword, final String salt) {
         try {
             final Charset charset = Charset.forName("UTF-8");
-            final ByteBuffer byteBuffer = charset.encode(CharBuffer.wrap(newPassword));
+            final ByteBuffer passwordAsBytes = charset.encode(CharBuffer.wrap(newPassword));
 
             final MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(DatatypeConverter.parseHexBinary(salt));
-            md.update(byteBuffer.array());
+            md.update(passwordAsBytes.array());
 
             final BigInteger bigInt = new BigInteger(1, md.digest());
             return bigInt.toString(16);
