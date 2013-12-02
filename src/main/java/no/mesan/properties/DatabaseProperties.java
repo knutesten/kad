@@ -15,6 +15,6 @@ import javax.inject.Qualifier;
  */
 @Qualifier
 @Retention(RUNTIME)
-@Target({FIELD, TYPE, METHOD})
+@Target({CONSTRUCTOR, PARAMETER, FIELD, TYPE, METHOD})
 public @interface DatabaseProperties {
 }

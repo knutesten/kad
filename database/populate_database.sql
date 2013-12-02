@@ -15,9 +15,9 @@ VALUES
 INSERT INTO userGroups
   (userGroup_userGroup)
 VALUES
-('Administrator'),
-('Moderator'),
-('User');
+('admin'),
+('moderator'),
+('user');
 
 -- -----------------------------------------------------
 -- Create usersInUserGroup table
@@ -26,4 +26,4 @@ VALUES
 INSERT INTO usersInUserGroup
 (usersInUserGroup_userId, usersInUserGroup_userGroup)
 VALUES
-((select user_id from users where user_username='admin'),'Administrator');
+((select user_id from users where user_username='admin'),'admin');
