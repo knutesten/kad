@@ -1,7 +1,7 @@
 package no.mesan.authentication;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -26,11 +26,11 @@ public class Authentication {
         try {
             final MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(DatatypeConverter.parseHexBinary(salt));
-            md.update(newPassword.getBytes("UTF-8"));
+            md.update(newPassword.getBytes(StandardCharsets.UTF_8));
 
             final BigInteger bigInt = new BigInteger(1, md.digest());
             return bigInt.toString(16);
-        } catch(NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        } catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return null;
