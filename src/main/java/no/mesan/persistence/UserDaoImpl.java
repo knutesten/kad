@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static no.mesan.properties.PropertiesProvider.*;
@@ -35,12 +36,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByUsername(final String username) {
-        return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), new UserRowMapper(), username);
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), new UserRowMapper(), username);
+        } catch (EmptyResultDataAccessException erda) {
+            return null;
+        }
     }
 
     @Override
     public User getUserByEmail(final String email) {
-        return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), new UserRowMapper(), email);
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), new UserRowMapper(), email);
+        } catch (EmptyResultDataAccessException erda) {
+            return null;
+        }
     }
 
     @Override
