@@ -15,6 +15,7 @@ import no.mesan.persistence.UserDao;
  * TODO
  *
  * @author Knut Esten Melandsø Nekså
+ * @author Anders Grotthing Moe
  */
 @Named
 @RequestScoped
@@ -30,28 +31,29 @@ public class NewUserController {
     @NotNull
     private String email;
     @NotNull
-    private char[] password;
+    private String password;
     @NotNull
-    private char[] password2;
+    private String password2;
     private String salt;
     private String fullName;
     private String country;
-    private Locale locale;
+    
+    private Locale locale = Locale.UK;
+    private String hash;
 
     
     public void registerNewUser() {
         //check passwords
-        //todo to remove later?
         
         salt = authentication.generateSalt();
+        hash = authentication.generatePasswordHash(password, salt);
         
-        
-        final User.Builder builder = new User.Builder("username2", "email2", "password", "saltisalt");
-        builder.locale(Locale.UK);
-        final User newUser = new User(builder);
+        final User.Builder userBuilder = new User.Builder(username, email, hash, salt);
+        userBuilder.locale(locale);
+        final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
         System.out.println(userDao.getUserByUsername("admin"));
-        System.out.println(userDao.getUsers());
+        System.out.println(userDao.getUsers());       
     }
 
 
@@ -75,22 +77,22 @@ public class NewUserController {
     }
 
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
 
-    public char[] getPassword2() {
+    public String getPassword2() {
         return password2;
     }
 
 
-    public void setPassword2(char[] password2) {
+    public void setPassword2(String password2) {
         this.password2 = password2;
     }
 

@@ -18,7 +18,21 @@
 
 <h:body>
     <h:form>
-        <h:commandButton value="test" action="#{newUserController.registerNewUser}"/>
+        <h2>Register New User</h2>
+        <h:panelGrid columns="2">
+            <h:outputLabel id="userNameLabel" for="username" value="Username:" />
+            <h:inputText id="username" value="#{newUserController.username}"/>
+            <h:outputLabel id="emailLabel" for="email" value="Email:" />
+            <h:inputText id="email" value="#{newUserController.email}" />
+            <h:outputLabel id="passwordLabel" for="password" value="Password:" />
+            <h:inputSecret id="password" value="#{newUserController.password}" />
+            <h:outputLabel id="passwordLabel2" for="password2" value="Confirm Password:" />
+            <h:inputSecret id="password2" value="#{newUserController.password2}"/>
+            <h:panelGroup>
+                <h:commandButton value="test" action="#{newUserController.registerNewUser}"/>
+            </h:panelGroup>
+        </h:panelGrid>
+        
     </h:form>
 </h:body>
 
