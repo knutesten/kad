@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
@@ -21,13 +22,10 @@ import static no.mesan.properties.PropertiesProvider.*;
  */
 @ApplicationScoped
 public class DataSourceProvider {
-    @Inject
-    @DatabaseProperties
-    private Properties dbProperties;
     private DataSource dataSource;
 
-    @PostConstruct
-    public void initialize() {
+    @Inject
+    public DataSourceProvider(final @DatabaseProperties Properties dbProperties) {
         try {
             final String jndi = dbProperties.getProperty(DATABASE_JNDI);
             dataSource = (DataSource) new InitialContext().lookup(jndi);

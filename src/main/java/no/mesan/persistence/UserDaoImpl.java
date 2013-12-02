@@ -3,7 +3,6 @@ package no.mesan.persistence;
 import java.util.List;
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
@@ -22,13 +21,10 @@ import static no.mesan.properties.PropertiesProvider.*;
 public class UserDaoImpl implements UserDao {
     @Inject @Sql
     private Properties sql;
+    private final JdbcTemplate jdbcTemplate;
+
     @Inject
-    private DataSource dataSource;
-
-    private JdbcTemplate jdbcTemplate;
-
-    @PostConstruct
-    private void initialize() {
+    public UserDaoImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
