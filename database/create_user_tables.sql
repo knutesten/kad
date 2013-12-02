@@ -5,7 +5,7 @@ CREATE TABLE users (
   user_id			 INT		   NOT NULL	AUTO_INCREMENT,
   user_username      VARCHAR(30)   NOT NULL	UNIQUE,
   user_email         VARCHAR(100)  NOT NULL	UNIQUE,
-  user_password      VARCHAR(255)  NOT NULL,
+  user_hash          VARCHAR(255)  NOT NULL,
   user_salt          VARCHAR(255)  NOT NULL,
   user_fullName      VARCHAR(255),
   user_country       VARCHAR(255),

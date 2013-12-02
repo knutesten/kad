@@ -10,7 +10,7 @@ import java.util.Locale;
 public class User {
     private final String username;
     private String email;
-    private String password;
+    private String hash;
     private final String salt;
     private String fullName;
     private String country;
@@ -19,16 +19,16 @@ public class User {
     public static class Builder {
         private final String username;
         private final String email;
-        private final String password;
+        private final String hash;
         private final String salt;
         private String fullName;
         private String country;
         private Locale locale;
 
-        public Builder (final String username, final String email, final String password, final String salt) {
+        public Builder (final String username, final String email, final String hash, final String salt) {
             this.username = username;
             this.email = email;
-            this.password = password;
+            this.hash = hash;
             this.salt = salt;
         }
 
@@ -51,7 +51,7 @@ public class User {
     public User(final Builder builder) {
         username = builder.username;
         email    = builder.email;
-        password = builder.password;
+        hash     = builder.hash;
         fullName = builder.fullName;
         country  = builder.country;
         salt     = builder.salt;
@@ -75,12 +75,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHash() {
+        return hash;
     }
 
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setHash(final String hash) {
+        this.hash = hash;
     }
 
     public String getSalt() {

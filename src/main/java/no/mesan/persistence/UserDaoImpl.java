@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
             localeString = user.getLocale().toLanguageTag();
         jdbcTemplate.update(sql.getProperty(CREATE_UPDATE_USER), user.getUsername(),
                                                           user.getEmail(),
-                                                          user.getPassword(),
+                                                          user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
                                                           user.getCountry(),
