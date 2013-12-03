@@ -12,10 +12,10 @@ public class EmailUniqueValidator implements ConstraintValidator<EmailUnique, St
     @Inject
     private UserDao userDao;
     
-    public void initialize(EmailUnique email){
+    public void initialize(final EmailUnique email){
     }
     
-    public boolean isValid(String email, ConstraintValidatorContext context) {
+    public boolean isValid(final String email, final ConstraintValidatorContext context) {
         User user = userDao.getUserByEmail(email);
         return user == null;
     }

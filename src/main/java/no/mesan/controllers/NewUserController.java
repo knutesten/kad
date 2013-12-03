@@ -6,10 +6,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import no.mesan.authentication.Authentication;
 import no.mesan.controllers.validators.Email;
 import no.mesan.controllers.validators.EmailUnique;
+import no.mesan.controllers.validators.UserUnique;
 import no.mesan.model.User;
 import no.mesan.persistence.UserDao;
 
@@ -28,15 +30,16 @@ public class NewUserController {
     @Inject
     private Authentication authentication;
 
-    @NotNull
+    @Size(min = 2, max = 30, message="{no.mesan.controllers.validators.username_size.message}")
+    @UserUnique
     private String username;
-    @NotNull
+    
     @Email
     @EmailUnique
     private String email;
-    @NotNull
-    private String password;
-    @NotNull
+    
+    @Size(min = 8, message="{no.mesan.controllers.validators.password_size.message}")
+    private String password; 
     private String password2;
     private String fullName;
     private String country;
