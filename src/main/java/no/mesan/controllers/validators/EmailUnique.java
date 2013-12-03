@@ -15,7 +15,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface EmailUnique {
     //TODO hvordan bruke validationmessagebundlepropertystringstuff her?
-    String message() default "{no.mesan.controllers.validators.email_exists.message}";
+    String message() default "{no.mesan.controllers.validators.EmailUnique.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
