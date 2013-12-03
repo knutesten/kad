@@ -8,10 +8,11 @@ CREATE TABLE users (
   user_hash          VARCHAR(255)  NOT NULL,
   user_salt          VARCHAR(255)  NOT NULL,
   user_fullName      VARCHAR(255),
-  user_country       VARCHAR(255),
+  user_country       VARCHAR(2),
   user_locale        VARCHAR(50),
-
-  PRIMARY KEY (user_id)
+  PRIMARY KEY (user_id),
+  FOREIGN KEY (user_country)
+    REFERENCES countries(country_code)
 );
 
 -- -----------------------------------------------------
