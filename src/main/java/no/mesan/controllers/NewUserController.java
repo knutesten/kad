@@ -6,7 +6,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import no.mesan.authentication.Authentication;
 import no.mesan.controllers.validators.Email;
@@ -25,7 +24,7 @@ import no.mesan.persistence.UserDao;
 public class NewUserController {
     @Inject
     private UserDao userDao;
-    
+
     @Inject
     private Authentication authentication;
 
@@ -39,35 +38,28 @@ public class NewUserController {
     private String password;
     @NotNull
     private String password2;
-    private String salt;
     private String fullName;
     private String country;
-    
-    private Locale locale = Locale.UK;
-    private String hash;
 
-    
+    private Locale locale = Locale.UK;
+
+
     public void registerNewUser() {
-        if (confirmPassword(password, password2) == false) {
+        if (confirmPassword()) {
             //Do error message!
         }
-        
-        salt = authentication.generateSalt();
-        hash = authentication.generatePasswordHash(password, salt);
-        
+
+        final String salt = authentication.generateSalt();
+        final String hash = authentication.generatePasswordHash(password, salt);
+
         final User.Builder userBuilder = new User.Builder(username, email, hash, salt);
         userBuilder.locale(locale);
         final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
-        System.out.println(userDao.getUserByUsername("admin"));
-        System.out.println(userDao.getUsers());       
     }
-    
-    public boolean confirmPassword(final String password, final String password2) {
-        if (password.equals(password2)) {
-            return true;
-        }
-        return false;
+
+    public boolean confirmPassword() {
+        return password.equals(password2);
     }
 
 
