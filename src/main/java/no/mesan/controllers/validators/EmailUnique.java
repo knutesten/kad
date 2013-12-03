@@ -10,12 +10,12 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = EmailUniqueValidator.class)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
-public @interface Email {
+public @interface EmailUnique {
     //TODO hvordan bruke validationmessagebundlepropertystringstuff her?
-    String message() default "{no.mesan.controllers.validators.email_pattern_error.message}";
+    String message() default "{no.mesan.controllers.validators.email_exists.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

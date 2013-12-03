@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 
 import no.mesan.authentication.Authentication;
 import no.mesan.controllers.validators.Email;
+import no.mesan.controllers.validators.EmailUnique;
 import no.mesan.model.User;
 import no.mesan.persistence.UserDao;
 
@@ -32,6 +33,7 @@ public class NewUserController {
     private String username;
     @NotNull
     @Email
+    @EmailUnique
     private String email;
     @NotNull
     private String password;
