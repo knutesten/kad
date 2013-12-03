@@ -6,8 +6,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import no.mesan.authentication.Authentication;
+import no.mesan.controllers.validators.Email;
 import no.mesan.model.User;
 import no.mesan.persistence.UserDao;
 
@@ -29,6 +31,7 @@ public class NewUserController {
     @NotNull
     private String username;
     @NotNull
+    @Email
     private String email;
     @NotNull
     private String password;
@@ -43,7 +46,9 @@ public class NewUserController {
 
     
     public void registerNewUser() {
-        //check passwords
+        if (confirmPassword(password, password2) == false) {
+            //Do error message!
+        }
         
         salt = authentication.generateSalt();
         hash = authentication.generatePasswordHash(password, salt);
@@ -54,6 +59,13 @@ public class NewUserController {
         userDao.createUser(newUser);
         System.out.println(userDao.getUserByUsername("admin"));
         System.out.println(userDao.getUsers());       
+    }
+    
+    public boolean confirmPassword(final String password, final String password2) {
+        if (password.equals(password2)) {
+            return true;
+        }
+        return false;
     }
 
 
