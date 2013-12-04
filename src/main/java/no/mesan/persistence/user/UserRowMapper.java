@@ -31,13 +31,14 @@ public class UserRowMapper implements RowMapper<User> {
         final String fullName     = resultSet.getString("user_fullName");
         final String countryName  = resultSet.getString("user_country");
         final Locale locale       = new Locale(resultSet.getString("user_locale"));
-        final String countryCode  = countryDao.getCountryByName(countryName).getCode();
+        final Country country  = countryDao.getCountryByName(countryName);
 
 
         final User.Builder builder = new User.Builder(username, email, hash, salt);
         builder.fullName(fullName)
-               .country(countryCode)
                .locale(locale);
+        if (country != null)
+            builder.country(country.getCode());
 
         return new User(builder);
     }
