@@ -1,19 +1,22 @@
 package no.mesan.controllers;
 
+import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import no.mesan.authentication.Authentication;
 import no.mesan.controllers.validators.Email;
 import no.mesan.controllers.validators.EmailUnique;
 import no.mesan.controllers.validators.UserUnique;
+import no.mesan.model.Country;
 import no.mesan.model.User;
 import no.mesan.persistence.UserDao;
+import no.mesan.persistence.country.CountryDao;
 
 /**
  * TODO
@@ -27,6 +30,9 @@ public class NewUserController {
     @Inject
     private UserDao userDao;
 
+    @Inject 
+    private CountryDao countryDao;
+    
     @Inject
     private Authentication authentication;
 
@@ -42,21 +48,28 @@ public class NewUserController {
     private String password; 
     private String password2;
     private String fullName;
-    private String country;
-
+    private String countryName;
     private Locale locale = Locale.UK;
+    
+    private List<Country> countries;
 
-
+    @PostConstruct
+    public void init() {
+        countries = countryDao.getCountries();
+    }
+    
     public void registerNewUser() {
         if (confirmPassword()) {
             //Do error message!
         }
 
-        final String salt = authentication.generateSalt();
-        final String hash = authentication.generatePasswordHash(password, salt);
+        final String salt        = authentication.generateSalt();
+        final String hash        = authentication.generatePasswordHash(password, salt);
+        final String countryCode = countryDao.getCountryByName(countryName).getCode();
 
         final User.Builder userBuilder = new User.Builder(username, email, hash, salt);
-        userBuilder.locale(locale);
+        userBuilder.locale(locale)
+                   .country(countryCode);
         final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
     }
@@ -71,7 +84,7 @@ public class NewUserController {
     }
 
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
@@ -81,7 +94,7 @@ public class NewUserController {
     }
 
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -91,7 +104,7 @@ public class NewUserController {
     }
 
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -101,7 +114,7 @@ public class NewUserController {
     }
 
 
-    public void setPassword2(String password2) {
+    public void setPassword2(final String password2) {
         this.password2 = password2;
     }
 
@@ -111,18 +124,18 @@ public class NewUserController {
     }
 
 
-    public void setFullName(String fullName) {
+    public void setFullName(final String fullName) {
         this.fullName = fullName;
     }
 
 
-    public String getCountry() {
-        return country;
+    public String getCountryName() {
+        return countryName;
     }
 
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountryName(final String country) {
+        this.countryName = country;
     }
 
 
@@ -131,7 +144,15 @@ public class NewUserController {
     }
 
 
-    public void setLocale(Locale locale) {
+    public void setLocale(final Locale locale) {
         this.locale = locale;
+    }
+    
+    public List<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(final List<Country> countries) {
+        this.countries = countries;
     }
 }

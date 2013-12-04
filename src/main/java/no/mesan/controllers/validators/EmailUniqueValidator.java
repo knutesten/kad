@@ -16,7 +16,7 @@ public class EmailUniqueValidator implements ConstraintValidator<EmailUnique, St
     }
     
     public boolean isValid(final String email, final ConstraintValidatorContext context) {
-        User user = userDao.getUserByEmail(email);
+        final User user = userDao.getUserByEmail(email);
         return user == null;
     }
 }

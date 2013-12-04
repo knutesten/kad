@@ -67,7 +67,7 @@ public class UserDaoImpl implements UserDao {
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          user.getCountry(),
+                                                          user.getCountryCode(),
                                                           localeString);
     }
 }

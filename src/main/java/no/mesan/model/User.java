@@ -6,6 +6,7 @@ import java.util.Locale;
  * TODO
  *
  * @author Knut Esten Melandsø Nekså
+ * @author Anders Grotthing Moe
  */
 public class User {
     private final String username;
@@ -13,7 +14,7 @@ public class User {
     private String hash;
     private final String salt;
     private String fullName;
-    private String country;
+    private String countryCode;
     private Locale locale;
 
     public static class Builder {
@@ -22,7 +23,7 @@ public class User {
         private final String hash;
         private final String salt;
         private String fullName;
-        private String country;
+        private String countryCode;
         private Locale locale;
 
         public Builder (final String username, final String email, final String hash, final String salt) {
@@ -37,8 +38,8 @@ public class User {
             return this;
         }
 
-        public Builder country(final String country) {
-            this.country = country;
+        public Builder country(final String countryCode) {
+            this.countryCode = countryCode;
             return this;
         }
 
@@ -49,13 +50,13 @@ public class User {
     }
 
     public User(final Builder builder) {
-        username = builder.username;
-        email    = builder.email;
-        hash     = builder.hash;
-        fullName = builder.fullName;
-        country  = builder.country;
-        salt     = builder.salt;
-        locale   = builder.locale;
+        username    = builder.username;
+        email       = builder.email;
+        hash        = builder.hash;
+        fullName    = builder.fullName;
+        countryCode = builder.countryCode;
+        salt        = builder.salt;
+        locale      = builder.locale;
     }
 
     @Override
@@ -95,12 +96,12 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountry(final String country) {
-        this.country = country;
+    public void setCountryCode(final String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public Locale getLocale() {

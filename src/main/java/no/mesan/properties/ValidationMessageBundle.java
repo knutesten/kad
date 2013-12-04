@@ -16,6 +16,6 @@ import javax.inject.Qualifier;
 
 @Qualifier
 @Retention(RUNTIME)
-@Target({FIELD, TYPE, METHOD})
+@Target({TYPE, METHOD, FIELD, PARAMETER})
 public @interface ValidationMessageBundle {
 }
