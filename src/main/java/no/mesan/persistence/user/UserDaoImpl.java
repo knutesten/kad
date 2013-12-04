@@ -1,4 +1,4 @@
-package no.mesan.persistence;
+package no.mesan.persistence.user;
 
 import java.util.List;
 import java.util.Properties;
@@ -31,8 +31,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void createUser(final User user) {
-        updateUser(user);
+    public void updateUser(final User user) {
+        String localeString = null;
+        if (user.getLocale() != null)
+            localeString = user.getLocale().toLanguageTag();
+        jdbcTemplate.update(sql.getProperty(UPDATE_USER), user.getEmail(),
+                                                          user.getHash(),
+                                                          user.getSalt(),
+                                                          user.getFullName(),
+                                                          user.getCountryCode(),
+                                                          localeString,
+                                                          user.getUsername());
     }
 
     @Override
@@ -59,17 +68,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(final User user) {
+    public void createUser(final User user) {
         String localeString = null;
         if (user.getLocale() != null)
             localeString = user.getLocale().toLanguageTag();
-        jdbcTemplate.update(sql.getProperty(CREATE_UPDATE_USER), user.getUsername(),
-                                                                 user.getEmail(),
-                                                                 user.getHash(),
-                                                                 user.getSalt(),
-                                                                 user.getFullName(),
-                                                                 user.getCountryCode(),
-                                                                 localeString);
+        jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
+                                                          user.getEmail(),
+                                                          user.getHash(),
+                                                          user.getSalt(),
+                                                          user.getFullName(),
+                                                          user.getCountryCode(),
+                                                          localeString);
     }
 
     @Override

@@ -20,8 +20,8 @@ CREATE TABLE users (
 -- ----------------------------------------------------
 
 CREATE TABLE userGroups(
-  userGroup_id           INT          NOT NULL AUTO_INCREMENT,
-  userGroup_userGroup    VARCHAR(100),
+  userGroup_id   INT          NOT NULL AUTO_INCREMENT,
+  userGroup_name VARCHAR(100),
 
   PRIMARY KEY (userGroup_id)
 );
@@ -30,13 +30,13 @@ CREATE TABLE userGroups(
 -- Create usersInUserGroup table
 -- -----------------------------------------------------
 
-CREATE TABLE usersInUserGroup(
-  usersInUserGroup_userId     	INT,
-  usersInUserGroup_userGroupId  INT,
+CREATE TABLE userInUserGroup(
+  userInUserGroup_userId     	INT,
+  userInUserGroup_userGroupId  INT,
 
-  PRIMARY KEY (usersInUserGroup_userId, usersInUserGroup_userGroupId),
-  FOREIGN KEY (usersInUserGroup_userId)
+  PRIMARY KEY (userInUserGroup_userId, userInUserGroup_userGroupId),
+  FOREIGN KEY (userInUserGroup_userId)
     REFERENCES users(user_id),
-  FOREIGN KEY (usersInUserGroup_userGroupId)
+  FOREIGN KEY (userInUserGroup_userGroupId)
     REFERENCES userGroups(userGroup_id)
 );

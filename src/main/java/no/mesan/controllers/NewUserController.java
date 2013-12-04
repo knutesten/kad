@@ -15,7 +15,7 @@ import no.mesan.controllers.validators.EmailUnique;
 import no.mesan.controllers.validators.UserUnique;
 import no.mesan.model.Country;
 import no.mesan.model.User;
-import no.mesan.persistence.UserDao;
+import no.mesan.persistence.user.UserDao;
 import no.mesan.persistence.country.CountryDao;
 
 /**
@@ -30,9 +30,9 @@ public class NewUserController {
     @Inject
     private UserDao userDao;
 
-    @Inject 
+    @Inject
     private CountryDao countryDao;
-    
+
     @Inject
     private Authentication authentication;
 
@@ -50,14 +50,14 @@ public class NewUserController {
     private String fullName;
     private String countryName;
     private Locale locale = Locale.UK;
-    
+
     private List<Country> countries;
 
     @PostConstruct
     public void init() {
         countries = countryDao.getCountries();
     }
-    
+
     public void registerNewUser() {
         if (confirmPassword()) {
             //Do error message!
@@ -147,7 +147,7 @@ public class NewUserController {
     public void setLocale(final Locale locale) {
         this.locale = locale;
     }
-    
+
     public List<Country> getCountries() {
         return countries;
     }

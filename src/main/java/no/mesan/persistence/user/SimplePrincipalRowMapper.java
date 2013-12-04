@@ -1,4 +1,4 @@
-package no.mesan.persistence;
+package no.mesan.persistence.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
