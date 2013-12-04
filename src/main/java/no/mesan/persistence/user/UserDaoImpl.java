@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import no.mesan.model.User;
+import no.mesan.persistence.country.CountryDao;
 import no.mesan.properties.Sql;
 
 import org.jboss.security.SimplePrincipal;
@@ -24,10 +25,30 @@ public class UserDaoImpl implements UserDao {
     @Inject @Sql
     private Properties sql;
     private final JdbcTemplate jdbcTemplate;
+    @Inject
+    private CountryDao countryDao;
+    @Inject
+    private UserRowMapper userRowMapper;
+    @Inject
+    private UserGroupRowMapper userGroupRowMapper;
 
     @Inject
     public UserDaoImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    @Override
+    public void createUser(final User user) {
+        String localeString = null;
+        if (user.getLocale() != null)
+            localeString = user.getLocale().toLanguageTag();
+        jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
+                                                          user.getEmail(),
+                                                          user.getHash(),
+                                                          user.getSalt(),
+                                                          user.getFullName(),
+                                                          user.getCountry().getCode(),
+                                                          localeString);
     }
 
     @Override
@@ -47,7 +68,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByUsername(final String username) {
         try {
-            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), new UserRowMapper(), username);
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), userRowMapper, username);
         } catch (EmptyResultDataAccessException erda) {
             return null;
         }
@@ -56,7 +77,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByEmail(final String email) {
         try {
-            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), new UserRowMapper(), email);
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), userRowMapper, email);
         } catch (EmptyResultDataAccessException erda) {
             return null;
         }
@@ -64,25 +85,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getUsers() {
-        return jdbcTemplate.query(sql.getProperty(GET_USERS), new UserRowMapper());
-    }
-
-    @Override
-    public void createUser(final User user) {
-        String localeString = null;
-        if (user.getLocale() != null)
-            localeString = user.getLocale().toLanguageTag();
-        jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
-                                                          user.getEmail(),
-                                                          user.getHash(),
-                                                          user.getSalt(),
-                                                          user.getFullName(),
-                                                          user.getCountry().getCode(),
-                                                          localeString);
+        return jdbcTemplate.query(sql.getProperty(GET_USERS), userRowMapper);
     }
 
     @Override
     public List<SimplePrincipal> getUserGroups(final String username) {
-        return jdbcTemplate.query(sql.getProperty(GET_USER_ROLES), new SimplePrincipalRowMapper(), username);
+        return jdbcTemplate.query(sql.getProperty(GET_USER_ROLES), userGroupRowMapper, username);
     }
 }
