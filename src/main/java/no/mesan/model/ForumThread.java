@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Dean Lozo
  */
-public class Thread {
+public class ForumThread {
 
     private String title;
     private String category;
@@ -19,7 +19,7 @@ public class Thread {
     private List<Post> posts = new ArrayList<>();
 
 
-    public Thread(final String title, final String category, final User owner, final Date createdTime){
+    public ForumThread(final String title, final String category, final User owner, final Date createdTime){
         this.title = title;
         this.category = category;
         this.owner = owner;

@@ -21,10 +21,13 @@ public class PropertiesProvider {
     public static final String GET_USER_BY_USERNAME = "get_user_by_username";
     public static final String GET_USER_BY_EMAIL = "get_user_by_email";
     public static final String GET_USERS   = "get_users";
-    
+
     public static final String GET_COUNTRIES = "get_countries";
     public static final String GET_COUNTRY_BY_CODE = "get_country_by_code";
     public static final String GET_COUNTRY_BY_NAME = "get_country_by_name";
+
+    public static final String CREATE_THREAD = "create_thread";
+    public static final String UPDATE_THREAD = "update_thread";
 
     @Produces @Sql
     public Properties createSqlProperties() throws IOException {
