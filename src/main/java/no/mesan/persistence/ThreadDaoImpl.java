@@ -16,12 +16,8 @@ public class ThreadDaoImpl {
 
     @Inject @Sql
     private Properties sql;
-    private final JdbcTemplate jdbcTemplate;
-
     @Inject
-    public ThreadDaoImpl(DataSource dataSource){
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+    private JdbcTemplate jdbcTemplate;
 
     public void createThread(final Thread thread){
 

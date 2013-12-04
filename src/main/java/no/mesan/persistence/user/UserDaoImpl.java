@@ -25,18 +25,14 @@ import static no.mesan.properties.PropertiesProvider.*;
 public class UserDaoImpl implements UserDao {
     @Inject @Sql
     private Properties sql;
-    private final JdbcTemplate jdbcTemplate;
+    @Inject
+    private JdbcTemplate jdbcTemplate;
     @Inject
     private CountryDao countryDao;
     @Inject
     private UserRowMapper userRowMapper;
     @Inject
     private UserGroupRowMapper userGroupRowMapper;
-
-    @Inject
-    public UserDaoImpl(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     @Override
     public void createUser(final User user) {
