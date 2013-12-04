@@ -63,15 +63,14 @@ public class NewUserController {
             //Do error message!
         }
 
-        final String salt        = authentication.generateSalt();
-        final String hash        = authentication.generatePasswordHash(password, salt);
-        final Country country     = countryDao.getCountryByName(countryName);
+        final String salt     = authentication.generateSalt();
+        final String hash     = authentication.generatePasswordHash(password, salt);
+        final Country country = countryDao.getCountryByName(countryName);
 
         final User.Builder userBuilder = new User.Builder(username, email, hash, salt);
-        userBuilder.locale(locale);
-        if (country != null)
-            userBuilder.country(country.getCode());
-        
+        userBuilder.locale(locale)
+                   .country(country);
+
         final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
     }

@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          user.getCountryCode(),
+                                                          user.getCountry().getCode(),
                                                           localeString,
                                                           user.getUsername());
     }
@@ -77,12 +77,12 @@ public class UserDaoImpl implements UserDao {
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          user.getCountryCode(),
+                                                          user.getCountry().getCode(),
                                                           localeString);
     }
 
     @Override
-    public List<SimplePrincipal> getUserRoles(final String username) {
+    public List<SimplePrincipal> getUserGroups(final String username) {
         return jdbcTemplate.query(sql.getProperty(GET_USER_ROLES), new SimplePrincipalRowMapper(), username);
     }
 }

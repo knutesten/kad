@@ -17,5 +17,5 @@ public interface UserDao {
     public User getUserByUsername(final String username);
     public User getUserByEmail(final String email);
     public List<User> getUsers();
-    public List<SimplePrincipal> getUserRoles(final String username);
+    public List<SimplePrincipal> getUserGroups(final String username);
 }

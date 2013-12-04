@@ -14,7 +14,7 @@ public class User {
     private String hash;
     private final String salt;
     private String fullName;
-    private String countryCode;
+    private Country country;
     private Locale locale;
 
     public static class Builder {
@@ -23,7 +23,7 @@ public class User {
         private final String hash;
         private final String salt;
         private String fullName;
-        private String countryCode;
+        private Country country;
         private Locale locale;
 
         public Builder (final String username, final String email, final String hash, final String salt) {
@@ -38,8 +38,8 @@ public class User {
             return this;
         }
 
-        public Builder country(final String countryCode) {
-            this.countryCode = countryCode;
+        public Builder country(final Country country) {
+            this.country = country;
             return this;
         }
 
@@ -50,13 +50,13 @@ public class User {
     }
 
     public User(final Builder builder) {
-        username    = builder.username;
-        email       = builder.email;
-        hash        = builder.hash;
-        fullName    = builder.fullName;
-        countryCode = builder.countryCode;
-        salt        = builder.salt;
-        locale      = builder.locale;
+        username = builder.username;
+        email    = builder.email;
+        hash     = builder.hash;
+        fullName = builder.fullName;
+        country  = builder.country;
+        salt     = builder.salt;
+        locale   = builder.locale;
     }
 
     @Override
@@ -96,12 +96,12 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryCode(final String countryCode) {
-        this.countryCode = countryCode;
+    public void setCountry(final Country country) {
+        this.country = country;
     }
 
     public Locale getLocale() {
