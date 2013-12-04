@@ -4,7 +4,6 @@ import no.mesan.properties.Sql;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 import java.util.Properties;
 
 /**

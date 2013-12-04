@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
-import no.mesan.model.Country;
 import no.mesan.model.User;
 import no.mesan.persistence.country.CountryDao;
 import no.mesan.properties.Sql;

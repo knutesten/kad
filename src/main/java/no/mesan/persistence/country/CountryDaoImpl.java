@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
