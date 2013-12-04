@@ -15,9 +15,9 @@
 <h:body>
     <form method="post" action="j_security_check" name="loginForm">
         <h:panelGrid columns="2">
-            <h:outputLabel id="userNameLabel" for="j_username" value="Username:" />
+            <h:outputLabel id="userNameLabel" for="j_username" value="#{i18n['login.username']}" />
             <h:inputText id="j_username" />
-            <h:outputLabel id="passwordLabel" for="j_password" value="Password:" />
+            <h:outputLabel id="passwordLabel" for="j_password" value="#{i18n['login.password']}" />
             <h:inputSecret id="j_password" />
             <h:panelGroup>
                 <h:commandButton action="j_security_check" type="submit" value="login" />

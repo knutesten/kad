@@ -5,7 +5,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Secured</web-resource-name>
-            <url-pattern>/secure</url-pattern>
+            <url-pattern>/secure/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -16,7 +16,7 @@
         <realm-name>kadRealm</realm-name>
         <form-login-config>
             <form-login-page>/login.jsf</form-login-page>
-            <form-error-page>/login_failed.jsf</form-error-page>
+            <form-error-page>/login.jsf</form-error-page>
         </form-login-config>
 
     </login-config>

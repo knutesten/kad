@@ -38,4 +38,5 @@ CREATE TABLE usersInUserGroup(
     REFERENCES users(user_id),
   FOREIGN KEY (usersInUserGroup_userGroup)
     REFERENCES userGroups(userGroup_userGroup)
+
 );
