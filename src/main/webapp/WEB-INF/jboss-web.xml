@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
     <context-root/>
-    <security-domain>java:/jaas/kadRealm</security-domain>
+    <!--<security-domain>java:/jaas/kadRealm</security-domain>-->
+    <security-domain>java:/jaas/hestsecure</security-domain>
 </jboss-web>

@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
 
+import org.jboss.security.SimplePrincipal;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -63,11 +64,16 @@ public class UserDaoImpl implements UserDao {
         if (user.getLocale() != null)
             localeString = user.getLocale().toLanguageTag();
         jdbcTemplate.update(sql.getProperty(CREATE_UPDATE_USER), user.getUsername(),
-                                                          user.getEmail(),
-                                                          user.getHash(),
-                                                          user.getSalt(),
-                                                          user.getFullName(),
-                                                          user.getCountry(),
-                                                          localeString);
+                                                                 user.getEmail(),
+                                                                 user.getHash(),
+                                                                 user.getSalt(),
+                                                                 user.getFullName(),
+                                                                 user.getCountry(),
+                                                                 localeString);
+    }
+
+    @Override
+    public List<SimplePrincipal> getUserRoles(final String username) {
+        return jdbcTemplate.query(sql.getProperty(GET_USER_ROLES), new SimplePrincipalRowMapper(), username);
     }
 }

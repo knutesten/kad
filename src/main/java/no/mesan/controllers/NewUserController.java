@@ -5,7 +5,6 @@ import java.util.Locale;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import no.mesan.authentication.Authentication;
@@ -33,13 +32,13 @@ public class NewUserController {
     @Size(min = 2, max = 30, message="{no.mesan.controllers.validators.username_size.message}")
     @UserUnique
     private String username;
-    
+
     @Email
     @EmailUnique
     private String email;
-    
+
     @Size(min = 8, message="{no.mesan.controllers.validators.password_size.message}")
-    private String password; 
+    private String password;
     private String password2;
     private String fullName;
     private String country;
