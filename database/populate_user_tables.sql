@@ -7,8 +7,13 @@ INSERT INTO users
   (user_username, user_email, user_hash, user_salt, user_fullname, user_country, user_locale)
 VALUES
 ('admin','dummy@dummymail.com','ec29de432d53e2ddd0b574a4b5d6250667aefa259c1b14ba3a9d7289d642c01e','80224678a05b29556a67e06db63ff4561623e50e402ee2e3b8c5b9bf049ca23c','Hestemannen',
- 'GS','en_UK');
+ 'GS','en_GB');
 
+ 
+INSERT INTO users
+  (user_username, user_email, user_hash, user_salt, user_fullname, user_locale)
+VALUES
+('user','dummy@dummymail2.com','ec29de432d53e2ddd0b574a4b5d6250667aefa259c1b14ba3a9d7289d642c01e','80224678a05b29556a67e06db63ff4561623e50e402ee2e3b8c5b9bf049ca23c','Hestemannen','en_GB');
 -- -----------------------------------------------------
 -- Populate userGroups table
 -- -----------------------------------------------------

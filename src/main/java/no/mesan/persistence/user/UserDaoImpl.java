@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import no.mesan.model.Country;
 import no.mesan.model.User;
 import no.mesan.persistence.country.CountryDao;
 import no.mesan.properties.Sql;
@@ -40,14 +41,17 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void createUser(final User user) {
         String localeString = null;
+        String countryCode = null;
         if (user.getLocale() != null)
             localeString = user.getLocale().toLanguageTag();
+        if (user.getCountry() != null)
+            countryCode = user.getCountry().getCode();
         jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
                                                           user.getEmail(),
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          user.getCountry().getCode(),
+                                                          countryCode,
                                                           localeString);
     }
 
