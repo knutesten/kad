@@ -24,16 +24,16 @@ CREATE TABLE posts (
  );
 
 -- -----------------------------------------------------
--- Create postsInThread table
+-- Create postInThread table
 -- -----------------------------------------------------
 
 CREATE TABLE postsInThread (
-  postsInThread_postId             INT           NOT NULL,
-  postsInThread_threadId           INT           NOT NULL,
+  postInThread_postId             INT           NOT NULL,
+  postInThread_threadId           INT           NOT NULL,
 
-  PRIMARY KEY (postsInThread_postId, postsInThread_threadId),
-  FOREIGN KEY (postsInThread_postId)
+  PRIMARY KEY (postInThread_postId, postInThread_threadId),
+  FOREIGN KEY (postInThread_postId)
     REFERENCES posts(post_id),
-  FOREIGN KEY (postsInThread_threadId)
+  FOREIGN KEY (postInThread_threadId)
     REFERENCES threads(thread_id)
 );
