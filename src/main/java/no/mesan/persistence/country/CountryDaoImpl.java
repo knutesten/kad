@@ -21,6 +21,8 @@ public class CountryDaoImpl implements CountryDao {
     @Inject @Sql
     private Properties sql;
     @Inject
+    private CountryRowMapper countryRowMapper;
+    @Inject
     private JdbcTemplate jdbcTemplate;
 
     @Override
@@ -32,7 +34,7 @@ public class CountryDaoImpl implements CountryDao {
     public Country getCountryByCode(final String countryCode) {
         try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_COUNTRY_BY_CODE),
-                                               new CountryRowMapper(),
+                                               countryRowMapper,
                                                countryCode);
         } catch (EmptyResultDataAccessException erdae) {
             return null;
@@ -43,7 +45,7 @@ public class CountryDaoImpl implements CountryDao {
     public Country getCountryByName(final String countryName) {
         try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_COUNTRY_BY_NAME),
-                                               new CountryRowMapper(),
+                                               countryRowMapper,
                                                countryName);
         } catch (EmptyResultDataAccessException erdae) {
             return null;
