@@ -21,9 +21,9 @@ public class PropertiesProvider {
 
     public static final String GET_USER_BY_EMAIL    = "get_user_by_email";
     public static final String GET_USERS            = "get_users";
-    public static final String GET_USER_ROLES       = "get_user_roles";
+    public static final String GET_USER_GROUPS      = "get_user_groups";
 
-    public static final String GET_COUNTRIES = "get_countries";
+    public static final String GET_COUNTRIES       = "get_countries";
     public static final String GET_COUNTRY_BY_CODE = "get_country_by_code";
     public static final String GET_COUNTRY_BY_NAME = "get_country_by_name";
 

@@ -90,6 +90,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<SimplePrincipal> getUserGroups(final String username) {
-        return jdbcTemplate.query(sql.getProperty(GET_USER_ROLES), userGroupRowMapper, username);
+        return jdbcTemplate.query(sql.getProperty(GET_USER_GROUPS), userGroupRowMapper, username);
     }
 }
