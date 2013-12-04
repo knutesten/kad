@@ -34,8 +34,8 @@
         <welcome-file>/register.jsf</welcome-file>
     </welcome-file-list>
     
-    
-    
+    <!-- Adding filter to force UTF-8 encoding before 
+    CDI Conversation Filter destroys special characters -->
     <filter>
         <filter-name>SetCharacterEncoding</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
