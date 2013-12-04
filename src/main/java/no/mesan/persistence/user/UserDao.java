@@ -1,8 +1,10 @@
-package no.mesan.persistence;
+package no.mesan.persistence.user;
 
 import java.util.List;
 
 import no.mesan.model.User;
+
+import org.jboss.security.SimplePrincipal;
 
 /**
  * TODO
@@ -15,4 +17,5 @@ public interface UserDao {
     public User getUserByUsername(final String username);
     public User getUserByEmail(final String email);
     public List<User> getUsers();
+    public List<SimplePrincipal> getUserGroups(final String username);
 }

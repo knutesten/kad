@@ -2,7 +2,7 @@
 -- Create users table
 -- -----------------------------------------------------
 CREATE TABLE users (
-  user_id			 INT		   NOT NULL	AUTO_INCREMENT,
+  user_id			       INT		       NOT NULL	AUTO_INCREMENT,
   user_username      VARCHAR(30)   NOT NULL	UNIQUE,
   user_email         VARCHAR(255)  NOT NULL	UNIQUE,
   user_hash          VARCHAR(255)  NOT NULL,
@@ -20,23 +20,23 @@ CREATE TABLE users (
 -- ----------------------------------------------------
 
 CREATE TABLE userGroups(
-  userGroup_userGroup    VARCHAR(100),
+  userGroup_id   INT          NOT NULL AUTO_INCREMENT,
+  userGroup_name VARCHAR(100),
 
-  PRIMARY KEY (userGroup_userGroup)
+  PRIMARY KEY (userGroup_id)
 );
 
 -- -----------------------------------------------------
--- Create usersInUserGroup table
+-- Create userInUserGroup table
 -- -----------------------------------------------------
 
-CREATE TABLE usersInUserGroup(
-  usersInUserGroup_userId     	int,
-  usersInUserGroup_userGroup    VARCHAR(100),
+CREATE TABLE userInUserGroup(
+  userInUserGroup_userId     	INT,
+  userInUserGroup_userGroupId  INT,
 
-  PRIMARY KEY (usersInUserGroup_userId, usersInUserGroup_userGroup),
-  FOREIGN KEY (usersInUserGroup_userId)
+  PRIMARY KEY (userInUserGroup_userId, userInUserGroup_userGroupId),
+  FOREIGN KEY (userInUserGroup_userId)
     REFERENCES users(user_id),
-  FOREIGN KEY (usersInUserGroup_userGroup)
-    REFERENCES userGroups(userGroup_userGroup)
-
+  FOREIGN KEY (userInUserGroup_userGroupId)
+    REFERENCES userGroups(userGroup_id)
 );

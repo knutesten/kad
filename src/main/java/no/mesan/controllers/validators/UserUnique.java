@@ -14,7 +14,6 @@ import javax.validation.Payload;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 public @interface UserUnique {
-    //TODO hvordan bruke validationmessagebundlepropertystringstuff her?
     String message() default "{no.mesan.controllers.validators.UserUnique.message}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

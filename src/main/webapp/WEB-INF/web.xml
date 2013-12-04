@@ -11,6 +11,7 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
+
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>kadRealm</realm-name>
@@ -18,7 +19,6 @@
             <form-login-page>/login.jsf</form-login-page>
             <form-error-page>/login.jsf</form-error-page>
         </form-login-config>
-
     </login-config>
 
     <!--Set up servlet-->
@@ -33,4 +33,28 @@
     <welcome-file-list>
         <welcome-file>/register.jsf</welcome-file>
     </welcome-file-list>
+    
+    <!-- Adding filter to force UTF-8 encoding before 
+    CDI Conversation Filter destroys special characters 
+    ref: http://weld.cdi-spec.org/documentation/#3 -->
+    <filter>
+        <filter-name>SetCharacterEncoding</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SetCharacterEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CDI Conversation Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

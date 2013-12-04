@@ -1,14 +1,14 @@
 -- -----------------------------------------------------
 -- Create topic table
 -- -----------------------------------------------------
-CREATE TABLE threads (
-  thread_id           INT          NOT NULL AUTO_INCREMENT,
-  thread_title        VARCHAR(255) NOT NULL,
-  thread_createdBy    VARCHAR(30)  NOT NULL,
-  thread_createdTime  BIGINT       NOT NULL,
-  thread_category     VARCHAR(255) NOT NULL,
+CREATE TABLE topics (
+  topic_id           INT          NOT NULL AUTO_INCREMENT,
+  topic_title        VARCHAR(255) NOT NULL UNIQUE,
+  topic_createdBy    VARCHAR(30)  NOT NULL,
+  topic_createdTime  BIGINT       NOT NULL,
+  topic_category     VARCHAR(255) NOT NULL,
 
-  PRIMARY KEY (thread_id)
+  PRIMARY KEY (topic_id)
 );
 
 -- -----------------------------------------------------
@@ -24,16 +24,16 @@ CREATE TABLE posts (
  );
 
 -- -----------------------------------------------------
--- Create postInThread table
+-- Create postInTopic table
 -- -----------------------------------------------------
 
-CREATE TABLE postsInThread (
-  postInThread_postId             INT           NOT NULL,
-  postInThread_threadId           INT           NOT NULL,
+CREATE TABLE postInTopic (
+  postInTopic_postId             INT           NOT NULL,
+  postInTopic_topicId           INT           NOT NULL,
 
-  PRIMARY KEY (postInThread_postId, postInThread_threadId),
-  FOREIGN KEY (postInThread_postId)
+  PRIMARY KEY (postInTopic_postId, postInTopic_topicId),
+  FOREIGN KEY (postInTopic_postId)
     REFERENCES posts(post_id),
-  FOREIGN KEY (postInThread_threadId)
-    REFERENCES threads(thread_id)
+  FOREIGN KEY (postInTopic_topicId)
+    REFERENCES topics(topic_id)
 );

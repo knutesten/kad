@@ -15,7 +15,7 @@ import no.mesan.controllers.validators.EmailUnique;
 import no.mesan.controllers.validators.UserUnique;
 import no.mesan.model.Country;
 import no.mesan.model.User;
-import no.mesan.persistence.UserDao;
+import no.mesan.persistence.user.UserDao;
 import no.mesan.persistence.country.CountryDao;
 
 /**
@@ -30,46 +30,48 @@ public class NewUserController {
     @Inject
     private UserDao userDao;
 
-    @Inject 
+    @Inject
     private CountryDao countryDao;
-    
+
     @Inject
     private Authentication authentication;
 
     @Size(min = 2, max = 30, message="{no.mesan.controllers.validators.username_size.message}")
     @UserUnique
     private String username;
-    
+
     @Email
     @EmailUnique
     private String email;
-    
+
     @Size(min = 8, message="{no.mesan.controllers.validators.password_size.message}")
-    private String password; 
+    private String password;
     private String password2;
     private String fullName;
     private String countryName;
     private Locale locale = Locale.UK;
-    
+
     private List<Country> countries;
 
     @PostConstruct
     public void init() {
         countries = countryDao.getCountries();
+
     }
-    
+
     public void registerNewUser() {
         if (confirmPassword()) {
             //Do error message!
         }
 
-        final String salt        = authentication.generateSalt();
-        final String hash        = authentication.generatePasswordHash(password, salt);
-        final String countryCode = countryDao.getCountryByName(countryName).getCode();
+        final String salt     = authentication.generateSalt();
+        final String hash     = authentication.generatePasswordHash(password, salt);
+        final Country country = countryDao.getCountryByName(countryName);
 
         final User.Builder userBuilder = new User.Builder(username, email, hash, salt);
         userBuilder.locale(locale)
-                   .country(countryCode);
+                   .country(country);
+
         final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
     }
@@ -147,7 +149,7 @@ public class NewUserController {
     public void setLocale(final Locale locale) {
         this.locale = locale;
     }
-    
+
     public List<Country> getCountries() {
         return countries;
     }

@@ -14,20 +14,23 @@ import javax.enterprise.inject.Produces;
  */
 public class PropertiesProvider {
     public static final String DATABASE_JNDI     = "database_jndi";
-    public static final String DATABASE_USERNAME = "database_username";
-    public static final String DATABASE_PASSWORD = "database_password";
 
-    public static final String CREATE_UPDATE_USER = "create_update_user";
+    public static final String CREATE_USER          = "create_user";
+    public static final String UPDATE_USER          = "update_user";
     public static final String GET_USER_BY_USERNAME = "get_user_by_username";
-    public static final String GET_USER_BY_EMAIL = "get_user_by_email";
-    public static final String GET_USERS   = "get_users";
 
-    public static final String GET_COUNTRIES = "get_countries";
+    public static final String GET_USER_BY_EMAIL    = "get_user_by_email";
+    public static final String GET_USERS            = "get_users";
+    public static final String GET_USER_GROUPS      = "get_user_groups";
+
+    public static final String GET_COUNTRIES       = "get_countries";
+
     public static final String GET_COUNTRY_BY_CODE = "get_country_by_code";
     public static final String GET_COUNTRY_BY_NAME = "get_country_by_name";
 
-    public static final String CREATE_THREAD = "create_thread";
-    public static final String UPDATE_THREAD = "update_thread";
+    public static final String CREATE_TOPIC = "create_topic";
+    public static final String UPDATE_TOPIC = "update_topic";
+    public static final String GET_TOPIC_BY_TITLE = "get_topic_by_title";
 
     @Produces @Sql
     public Properties createSqlProperties() throws IOException {

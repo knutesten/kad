@@ -2,7 +2,6 @@ package no.mesan.persistence;
 
 import java.util.Properties;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
@@ -13,17 +12,18 @@ import no.mesan.properties.DatabaseProperties;
 
 import static no.mesan.properties.PropertiesProvider.*;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 /**
  * TODO
  *
  * @author Knut Esten Melandsø Nekså
  */
-@ApplicationScoped
-public class DataSourceProvider {
+public class JDBCTemplateProvider {
     private DataSource dataSource;
 
     @Inject
-    public DataSourceProvider(final @DatabaseProperties Properties dbProperties) {
+    public JDBCTemplateProvider(final @DatabaseProperties Properties dbProperties) {
         try {
             final String jndi = dbProperties.getProperty(DATABASE_JNDI);
             dataSource = (DataSource) new InitialContext().lookup(jndi);
@@ -33,7 +33,7 @@ public class DataSourceProvider {
     }
 
     @Produces
-    public DataSource getDataSource() {
-        return dataSource;
+    public JdbcTemplate getJdbcTemplate() {
+        return new JdbcTemplate(dataSource);
     }
 }

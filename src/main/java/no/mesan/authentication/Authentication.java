@@ -9,6 +9,8 @@ import java.util.Random;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * TODO
  *
@@ -19,7 +21,7 @@ public class Authentication {
         final Random random = new SecureRandom();
         final byte[] salt = new byte[32];
         random.nextBytes(salt);
-        return new BigInteger(1, salt).toString(16);
+        return StringUtils.leftPad(new BigInteger(1, salt).toString(16), 64, "0");
     }
 
     public String generatePasswordHash(final String newPassword, final String salt) {
