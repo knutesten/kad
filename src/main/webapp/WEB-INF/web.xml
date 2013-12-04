@@ -35,7 +35,8 @@
     </welcome-file-list>
     
     <!-- Adding filter to force UTF-8 encoding before 
-    CDI Conversation Filter destroys special characters -->
+    CDI Conversation Filter destroys special characters 
+    ref: http://weld.cdi-spec.org/documentation/#3 -->
     <filter>
         <filter-name>SetCharacterEncoding</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
