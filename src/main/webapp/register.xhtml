@@ -10,7 +10,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Simple JSF Facelets page</title>
@@ -18,22 +19,26 @@
 
 <h:body>
     <h:form>
-        <h2>Register New User</h2>
+        <h2>#{i18n['register.header']}</h2>
         <h:messages />
         <h:panelGrid columns="2">
-            <h:outputLabel id="userNameLabel" for="username" value="Username:" />
+            <h:outputLabel id="userNameLabel" for="username" value="#{i18n['register.username']}" />
             <h:inputText id="username" value="#{newUserController.username}"/>
-            <h:outputLabel id="emailLabel" for="email" value="Email:" />
+            <h:outputLabel id="emailLabel" for="email" value="#{i18n['register.email']}" />
             <h:inputText id="email" value="#{newUserController.email}" />
-            <h:outputLabel id="passwordLabel" for="password" value="Password:" />
+            <h:outputLabel id="passwordLabel" for="password" value="#{i18n['register.password']}" />
             <h:inputSecret id="password" value="#{newUserController.password}" />
-            <h:outputLabel id="passwordLabel2" for="password2" value="Confirm Password:" />
+            <h:outputLabel id="passwordLabel2" for="password2" value="#{i18n['register.password_confirm']}" />
             <h:inputSecret id="password2" value="#{newUserController.password2}"/>
+            <h:outputLabel id="countryLabel" for="countryMeny" value="#{i18n['register.country']}"/> 
+            <h:selectOneMenu id="countryMeny" value="#{newUserController.countryName}">
+                <f:selectItem itemLabel="-- select one --" noSelectionOption="true" />
+                <f:selectItems value="#{newUserController.countries}" />
+            </h:selectOneMenu>
             <h:panelGroup>
-                <h:commandButton value="test" action="#{newUserController.registerNewUser}"/>
+                <h:commandButton value="#{i18n['register.register']}" action="#{newUserController.registerNewUser}"/>
             </h:panelGroup>
         </h:panelGrid>
-        
     </h:form>
 </h:body>
 

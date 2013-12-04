@@ -16,7 +16,7 @@ public class UserUniqueValidator implements ConstraintValidator<UserUnique, Stri
     }
     
     public boolean isValid(final String user, final ConstraintValidatorContext context) {
-        User userFromDatabase = userDao.getUserByUsername(user);
+        final User userFromDatabase = userDao.getUserByUsername(user);
         return userFromDatabase == null;
     }
 }
