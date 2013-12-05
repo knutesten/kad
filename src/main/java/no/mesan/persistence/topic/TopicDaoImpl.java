@@ -7,7 +7,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Properties;
 
@@ -31,15 +30,13 @@ public class TopicDaoImpl implements TopicDao {
     public void createTopic(final Topic topic){
         jdbcTemplate.update(sql.getProperty(CREATE_TOPIC), topic.getTitle(),
                                                             topic.getCreatedBy().getUsername(),
-                                                            topic.getCreatedTime().getTime(),
-                                                            topic.getCategory());
+                                                            topic.getCreatedTime().getTime());
     }
 
     public void updateTopic(final Topic topic){
         jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), topic.getTitle(),
                                                             topic.getCreatedBy().getUsername(),
                                                             topic.getCreatedTime().getTime(),
-                                                            topic.getCategory(),
                                                             topic.getTitle());
 
     }

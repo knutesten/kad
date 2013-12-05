@@ -14,7 +14,10 @@ import no.mesan.properties.PropertiesProvider;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import static no.mesan.persistence.SqlAndDataSetFileNames.*;
 
 /**
  * TODO
@@ -22,22 +25,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author Knut Esten Melandsø Nekså
  */
 public class CountryDaoImplTest {
-    private static CountryDao countryDao;
+    private static final CountryDao countryDao = new CountryDaoImpl();
     private static final Country AFGHANISTAN = new Country("AF", "Afghanistan");
     private static final Country ALBANIA     = new Country("AL", "Albania");
     private static final Country ALGERIA     = new Country("DZ", "Algeria");
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        final Properties sql = new PropertiesProvider().createSqlProperties();
+        MockDatabaseUtility.executeScript(SQL_COUNTRIES);
+
+        final Properties sql        = new PropertiesProvider().createSqlProperties();
         final DataSource dataSource = MockDatabaseUtility.getMockDataSource();
-        MockDatabaseUtility.executeScript("database/create_countries_tables.sql");
-        countryDao = new CountryDaoImpl(sql, new JdbcTemplate(dataSource), new CountryRowMapper());
+
+        Whitebox.setInternalState(countryDao, "sql",              sql);
+        Whitebox.setInternalState(countryDao, "jdbcTemplate",     new JdbcTemplate(dataSource));
+        Whitebox.setInternalState(countryDao, "countryRowMapper", new CountryRowMapper());
     }
 
     @Before
     public void before() throws Exception {
-        MockDatabaseUtility.createDataSet("database/test_data_sets/countries.xml");
+        MockDatabaseUtility.createDataSet(DATA_SET_COUNTRIES);
     }
 
     @Test

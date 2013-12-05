@@ -6,7 +6,6 @@ CREATE TABLE topics (
   topic_title        VARCHAR(255) NOT NULL UNIQUE,
   topic_createdBy    VARCHAR(30)  NOT NULL,
   topic_createdTime  BIGINT       NOT NULL,
-  topic_category     VARCHAR(255) NOT NULL,
 
   PRIMARY KEY (topic_id)
 );
