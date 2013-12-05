@@ -27,14 +27,16 @@ public class CountryDaoImpl implements CountryDao {
 
     public CountryDaoImpl() {}
 
-    public CountryDaoImpl(final Properties sql, final JdbcTemplate jdbcTemplate) {
+    public CountryDaoImpl(final Properties sql, final JdbcTemplate jdbcTemplate,
+                          final CountryRowMapper countryRowMapper) {
         this.sql = sql;
         this.jdbcTemplate = jdbcTemplate;
+        this.countryRowMapper = countryRowMapper;
     }
 
     @Override
     public List<Country> getCountries() {
-        return jdbcTemplate.query(sql.getProperty(GET_COUNTRIES), new CountryRowMapper());
+        return jdbcTemplate.query(sql.getProperty(GET_COUNTRIES), countryRowMapper);
     }
 
     @Override

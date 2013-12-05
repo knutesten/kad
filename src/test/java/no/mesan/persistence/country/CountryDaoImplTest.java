@@ -32,7 +32,7 @@ public class CountryDaoImplTest {
         final Properties sql = new PropertiesProvider().createSqlProperties();
         final DataSource dataSource = MockDatabaseUtility.getMockDataSource();
         MockDatabaseUtility.executeScript("database/create_countries_tables.sql");
-        countryDao = new CountryDaoImpl(sql, new JdbcTemplate(dataSource));
+        countryDao = new CountryDaoImpl(sql, new JdbcTemplate(dataSource), new CountryRowMapper());
     }
 
     @Before
