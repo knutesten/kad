@@ -22,13 +22,8 @@ public class TopicDaoImpl implements TopicDao {
 
     @Inject @Sql
     private Properties sql;
-    private final JdbcTemplate jdbcTemplate;
-
     @Inject
-    public TopicDaoImpl(final DataSource dataSource){
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
+    private JdbcTemplate jdbcTemplate;
     @Inject
     private TopicRowMapper topicRowMapper;
 
