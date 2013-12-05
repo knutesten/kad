@@ -13,7 +13,7 @@ import javax.enterprise.inject.Produces;
  * @author Knut Esten Melandsø Nekså
  */
 public class PropertiesProvider {
-    public static final String DATABASE_JNDI     = "database_jndi";
+    public static final String DATABASE_JNDI        = "database_jndi";
 
     public static final String CREATE_USER          = "create_user";
     public static final String UPDATE_USER          = "update_user";

@@ -25,17 +25,19 @@
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
-    </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
     <welcome-file-list>
-        <welcome-file>/register.jsf</welcome-file>
+        <welcome-file>/index.jsf</welcome-file>
+        <welcome-file>secure/index.jsf</welcome-file>
     </welcome-file-list>
-    
-    <!-- Adding filter to force UTF-8 encoding before 
-    CDI Conversation Filter destroys special characters 
+
+    <!-- Adding filter to force UTF-8 encoding before
+    CDI Conversation Filter destroys special characters
     ref: http://weld.cdi-spec.org/documentation/#3 -->
     <filter>
         <filter-name>SetCharacterEncoding</filter-name>
