@@ -1,7 +1,6 @@
 package no.mesan.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,19 +9,19 @@ import java.util.List;
  *
  * @author Dean Lozo
  */
-public class Thread {
+public class Topic {
 
     private String title;
     private String category;
-    private User owner;
+    private User createdBy;
     private final Date createdTime;
     private List<Post> posts = new ArrayList<>();
 
 
-    public Thread(final String title, final String category, final User owner, final Date createdTime){
+    public Topic(final String title, final String category, final User createdBy, final Date createdTime){
         this.title = title;
         this.category = category;
-        this.owner = owner;
+        this.createdBy = createdBy;
         this.createdTime = createdTime;
     }
 
@@ -47,8 +46,8 @@ public class Thread {
         this.category = category;
     }
 
-    public User getOwner() {
-        return owner;
+    public User getCreatedBy() {
+        return createdBy;
     }
 
     public Date getCreatedTime() {

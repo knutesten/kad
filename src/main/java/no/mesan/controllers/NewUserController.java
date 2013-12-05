@@ -56,6 +56,7 @@ public class NewUserController {
     @PostConstruct
     public void init() {
         countries = countryDao.getCountries();
+
     }
 
     public void registerNewUser() {
