@@ -10,17 +10,13 @@ import java.util.List;
  * @author Dean Lozo
  */
 public class Topic {
-
     private String title;
-    private String category;
-    private User createdBy;
+    private final User createdBy;
     private final Date createdTime;
     private List<Post> posts = new ArrayList<>();
 
-
-    public Topic(final String title, final String category, final User createdBy, final Date createdTime){
+    public Topic(final String title, final User createdBy, final Date createdTime){
         this.title = title;
-        this.category = category;
         this.createdBy = createdBy;
         this.createdTime = createdTime;
     }
@@ -36,14 +32,6 @@ public class Topic {
 
     public String getTitle(){
         return title;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public User getCreatedBy() {

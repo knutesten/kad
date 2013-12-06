@@ -26,11 +26,10 @@ public class TopicRowMapper implements RowMapper<Topic> {
     @Override
     public Topic mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
         final String title = resultSet.getString("topic_title");
-        final String category = resultSet.getString("topic_category");
-        final User createdBy = getUser(resultSet.getString("topic_title"));
+        final User createdBy = getUser(resultSet.getString("topic_createdBy"));
         final Date createdTime = new Date(resultSet.getLong("topic_createdTime"));
 
-        return new Topic(title, category, createdBy, createdTime);
+        return new Topic(title, createdBy, createdTime);
     }
 
     private User getUser(final String username){
