@@ -3,7 +3,6 @@ package no.mesan.persistence.topic;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -115,10 +114,5 @@ public class TopicDaoImplTest {
 
         final Topic updatedTopicFromDatabase = topicDao.getTopicByTitle(newTitle);
         topicsAreEqual(updatedTopic, updatedTopicFromDatabase);
-    }
-
-    @Test
-    public void testitest() {
-        System.out.println(Locale.UK);
     }
 }
