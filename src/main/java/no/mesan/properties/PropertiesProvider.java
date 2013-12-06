@@ -28,9 +28,10 @@ public class PropertiesProvider {
     public static final String GET_COUNTRY_BY_CODE = "get_country_by_code";
     public static final String GET_COUNTRY_BY_NAME = "get_country_by_name";
 
-    public static final String CREATE_TOPIC = "create_topic";
-    public static final String UPDATE_TOPIC = "update_topic";
-    public static final String GET_TOPIC_BY_TITLE = "get_topic_by_title";
+    public static final String CREATE_TOPIC         = "create_topic";
+    public static final String UPDATE_TOPIC         = "update_topic";
+    public static final String GET_TOPIC_BY_TITLE   = "get_topic_by_title";
+    public static final String GET_TOPIC_BY_CREATOR = "get_topic_by_creator";
 
     @Produces @Sql
     public Properties createSqlProperties() throws IOException {

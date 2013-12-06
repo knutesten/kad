@@ -5,7 +5,7 @@ CREATE TABLE topics (
   topic_id           INT          NOT NULL AUTO_INCREMENT,
   topic_title        VARCHAR(255) NOT NULL UNIQUE,
   topic_createdBy    VARCHAR(30)  NOT NULL,
-  topic_createdTime  BIGINT       NOT NULL,
+  topic_dateCreated  BIGINT       NOT NULL,
 
   PRIMARY KEY (topic_id)
 );
@@ -15,7 +15,7 @@ CREATE TABLE topics (
 -- -----------------------------------------------------
 CREATE TABLE posts (
   post_id             INT           NOT NULL AUTO_INCREMENT,
-  post_createdBY      VARCHAR(255)  NOT NULL,
+  post_createdBy      VARCHAR(255)  NOT NULL,
   post_dateCreated    BIGINT        NOT NULL,
 
   PRIMARY KEY (post_id)

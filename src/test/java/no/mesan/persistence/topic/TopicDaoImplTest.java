@@ -41,7 +41,7 @@ public class TopicDaoImplTest {
         hestemann = mock(User.class);
         when(hestemann.getUsername()).thenReturn("hestemann");
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
-        HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(10));
+        HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20));
 
         final TopicRowMapper topicRowMapper = new TopicRowMapper();
         final Map<String, User> userCache = new HashMap<>();

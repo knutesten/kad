@@ -52,6 +52,6 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public List<Topic> getTopicsByCreator(final User creator) {
-        return null;
+        return jdbcTemplate.query(sql.getProperty(GET_TOPIC_BY_CREATOR), topicRowMapper, creator.getUsername());
     }
 }
