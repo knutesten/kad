@@ -5,5 +5,5 @@ package no.mesan.model;
  *
  * @author Dean Lozo
  */
-public class Post {
+class Post {
 }

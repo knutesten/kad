@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
  *
  * @author Knut Esten Melandsø Nekså
  */
-public class UserGroupRowMapper implements RowMapper<SimplePrincipal> {
+class UserGroupRowMapper implements RowMapper<SimplePrincipal> {
     @Override
     public SimplePrincipal mapRow(final ResultSet resultSet, final int i) throws SQLException {
         return new SimplePrincipal(resultSet.getString("userGroup_name"));

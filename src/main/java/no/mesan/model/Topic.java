@@ -28,7 +28,7 @@ public class Topic {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -48,16 +48,16 @@ public class Topic {
         return new ArrayList<>(posts);
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(final List<Post> posts) {
         this.posts = posts;
     }
 
-    public void addPost(Post p){
-        posts.add(p);
+    public void addPost(final Post post){
+        posts.add(post);
     }
 
-    public void removePost(Post p){
-        posts.remove(p);
+    public void removePost(final Post post){
+        posts.remove(post);
     }
 
     public int getId() {

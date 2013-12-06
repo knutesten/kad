@@ -7,7 +7,7 @@ import javax.enterprise.inject.spi.InjectionTarget;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class CdiHelper {
+class CdiHelper {
     public static <T> void programmaticInjection(final Class<T> clazz, final T injectionObject) {
         try {
             final InitialContext initialContext;

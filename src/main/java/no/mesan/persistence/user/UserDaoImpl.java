@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
     public void updateUser(final User user) {
         String localeString = null;
         if (user.getLocale() != null)
-            localeString = user.getLocale().toLanguageTag();
+            localeString = user.getLocale().toString();
         jdbcTemplate.update(sql.getProperty(UPDATE_USER), user.getEmail(),
                                                           user.getHash(),
                                                           user.getSalt(),

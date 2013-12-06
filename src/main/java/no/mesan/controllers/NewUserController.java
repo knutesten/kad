@@ -76,7 +76,7 @@ public class NewUserController {
         userDao.createUser(newUser);
     }
 
-    public boolean confirmPassword() {
+    boolean confirmPassword() {
         return password.equals(password2);
     }
 

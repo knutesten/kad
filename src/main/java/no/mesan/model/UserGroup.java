@@ -5,5 +5,5 @@ package no.mesan.model;
  *
  * @author Knut Esten Melandsø Nekså
  */
-public class UserGroup {
+class UserGroup {
 }
