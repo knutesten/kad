@@ -18,7 +18,6 @@ import static no.mesan.properties.PropertiesProvider.*;
  * @author Dean Lozo
  */
 public class TopicDaoImpl implements TopicDao {
-
     @Inject @Sql
     private Properties sql;
     @Inject
@@ -29,16 +28,16 @@ public class TopicDaoImpl implements TopicDao {
     @Override
     public void createTopic(final Topic topic){
         jdbcTemplate.update(sql.getProperty(CREATE_TOPIC), topic.getTitle(),
-                                                            topic.getCreatedBy().getUsername(),
-                                                            topic.getCreatedTime().getTime());
+                                                           topic.getCreatedBy().getUsername(),
+                                                           topic.getCreatedTime().getTime());
     }
 
+    @Override
     public void updateTopic(final Topic topic){
         jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), topic.getTitle(),
-                                                            topic.getCreatedBy().getUsername(),
-                                                            topic.getCreatedTime().getTime(),
-                                                            topic.getTitle());
-
+                                                           topic.getCreatedBy().getUsername(),
+                                                           topic.getCreatedTime().getTime(),
+                                                           topic.getTitle());
     }
 
     @Override
@@ -52,7 +51,7 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public List<Topic> getTopicsByOwner(User owner) {
+    public List<Topic> getTopicsByCreator(final User creator) {
         return null;
     }
 }

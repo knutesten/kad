@@ -13,9 +13,11 @@ public class Topic {
     private String title;
     private final User createdBy;
     private final Date createdTime;
+    private final int id;
     private List<Post> posts = new ArrayList<>();
 
-    public Topic(final String title, final User createdBy, final Date createdTime){
+    public Topic(final int id, final String title, final User createdBy, final Date createdTime){
+        this.id =id;
         this.title = title;
         this.createdBy = createdBy;
         this.createdTime = createdTime;
@@ -58,4 +60,7 @@ public class Topic {
         posts.remove(p);
     }
 
+    public int getId() {
+        return id;
+    }
 }

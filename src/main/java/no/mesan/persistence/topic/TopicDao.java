@@ -15,5 +15,5 @@ public interface TopicDao {
     public void createTopic(Topic topic);
     public void updateTopic(Topic topic);
     public Topic getTopicByTitle(final String title);
-    public List<Topic> getTopicsByOwner(final User owner);
+    public List<Topic> getTopicsByCreator(final User creator);
 }
