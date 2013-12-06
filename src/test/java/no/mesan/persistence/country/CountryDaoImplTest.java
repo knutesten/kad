@@ -51,8 +51,8 @@ public class CountryDaoImplTest {
     public void getCountriesShouldReturnAll3CountriesSortedByName() throws Exception {
         final List<Country> countries = countryDao.getCountries();
         assertEquals(AFGHANISTAN, countries.get(0));
-        assertEquals(ALBANIA, countries.get(1));
-        assertEquals(ALGERIA, countries.get(2));
+        assertEquals(ALBANIA,     countries.get(1));
+        assertEquals(ALGERIA,     countries.get(2));
     }
 
     @Test

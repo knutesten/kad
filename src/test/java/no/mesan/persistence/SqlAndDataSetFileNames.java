@@ -12,5 +12,5 @@ public class SqlAndDataSetFileNames {
 
     private static final String DATA_SET_PREFIX = "database/test_data_sets/";
     public static final String DATA_SET_COUNTRIES = DATA_SET_PREFIX + "countries.xml";
-    public static final String DATA_SET_TOPIC     = DATA_SET_PREFIX + "topic.xml";
+    public static final String DATA_SET_TOPIC     = DATA_SET_PREFIX + "topics.xml";
 }
