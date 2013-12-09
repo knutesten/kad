@@ -57,6 +57,15 @@ public class UserDaoImpl implements UserDao {
                                                           localeString,
                                                           user.getUsername());
     }
+    
+    @Override
+    public User getUserById(final int id) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_ID), userRowMapper, id);
+        } catch (EmptyResultDataAccessException erda) {
+            return null;
+        }
+    }
 
     @Override
     public User getUserByUsername(final String username) {

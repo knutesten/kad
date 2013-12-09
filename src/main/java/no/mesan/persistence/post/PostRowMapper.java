@@ -19,18 +19,17 @@ public class PostRowMapper implements RowMapper<Post> {
     @Inject
     private UserDao userDao;
     private final Map<String, User> userCache = new HashMap<>();
+    
     @Override
     public Post mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
+        final int postId = resultSet.getInt("post_id");
         final User createdBy = getUser(resultSet.getString("post_createdBy"));
         final Date createdTime = createDate(resultSet.getLong("post_createdTime"));
         final User lastEditedBy = getUser(resultSet.getString("post_lastEditedBy"));
-        final Date lastEditedTime = createDate(resultSet.getLong("post_lastEditedBy"));
+        final Date lastEditedTime = createDate(resultSet.getLong("post_lastEditedTime"));
         final String content = resultSet.getString("post_content");
         
-        Post post = new Post(createdBy, createdTime, content);
-        post.setLastEditedBy(lastEditedBy);
-        post.setLastEditedTime(lastEditedTime);
-        
+        Post post = new Post(postId, createdBy, createdTime, lastEditedBy, lastEditedTime, content);
         return post;
     }
     

@@ -24,6 +24,7 @@ public class PostController {
     @Inject
     private PostDao postDao;
     
+    //TODO this is just a test
     public void createPost() {
         User createdBy = userDao.getUserByUsername("admin");
         Date createdTime = new Date();
@@ -33,5 +34,6 @@ public class PostController {
         int postId = postDao.createPost(post);
         System.out.println("New POST with id: " + postId);
         //Stuff must be done about such things as what kind of topic its in and ....
+        
     }
 }

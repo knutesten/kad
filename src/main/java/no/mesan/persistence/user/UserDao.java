@@ -14,6 +14,7 @@ import org.jboss.security.SimplePrincipal;
 public interface UserDao {
     public void createUser(final User user);
     public void updateUser(final User user);
+    public User getUserById(final int id);
     public User getUserByUsername(final String username);
     public User getUserByEmail(final String email);
     public List<User> getUsers();

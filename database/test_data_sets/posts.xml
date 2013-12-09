@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <posts post_id="1" post_createdBy="testmann" post_createdTime="0" post_lastEditedBy="testmann" post_lastEditedTime="15" post_content="testpost med edit" />
+    <posts post_id="2" post_createdBy="testmann" post_createdTime="10" post_lastEditedBy="" post_lastEditedTime="0" post_content="Dette er en testpost uten edit" />
+    <posts post_id="3" post_createdBy="testmann" post_createdTime="20" post_lastEditedBy="hestemann" post_lastEditedTime="25" post_content="Dette er en post edited av en annen bruker" />
+</dataset>
+ 

@@ -27,7 +27,7 @@ public class TopicRowMapper implements RowMapper<Topic> {
         final int id = resultSet.getInt("topic_id");
         final String title = resultSet.getString("topic_title");
         final User createdBy = getUser(resultSet.getString("topic_createdBy"));
-        final Date createdTime = new Date(resultSet.getLong("topic_dateCreated"));
+        final Date createdTime = new Date(resultSet.getLong("topic_createdTime"));
 
         return new Topic(id, title, createdBy, createdTime);
     }

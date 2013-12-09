@@ -2,4 +2,5 @@
 <dataset>
     <users user_id="1" user_username = "hestemann" user_email="hest@hest.no" user_hash="pass1" user_salt="salt1" user_fullname="Hest Hestesen" user_locale="no_NO"/>
     <users user_id="2" user_username = "grisemann" user_email="gris@gris.no" user_hash="pass2" user_salt="salt2" user_fullname="Gris Grisson"  user_locale="en_GB"/>
+    <users user_id="3" user_username = "testmann" user_email="test@testesen.no" user_hash="pass3" user_salt="salt3" user_fullname=""  user_locale="en_GB"/>
 </dataset>

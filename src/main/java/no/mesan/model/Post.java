@@ -20,6 +20,21 @@ public class Post {
         this.createdTime = createdTime;
         this.content = content;
     }
+    
+    public Post(final int postId, 
+                final User createdBy, 
+                final Date createdTime, 
+                final User lastEditedBy, 
+                final Date lastEditedTime, 
+                final String content) {
+        this.postId = postId;
+        this.createdBy = createdBy;
+        this.createdTime = createdTime;
+        this.lastEditedBy = lastEditedBy;
+        this.lastEditedTime = lastEditedTime;
+        this.content = content;
+
+    }
 
     public User getLastEditedBy() {
         return lastEditedBy;

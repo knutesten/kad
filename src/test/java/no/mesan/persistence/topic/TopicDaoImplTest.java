@@ -36,6 +36,8 @@ public class TopicDaoImplTest {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
+        MockDatabaseUtility.executeScript(SQL_COUNTRIES);
+        MockDatabaseUtility.executeScript(SQL_USERS);
         MockDatabaseUtility.executeScript(SQL_FORUM);
 
         hestemann = mock(User.class);
@@ -96,8 +98,8 @@ public class TopicDaoImplTest {
     @Test
     public void createTopicShouldCreateANewTopicInTheDatabase() {
         final String title     = "Hester er kule";
-        final Date  createDate = new Date();
-        final Topic newTopic   = new Topic(4, title, hestemann, createDate);
+        final Date  createdTime = new Date();
+        final Topic newTopic   = new Topic(4, title, hestemann, createdTime);
         topicDao.createTopic(newTopic);
 
         final Topic newTopicFromDatabase = topicDao.getTopicByTitle(title);
