@@ -69,7 +69,7 @@ public class SessionManager implements Serializable {
         return "index?faces-redirect=true";
     }
 
-    public boolean getLoggedIn() {
+    public boolean getIsLoggedIn() {
         return getUser() != null;
     }
 }
