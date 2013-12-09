@@ -21,7 +21,7 @@ public class KadLoginModule extends UsernamePasswordLoginModule{
     @Inject
     private UserDao userDao;
     @Inject
-    private Authentication authentication;
+    private Encryption encryption;
     private User user;
 
 
@@ -40,7 +40,7 @@ public class KadLoginModule extends UsernamePasswordLoginModule{
 
     @Override
     protected boolean validatePassword(final String inputPassword, final String expectedPasswordHash) {
-        final String hashedInputPassword = authentication.generatePasswordHash(inputPassword, getUser().getSalt());
+        final String hashedInputPassword = encryption.generatePasswordHash(inputPassword, getUser().getSalt());
         return hashedInputPassword.equals(expectedPasswordHash);
     }
 

@@ -18,7 +18,7 @@ public class AuthenticationTest {
 
     @Test
     public void generatePasswordHashShouldGenerateASHA256Hash() throws UnsupportedEncodingException {
-        final Authentication authentication = new Authentication();
+        final Encryption authentication = new Encryption();
         assertEquals(EXPECTED_HASH, authentication.generatePasswordHash(PASSWORD, SALT));
     }
 }

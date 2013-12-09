@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
 
-import no.mesan.authentication.Authentication;
+import no.mesan.authentication.Encryption;
 import no.mesan.controllers.validators.Email;
 import no.mesan.controllers.validators.EmailUnique;
 import no.mesan.controllers.validators.UserUnique;
@@ -34,7 +34,7 @@ public class NewUserController {
     private CountryDao countryDao;
 
     @Inject
-    private Authentication authentication;
+    private Encryption encryption;
 
     @Size(min = 2, max = 30, message="{no.mesan.controllers.validators.username_size.message}")
     @UserUnique
@@ -64,8 +64,8 @@ public class NewUserController {
             //Do error message!
         }
 
-        final String salt     = authentication.generateSalt();
-        final String hash     = authentication.generatePasswordHash(password, salt);
+        final String salt     = encryption.generateSalt();
+        final String hash     = encryption.generatePasswordHash(password, salt);
         final Country country = countryDao.getCountryByName(countryName);
 
         final User.Builder userBuilder = new User.Builder(username, email, hash, salt);

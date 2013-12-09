@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+    <ui:composition>
+        <h1>HEADER!</h1>
+        <h:link outcome="login" value="#{i18n['header.login']}"  rendered="#{!sessionManager.isLoggedIn}"/>
+        <h:form>
+            <h:commandLink action="#{sessionManager.logout}" value="#{i18n['header.logout']}" rendered="#{sessionManager.isLoggedIn}"/>
+        </h:form>
+    </ui:composition>
+</h:body>
+
+</html>

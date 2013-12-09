@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Knut Esten Melandsø Nekså
  */
-public class Authentication {
+public class Encryption {
     public String generateSalt() {
         final Random random = new SecureRandom();
         final byte[] salt = new byte[32];

@@ -5,7 +5,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Secured</web-resource-name>
-            <url-pattern>/secure/*</url-pattern>
+            <url-pattern>/test/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
@@ -33,7 +33,6 @@
 	</servlet-mapping>
     <welcome-file-list>
         <welcome-file>/index.jsf</welcome-file>
-        <welcome-file>secure/index.jsf</welcome-file>
     </welcome-file-list>
 
     <!-- Adding filter to force UTF-8 encoding before
