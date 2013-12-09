@@ -5,6 +5,7 @@ import static no.mesan.properties.PropertiesProvider.CREATE_POST;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -49,11 +50,17 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void updatePost(final Post post) {
-            
+        
     }
 
     @Override
     public Post getPostById(final int id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
         // TODO Auto-generated method stub
         return null;
     }
