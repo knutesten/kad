@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <userInUserGroup userInUserGroup_userId="1" userInUserGroup_userGroupId="1"/>
+    <userInUserGroup userInUserGroup_userId="1" userInUserGroup_userGroupId="2"/>
+</dataset>

@@ -34,32 +34,23 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void createUser(final User user) {
-        String localeString = null;
-        String countryCode = null;
-        if (user.getLocale() != null)
-            localeString = user.getLocale().toLanguageTag();
-        if (user.getCountry() != null)
-            countryCode = user.getCountry().getCode();
         jdbcTemplate.update(sql.getProperty(CREATE_USER), user.getUsername(),
                                                           user.getEmail(),
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          countryCode,
-                                                          localeString);
+                                                          getCountryCode(user),
+                                                          getLocaleString(user));
     }
 
     @Override
     public void updateUser(final User user) {
-        String localeString = null;
-        if (user.getLocale() != null)
-            localeString = user.getLocale().toString();
         jdbcTemplate.update(sql.getProperty(UPDATE_USER), user.getEmail(),
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          user.getCountry().getCode(),
-                                                          localeString,
+                                                          getCountryCode(user),
+                                                          getLocaleString(user),
                                                           user.getUsername());
     }
 
@@ -89,5 +80,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<SimplePrincipal> getUserGroups(final String username) {
         return jdbcTemplate.query(sql.getProperty(GET_USER_GROUPS), userGroupRowMapper, username);
+    }
+
+    private String getLocaleString(final User user) {
+        if (user.getLocale() != null) return user.getLocale().toString();
+        else return null;
+    }
+
+    private String getCountryCode(final User user) {
+        if (user.getCountry() != null) return user.getCountry().getCode();
+        else return null;
     }
 }

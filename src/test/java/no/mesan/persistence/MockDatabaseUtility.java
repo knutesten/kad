@@ -20,7 +20,7 @@ import org.h2.tools.RunScript;
  * @author Knut Esten Melandsø Nekså
  */
 public class MockDatabaseUtility {
-    private static final String CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
+    private static final String CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;REFERENTIAL_INTEGRITY=false";
     private static final String DRIVER_CLASS = "org.h2.Driver";
     private static final DataSource dataSource;
     static {

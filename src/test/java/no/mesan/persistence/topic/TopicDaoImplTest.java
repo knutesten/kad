@@ -57,7 +57,7 @@ public class TopicDaoImplTest {
 
     @Before
     public void before() throws Exception {
-        MockDatabaseUtility.createDataSet(DATA_SET_TOPIC);
+        MockDatabaseUtility.createDataSet(DATA_SET_TOPICS);
     }
 
     private void topicsAreEqual(final Topic expected, final Topic actual) {
