@@ -1,11 +1,10 @@
 package no.mesan.persistence.post;
 
-import static no.mesan.properties.PropertiesProvider.CREATE_POST;
+import static no.mesan.properties.PropertiesProvider.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -13,6 +12,7 @@ import javax.inject.Inject;
 import no.mesan.model.Post;
 import no.mesan.properties.Sql;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -50,19 +50,20 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void updatePost(final Post post) {
-        
+        jdbcTemplate.update(sql.getProperty(UPDATE_POST), post.getCreatedBy().getUsername(),
+                                                          post.getCreatedTime().getTime(),
+                                                          post.getLastEditedBy().getUsername(),
+                                                          post.getLastEditedTime().getTime(),
+                                                          post.getContent(),
+                                                          post.getPostId());
     }
 
     @Override
     public Post getPostById(final int id) {
-        // TODO Auto-generated method stub
-        return null;
+        try{
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_POST_BY_ID), postRowMapper, id);
+        } catch(EmptyResultDataAccessException erda){
+            return null;
+        }
     }
-
-    @Override
-    public List<Post> getAllPosts() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

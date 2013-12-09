@@ -27,7 +27,7 @@ public class PostController {
     public void createPost() {
         User createdBy = userDao.getUserByUsername("admin");
         Date createdTime = new Date();
-        String content = "Dette er jo en flott testpost fra admin hestemannen";
+        String content = "Dette er jo en ny flott testpost fra admin hestemannen";
         Post post = new Post(createdBy, createdTime, content);
         
         int postId = postDao.createPost(post);

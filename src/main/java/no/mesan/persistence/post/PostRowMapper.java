@@ -22,9 +22,9 @@ public class PostRowMapper implements RowMapper<Post> {
     @Override
     public Post mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
         final User createdBy = getUser(resultSet.getString("post_createdBy"));
-        final Date createdTime = new Date(resultSet.getLong("post_createdTime"));
+        final Date createdTime = createDate(resultSet.getLong("post_createdTime"));
         final User lastEditedBy = getUser(resultSet.getString("post_lastEditedBy"));
-        final Date lastEditedTime = new Date(resultSet.getLong("post_lastEditedBy"));
+        final Date lastEditedTime = createDate(resultSet.getLong("post_lastEditedBy"));
         final String content = resultSet.getString("post_content");
         
         Post post = new Post(createdBy, createdTime, content);
@@ -41,4 +41,9 @@ public class PostRowMapper implements RowMapper<Post> {
         return userCache.get(username);
     }
 
+    private Date createDate(Long dateTime) {
+        if (dateTime == null)
+            return null;
+        return new Date(dateTime);
+    }
 }
