@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import no.mesan.model.User;
@@ -27,7 +28,11 @@ public class SessionManager implements Serializable {
     }
 
     private User getUser() {
-        return (User) httpSession.getAttribute("user");
+        try {
+            return (User) httpSession.getAttribute("user");
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private void setUser(User user) {
@@ -57,5 +62,10 @@ public class SessionManager implements Serializable {
             guestLocale = locale;
         user.setLocale(locale);
         setUser(user);
+    }
+
+    public String logout() throws ServletException{
+        httpSession.invalidate();
+        return "index?faces-redirect=true";
     }
 }

@@ -20,11 +20,10 @@
             <h:outputLabel id="passwordLabel" for="j_password" value="#{i18n['login.password']}" />
             <h:inputSecret id="j_password" />
             <h:panelGroup>
-                <h:commandButton action="j_security_check" type="submit" value="login" />
+                <h:commandButton action="j_security_check" type="submit" value="#{i18n['login.login']}" />
             </h:panelGroup>
         </h:panelGrid>
     </form>
 </h:body>
-
 </html>
 
