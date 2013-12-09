@@ -18,7 +18,6 @@ import java.util.Map;
  * @author Dean Lozo
  */
 public class TopicRowMapper implements RowMapper<Topic> {
-
     @Inject
     private UserDao userDao;
     private final Map<String, User> userCache = new HashMap<>();

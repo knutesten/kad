@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,7 @@ public class UserRowMapper implements RowMapper<User> {
     @Inject
     private CountryDao countryDao;
     private final Map<String, Country> countryCache = new HashMap<>();
+    private final Pattern splitLocaleStringRegex = Pattern.compile("_");
 
     @Override
     public User mapRow(final ResultSet resultSet, final int i) throws SQLException {
@@ -32,7 +34,7 @@ public class UserRowMapper implements RowMapper<User> {
         final String hash     = resultSet.getString("user_hash");
         final String salt     = resultSet.getString("user_salt");
         final String fullName = resultSet.getString("user_fullName");
-        final Locale locale   = new Locale(resultSet.getString("user_locale"));
+        final Locale locale   = getLocaleFromString(resultSet.getString("user_locale"));
         final Country country = getCountry(resultSet.getString("user_country"));
 
         final User.Builder builder = new User.Builder(username, email, hash, salt);
@@ -47,5 +49,14 @@ public class UserRowMapper implements RowMapper<User> {
         if (!countryCache.containsKey(countryCode))
             countryCache.put(countryCode, countryDao.getCountryByCode(countryCode));
         return countryCache.get(countryCode);
+    }
+
+    private Locale getLocaleFromString(final String localeString) {
+        final String[] localeAttributes = splitLocaleStringRegex.split(localeString);
+        switch (localeAttributes.length) {
+            case 0:  return null;
+            case 1:  return new Locale(localeAttributes[0]);
+            default: return new Locale(localeAttributes[0], localeAttributes[1]);
+        }
     }
 }

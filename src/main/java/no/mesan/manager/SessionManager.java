@@ -15,33 +15,32 @@ import no.mesan.model.User;
 @SessionScoped
 public class SessionManager implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private HttpSession httpSession;
     private Locale guestLocale;
-    
+
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
         guestLocale = new Locale("no");
     }
-    
+
     private User getUser() {
         return (User) httpSession.getAttribute("user");
     }
-    
+
     private void setUser(User user) {
         httpSession.setAttribute("user", user);
     }
-    
+
     public String getUsername() {
         User user = getUser();
         if (user == null)
             return "Guest";
-        String username = getUser().getUsername();
-        return username;
+        return getUser().getUsername();
     }
-    
+
     public Locale getLocale() {
         User user = getUser();
         if (user == null)
@@ -51,7 +50,7 @@ public class SessionManager implements Serializable {
             return guestLocale;
         return locale;
     }
-        
+
     public void setLocale(final Locale locale) {
         User user = getUser();
         if (user == null)
