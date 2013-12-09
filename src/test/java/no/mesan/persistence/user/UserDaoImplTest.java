@@ -70,7 +70,6 @@ public class UserDaoImplTest {
         MockDatabaseUtility.createDataSet(DATA_SET_USER_IN_USER_GROUP);
     }
 
-
     @Test
     public void createUserShouldCreateNewUserInDatabase() {
         final User.Builder reddhareBuilder = new User.Builder("reddhare", "redd@hare.no", "pass3", "salt3");
