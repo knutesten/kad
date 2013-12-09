@@ -47,7 +47,6 @@ public class TopicDaoImpl implements TopicDao {
         } catch(EmptyResultDataAccessException erda){
             return null;
         }
-
     }
 
     @Override

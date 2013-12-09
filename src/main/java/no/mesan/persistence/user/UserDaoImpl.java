@@ -1,32 +1,30 @@
 package no.mesan.persistence.user;
 
+import static no.mesan.properties.PropertiesProvider.*;
+
 import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
 
 import no.mesan.model.User;
-import no.mesan.persistence.country.CountryDao;
 import no.mesan.properties.Sql;
 
 import org.jboss.security.SimplePrincipal;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import static no.mesan.properties.PropertiesProvider.*;
-
 /**
  * TODO
  *
  * @author Knut Esten Melandsø Nekså
+ * @author Anders Grotthing Moe
  */
 public class UserDaoImpl implements UserDao {
     @Inject @Sql
     private Properties sql;
     @Inject
     private JdbcTemplate jdbcTemplate;
-    @Inject
-    private CountryDao countryDao;
     @Inject
     private UserRowMapper userRowMapper;
     @Inject
@@ -45,12 +43,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(final User user) {
+        String localeString = null;
+        String countryCode = null;
+        if (user.getLocale() != null)
+            localeString = user.getLocale().toString();
+        if (user.getCountry() != null)
+            countryCode = user.getCountry().getCode();
         jdbcTemplate.update(sql.getProperty(UPDATE_USER), user.getEmail(),
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          getCountryCode(user),
-                                                          getLocaleString(user),
+                                                          countryCode,
+                                                          localeString,
                                                           user.getUsername());
     }
 

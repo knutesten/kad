@@ -4,10 +4,12 @@
 CREATE TABLE topics (
   topic_id           INT          NOT NULL AUTO_INCREMENT,
   topic_title        VARCHAR(255) NOT NULL UNIQUE,
-  topic_createdBy    VARCHAR(30)  NOT NULL,
-  topic_dateCreated  BIGINT       NOT NULL,
+  topic_createdBy    INT          NOT NULL,
+  topic_createdTime  BIGINT       NOT NULL,
 
-  PRIMARY KEY (topic_id)
+  PRIMARY KEY (topic_id),
+  FOREIGN KEY (topic_createdBy)
+    REFERENCES users(user_id)
 );
 
 -- -----------------------------------------------------
@@ -15,10 +17,17 @@ CREATE TABLE topics (
 -- -----------------------------------------------------
 CREATE TABLE posts (
   post_id             INT           NOT NULL AUTO_INCREMENT,
-  post_createdBy      VARCHAR(255)  NOT NULL,
-  post_dateCreated    BIGINT        NOT NULL,
+  post_createdBy      INT           NOT NULL,
+  post_createdTime    BIGINT        NOT NULL,
+  post_lastEditedBy   INT,
+  post_lastEditedTime BIGINT,
+  post_content        TEXT          NOT NULL,
 
-  PRIMARY KEY (post_id)
+  PRIMARY KEY (post_id),
+  FOREIGN KEY (post_createdBy)
+    REFERENCES users(user_id),
+  FOREIGN KEY (post_lastEditedBy)
+    REFERENCES users(user_id)
 
  );
 
