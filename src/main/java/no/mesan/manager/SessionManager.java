@@ -68,4 +68,8 @@ public class SessionManager implements Serializable {
         httpSession.invalidate();
         return "index?faces-redirect=true";
     }
+
+    public boolean getLoggedIn() {
+        return getUser() != null;
+    }
 }
