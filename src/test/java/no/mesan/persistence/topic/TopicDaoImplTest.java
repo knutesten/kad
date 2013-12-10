@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.MockDatabaseUtility;
@@ -32,18 +33,24 @@ public class TopicDaoImplTest {
     private static final TopicDao topicDao = new TopicDaoImpl();
     private static Topic HESTER_ER_FINE;
     private static Topic HESTER_ER_SKUMLE;
+    private static Topic HESTER_ER_STYGGE;
     private static User hestemann;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
         hestemann = mock(User.class);
         when(hestemann.getUsername()).thenReturn("hestemann");
+        final User grisemann = mock(User.class);
+        when(grisemann.getUsername()).thenReturn("grisemann");
+
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
+        HESTER_ER_STYGGE = new Topic(3, "Hester er stygge", grisemann, new Date(10));
         HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20));
 
         final TopicRowMapper topicRowMapper = new TopicRowMapper();
         final Map<String, User> userCache = new HashMap<>();
         userCache.put("hestemann", hestemann);
+        userCache.put("grisemann", grisemann);
         Whitebox.setInternalState(topicRowMapper, "userCache", userCache);
 
         final Properties sql        = new PropertiesProvider().createSqlProperties();
@@ -71,13 +78,13 @@ public class TopicDaoImplTest {
         final Topic hesterErFine = topicDao.getTopicByTopicId(1);
         topicsAreEqual(HESTER_ER_FINE, hesterErFine);
     }
-    
+
     @Test
     public void getTopicByTopicIdShouldReturnNullWhenTheTopicDoesNotExist() {
         final Topic noTopic = topicDao.getTopicByTopicId(123123);
         assertNull(noTopic);
     }
-    
+
     @Test
     public void getTopicByTitleShouldReturnHesterErFineTopicWhenInputIsHesterErFine() {
         final Topic hesterErFine = topicDao.getTopicByTitle("Hester er fine");
@@ -106,6 +113,16 @@ public class TopicDaoImplTest {
     }
 
     @Test
+    public void getTopicsByCategoryShouldGetAllTopicsFromHesterCategoryWhenInputIsHesterCategory() throws Exception {
+        MockDatabaseUtility.createDataSet(DATA_SET_TOPIC_IN_CATEGORY);
+        final Category hester = new Category(1, "Hester");
+        final List<Topic> topicsInCategory = topicDao.getTopicsByCategory(hester, 1, 2);
+        assertEquals(2, topicsInCategory.size());
+        topicsAreEqual(HESTER_ER_FINE, topicsInCategory.get(0));
+        topicsAreEqual(HESTER_ER_STYGGE, topicsInCategory.get(1));
+    }
+
+    @Test
     public void createTopicShouldCreateANewTopicInTheDatabase() {
         final String title     = "Hester er kule";
         final Date  createdTime = new Date();
@@ -127,7 +144,7 @@ public class TopicDaoImplTest {
         final Topic updatedTopicFromDatabase = topicDao.getTopicByTitle(newTitle);
         topicsAreEqual(updatedTopic, updatedTopicFromDatabase);
     }
-    
+
     @Test
     public void getNumberOfPostsInTopicShouldReturnTheNumberOfPostsInTheTopic() {
         final int topicId = 1;
@@ -135,7 +152,7 @@ public class TopicDaoImplTest {
         final int numberOfPostsInTopicWithId1FromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
         assertEquals(numberOfPostsInTopicWithId1, numberOfPostsInTopicWithId1FromDatabase);
     }
-    
+
     @Test
     public void getNumberOfPostsInTopicShouldReturn0IfTheTopicDoesNotExist() {
         final int topicId = 13031;

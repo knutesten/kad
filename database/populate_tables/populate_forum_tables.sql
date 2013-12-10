@@ -13,8 +13,8 @@ VALUES
 -- Populate posts table
 -- -----------------------------------------------------
 
-INSERT INTO posts 
-  (post_id, post_createdBy, post_createdTime, post_lastEditedBy, post_lastEditedTime, post_content) 
+INSERT INTO posts
+  (post_id, post_createdBy, post_createdTime, post_lastEditedBy, post_lastEditedTime, post_content)
 VALUES
   ('1','admin','10','admin','1000','This is a testpost 1!'),
   ('2','admin','15','admin','100015','This is a testpost 2!'),
@@ -26,8 +26,8 @@ VALUES
   ('8','admin','100','admin','1000915','This is a testpost 8!'),
   ('9','admin','200','admin','1100025','This is a testpost 9!'),
   ('10','admin','300','admin','12213123','This is another testpost');
-  
-  
+
+
 
 -- -----------------------------------------------------
 -- Populate postInTopic table

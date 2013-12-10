@@ -21,4 +21,5 @@ public class SqlAndDataSetFileNames {
     public static final String DATA_SET_POSTS              = DATA_SET_PREFIX + "posts.xml";
     public static final String DATA_SET_POST_IN_TOPIC      = DATA_SET_PREFIX + "postInTopic.xml";
     public static final String DATA_SET_CATEGOIRES         = DATA_SET_PREFIX + "categories.xml";
+    public static final String DATA_SET_TOPIC_IN_CATEGORY  = DATA_SET_PREFIX + "topicInCategory.xml";
 }

@@ -1,5 +1,6 @@
 package no.mesan.persistence.topic;
 
+import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
@@ -42,7 +43,7 @@ public class TopicDaoImpl implements TopicDao {
                                                            topic.getCreatedTime().getTime(),
                                                            topic.getTitle());
     }
-    
+
     @Override
     public Topic getTopicByTopicId(final int topicId) {
         try {
@@ -51,7 +52,14 @@ public class TopicDaoImpl implements TopicDao {
             return null;
         }
     }
-    
+
+    @Override
+    public List<Topic> getTopicsByCategory(final Category category, final int startId, final int numberOfTopics) {
+        return jdbcTemplate.query(sql.getProperty(GET_TOPICS_BY_CATEGORY), topicRowMapper, category.getId(),
+                                                                                           startId,
+                                                                                           numberOfTopics);
+    }
+
     @Override
     public Topic getTopicByTitle(final String title) {
         try {
@@ -67,7 +75,7 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public int getNumberOfPostsInTopic(int topicId) {
+    public int getNumberOfPostsInTopic(final int topicId) {
         try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_NUMBER_OF_POSTS_IN_TOPIC), Integer.class, topicId);
         } catch(DataAccessException dae) {
