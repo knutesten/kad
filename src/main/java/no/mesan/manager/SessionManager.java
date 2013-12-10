@@ -19,12 +19,14 @@ public class SessionManager implements Serializable {
 
     private HttpSession httpSession;
     private Locale guestLocale;
+    private int postsPerPage;
 
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
         guestLocale = new Locale("no");
+        postsPerPage = 10;
     }
 
     private User getUser() {
@@ -62,6 +64,16 @@ public class SessionManager implements Serializable {
             guestLocale = locale;
         user.setLocale(locale);
         setUser(user);
+    }
+    
+    public int getPostsPerPage() {
+        //TODO Check users postPerPage setting when it is implemented
+        return postsPerPage;
+    }
+    
+    public void setPostsPerPage(final int postsPerPage) {
+        //TODO Set users postPerPage setting if this is not a guest session.
+        this.postsPerPage = postsPerPage;
     }
 
     public String logout() throws ServletException{

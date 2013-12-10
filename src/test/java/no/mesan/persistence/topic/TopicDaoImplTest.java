@@ -61,6 +61,8 @@ public class TopicDaoImplTest {
     @Before
     public void before() throws Exception {
         MockDatabaseUtility.createDataSet(DATA_SET_TOPICS);
+        MockDatabaseUtility.createDataSet(DATA_SET_POSTS);
+        MockDatabaseUtility.createDataSet(DATA_SET_POST_IN_TOPIC);
     }
 
     private void topicsAreEqual(final Topic expected, final Topic actual) {
@@ -117,5 +119,13 @@ public class TopicDaoImplTest {
 
         final Topic updatedTopicFromDatabase = topicDao.getTopicByTitle(newTitle);
         topicsAreEqual(updatedTopic, updatedTopicFromDatabase);
+    }
+    
+    @Test
+    public void getNumberOfPostsInTopicShouldReturnTheNumberOfPostsInTheTopic() {
+        final int topicId = 1;
+        final int numberOfPostsInTopicWithId1 = 5;
+        final int numberOfPostsInTopicWithId1FromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
+        assertEquals(numberOfPostsInTopicWithId1, numberOfPostsInTopicWithId1FromDatabase);
     }
 }

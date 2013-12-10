@@ -53,4 +53,9 @@ public class TopicDaoImpl implements TopicDao {
     public List<Topic> getTopicsByCreator(final User creator) {
         return jdbcTemplate.query(sql.getProperty(GET_TOPIC_BY_CREATOR), topicRowMapper, creator.getUsername());
     }
+
+    @Override
+    public int getNumberOfPostsInTopic(int topicId) {
+        return jdbcTemplate.queryForObject(sql.getProperty(GET_NUMBER_OF_POSTS_IN_TOPIC), Integer.class, topicId);
+    }
 }

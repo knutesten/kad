@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <postInTopic postInTopic_postId="1" postInTopic_topicId="1" postInTopic_postNumberInTopic="1" />
+    <postInTopic postInTopic_postId="2" postInTopic_topicId="2" postInTopic_postNumberInTopic="1" />
+    <postInTopic postInTopic_postId="3" postInTopic_topicId="1" postInTopic_postNumberInTopic="2" />
+    <postInTopic postInTopic_postId="4" postInTopic_topicId="1" postInTopic_postNumberInTopic="3" />
+    <postInTopic postInTopic_postId="5" postInTopic_topicId="1" postInTopic_postNumberInTopic="5" />
+    <postInTopic postInTopic_postId="6" postInTopic_topicId="1" postInTopic_postNumberInTopic="6" />
+</dataset>
