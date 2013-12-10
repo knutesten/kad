@@ -44,7 +44,7 @@ public class SessionManagerTest {
     @Test
     public void getUsernameShouldReturnGuestWhenNoUserExists() {
         httpSession = mock(HttpSession.class);
-        when((User) httpSession.getAttribute("user")).thenReturn(null);
+        when(httpSession.getAttribute("user")).thenReturn(null);
         Whitebox.setInternalState(sessionManager, "httpSession", httpSession);
         final String username = sessionManager.getUsername();
         assertEquals(guestString, username);
@@ -53,7 +53,7 @@ public class SessionManagerTest {
     @Test
     public void getUsernameShouldReturnTheUsernameAdminIfTheSessionBelongsToAdmin() {
         httpSession = mock(HttpSession.class);
-        when((User) httpSession.getAttribute("user")).thenReturn(adminUser);
+        when(httpSession.getAttribute("user")).thenReturn(adminUser);
         Whitebox.setInternalState(sessionManager, "httpSession", httpSession);
         final String username = sessionManager.getUsername();
         assertEquals(adminUser.getUsername(), username);

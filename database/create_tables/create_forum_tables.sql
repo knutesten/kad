@@ -36,8 +36,9 @@ CREATE TABLE posts (
 -- -----------------------------------------------------
 
 CREATE TABLE postInTopic (
-  postInTopic_postId    INT NOT NULL,
-  postInTopic_topicId   INT NOT NULL,
+  postInTopic_postId            INT NOT NULL,
+  postInTopic_topicId           INT NOT NULL,
+  postInTopic_postNumberInTopic INT NOT NULL,
 
   PRIMARY KEY (postInTopic_postId, postInTopic_topicId),
   FOREIGN KEY (postInTopic_postId)
