@@ -31,6 +31,11 @@ public class Category {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     public int getId() {
         return id;
     }

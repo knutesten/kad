@@ -6,15 +6,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
 <h:body>
 
 <ui:composition template="templates/layout.xhtml">
     <ui:define name="content">
-        <h:dataTable value="#{}">
-
-        </h:dataTable>
+        <p:accordionPanel dynamic="true"
+                          cache="true"
+                          value="#{frontPageController.categories}"
+                          var="category">
+            <p:tab title="#{category.name}" disabled="#{frontPageController.disableTab(category)}">
+                <p:dataTable value="#{frontPageController.getTopicsByCategory(category)}"
+                             var="topic">
+                    <p:column headerText="#{i18n['front_page.topic_created_by_header']}">
+                        #{topic.createdBy}
+                    </p:column>
+                    <p:column headerText="#{i18n['front_page.topic_title_header']}">
+                        #{topic.title}
+                    </p:column>
+                </p:dataTable>
+            </p:tab>
+        </p:accordionPanel>
     </ui:define>
 </ui:composition>
 
