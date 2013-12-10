@@ -16,4 +16,5 @@ public interface TopicDao {
     public void updateTopic(Topic topic);
     public Topic getTopicByTitle(final String title);
     public List<Topic> getTopicsByCreator(final User creator);
+    public int getNumberOfPostsInTopic(final int topicId);
 }

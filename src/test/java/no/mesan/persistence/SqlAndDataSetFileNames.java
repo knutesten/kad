@@ -19,4 +19,5 @@ public class SqlAndDataSetFileNames {
     public static final String DATA_SET_USER_IN_USER_GROUP = DATA_SET_PREFIX + "userInUserGroup.xml";
     public static final String DATA_SET_USER_GROUPS        = DATA_SET_PREFIX + "userGroups.xml";
     public static final String DATA_SET_POSTS              = DATA_SET_PREFIX + "posts.xml";
+    public static final String DATA_SET_POST_IN_TOPIC      = DATA_SET_PREFIX + "postInTopic.xml";
 }

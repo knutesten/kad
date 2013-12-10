@@ -32,6 +32,7 @@ public class PropertiesProvider {
     public static final String UPDATE_TOPIC         = "update_topic";
     public static final String GET_TOPIC_BY_TITLE   = "get_topic_by_title";
     public static final String GET_TOPIC_BY_CREATOR = "get_topic_by_creator";
+    public static final String GET_NUMBER_OF_POSTS_IN_TOPIC = "get_number_of_posts_in_topic";
     
     public static final String CREATE_POST          = "create_post";
     public static final String UPDATE_POST          = "update_post";
