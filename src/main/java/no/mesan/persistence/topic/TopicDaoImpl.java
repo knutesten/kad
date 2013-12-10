@@ -3,10 +3,13 @@ package no.mesan.persistence.topic;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
+
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.inject.Inject;
+
 import java.util.List;
 import java.util.Properties;
 
@@ -42,7 +45,7 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public Topic getTopicByTitle(final String title) {
-        try{
+        try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_TOPIC_BY_TITLE), topicRowMapper, title);
         } catch(EmptyResultDataAccessException erda){
             return null;
@@ -56,6 +59,10 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public int getNumberOfPostsInTopic(int topicId) {
-        return jdbcTemplate.queryForObject(sql.getProperty(GET_NUMBER_OF_POSTS_IN_TOPIC), Integer.class, topicId);
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_NUMBER_OF_POSTS_IN_TOPIC), Integer.class, topicId);
+        } catch(DataAccessException dae) {
+            return 0;
+        }
     }
 }

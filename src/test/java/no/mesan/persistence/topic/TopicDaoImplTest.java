@@ -128,4 +128,12 @@ public class TopicDaoImplTest {
         final int numberOfPostsInTopicWithId1FromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
         assertEquals(numberOfPostsInTopicWithId1, numberOfPostsInTopicWithId1FromDatabase);
     }
+    
+    @Test
+    public void getNumberOfPostsInTopicShouldReturn0IfTheTopicDoesNotExist() {
+        final int topicId = 13031;
+        final int numberOfPostsInTopicThatDoesNotExist = 0;
+        final int numberOfPostsInTopicThatDoesNotExistFromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
+        assertEquals(numberOfPostsInTopicThatDoesNotExist, numberOfPostsInTopicThatDoesNotExistFromDatabase);
+    }
 }
