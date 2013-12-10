@@ -33,10 +33,12 @@ public class PropertiesProvider {
     public static final String GET_TOPIC_BY_TITLE   = "get_topic_by_title";
     public static final String GET_TOPIC_BY_CREATOR = "get_topic_by_creator";
     public static final String GET_NUMBER_OF_POSTS_IN_TOPIC = "get_number_of_posts_in_topic";
+    public static final String GET_LIMITED_POSTS_BY_TOPIC_ID = "get_limited_posts_by_topic_id";
     
     public static final String CREATE_POST          = "create_post";
     public static final String UPDATE_POST          = "update_post";
     public static final String GET_POST_BY_ID       = "get_post_by_id";
+    public static final String GET_POSTS_BY_TOPIC_ID = "get_posts_by_topic_id";
 
     @Produces @Sql
     public Properties createSqlProperties() throws IOException {

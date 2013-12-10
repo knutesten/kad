@@ -5,6 +5,7 @@ import static no.mesan.properties.PropertiesProvider.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -65,5 +66,22 @@ public class PostDaoImpl implements PostDao {
         } catch(EmptyResultDataAccessException erda){
             return null;
         }
+    }
+
+    @Override
+    public List<Post> getPostsByTopicId(int topicId) {
+        return jdbcTemplate.query(sql.getProperty(GET_POSTS_BY_TOPIC_ID), postRowMapper, topicId);
+    }
+
+    @Override
+    public List<Post> getLimitedPostsByTopicId(final int topicId, 
+                                               final int resultsOnPageNumber,
+                                               final int limitNumberOfPostsInResult) {
+        final int startAtPostNumber = resultsOnPageNumber * limitNumberOfPostsInResult;
+        return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC_ID), 
+                                  postRowMapper, 
+                                  topicId, 
+                                  startAtPostNumber, 
+                                  limitNumberOfPostsInResult);
     }
 }
