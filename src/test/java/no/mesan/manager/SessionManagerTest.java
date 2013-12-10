@@ -25,22 +25,22 @@ public class SessionManagerTest {
     private static HttpSession httpSession;
     private static String guestString;
     private static User adminUser;
-    
+
     @BeforeClass
     public static void beforeClass() throws Exception {
         initializeTestUsers();
     }
-    
+
     private static void initializeTestUsers() {
-        final User.Builder adminBuilder = new User.Builder("admin", 
-                                                           "dummy@dummymail.com", 
-                                                           "ec29de432d53e2ddd0b574a4b5d6250667aefa259c1b14ba3a9d7289d642c01e", 
+        final User.Builder adminBuilder = new User.Builder("admin",
+                                                           "dummy@dummymail.com",
+                                                           "ec29de432d53e2ddd0b574a4b5d6250667aefa259c1b14ba3a9d7289d642c01e",
                                                            "80224678a05b29556a67e06db63ff4561623e50e402ee2e3b8c5b9bf049ca23c");
         adminBuilder.fullName("Hestemannen").locale(new Locale("en", "GB"));
         adminUser = new User(adminBuilder);
         guestString = "Guest";
     }
-    
+
     @Test
     public void getUsernameShouldReturnGuestWhenNoUserExists() {
         httpSession = mock(HttpSession.class);
@@ -49,7 +49,7 @@ public class SessionManagerTest {
         final String username = sessionManager.getUsername();
         assertEquals(guestString, username);
     }
-    
+
     @Test
     public void getUsernameShouldReturnTheUsernameAdminIfTheSessionBelongsToAdmin() {
         httpSession = mock(HttpSession.class);
@@ -58,6 +58,4 @@ public class SessionManagerTest {
         final String username = sessionManager.getUsername();
         assertEquals(adminUser.getUsername(), username);
     }
-    
-    
 }

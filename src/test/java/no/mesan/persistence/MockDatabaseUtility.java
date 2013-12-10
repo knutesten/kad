@@ -2,7 +2,11 @@ package no.mesan.persistence;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -14,13 +18,15 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.h2.tools.RunScript;
 
+import static no.mesan.persistence.SqlAndDataSetFileNames.*;
+
 /**
  * TODO
  *
  * @author Knut Esten Melandsø Nekså
  */
 public class MockDatabaseUtility {
-    private static final String CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;REFERENTIAL_INTEGRITY=false";
+    private static final String CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;REFERENTIAL_INTEGRITY=false;INIT=CREATE SCHEMA IF NOT EXISTS test";
     private static final String DRIVER_CLASS = "org.h2.Driver";
     private static final DataSource dataSource;
     static {
@@ -28,11 +34,24 @@ public class MockDatabaseUtility {
         basicDataSource.setDriverClassName(DRIVER_CLASS);
         basicDataSource.setUrl(CONNECTION_URL);
         dataSource = basicDataSource;
+        initializeDatabaseTables();
     }
 
-    public static void executeScript(final String script) throws SQLException {
+    private static void initializeDatabaseTables() {
+        try {
+            executeScript(SQL_COUNTRIES);
+            executeScript(SQL_USERS);
+            executeScript(SQL_FORUM);
+            executeScript(SQL_CATEGORIES);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void executeScript(final String script) throws SQLException {
         RunScript.execute(CONNECTION_URL, "", "", script, StandardCharsets.UTF_8, false);
     }
+
 
     public static DataSource getMockDataSource() {
         return dataSource;
