@@ -26,7 +26,7 @@ import static no.mesan.persistence.SqlAndDataSetFileNames.*;
  * @author Knut Esten Melandsø Nekså
  */
 public class MockDatabaseUtility {
-    private static final String CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;REFERENTIAL_INTEGRITY=false;INIT=CREATE SCHEMA IF NOT EXISTS test";
+    private static final String CONNECTION_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;REFERENTIAL_INTEGRITY=false";
     private static final String DRIVER_CLASS = "org.h2.Driver";
     private static final DataSource dataSource;
     static {

@@ -30,22 +30,21 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public int createPost(final Post post) {
-        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        final KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
             new PreparedStatementCreator() {
                 @Override
                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                    PreparedStatement preparedStatement = 
-                            connection.prepareStatement(sql.getProperty(CREATE_POST), 
-                                                        new String[] {"post_id"});
+                    final PreparedStatement preparedStatement =
+                            connection.prepareStatement(sql.getProperty(CREATE_POST), new String[] {"post_id"});
                     preparedStatement.setString(1, post.getCreatedBy().getUsername());
-                    preparedStatement.setLong(2, post.getCreatedTime().getTime());
+                    preparedStatement.setLong  (2, post.getCreatedTime().getTime());
                     preparedStatement.setString(3, post.getContent());
                     return preparedStatement;
                 }
-            }, 
+            },
             generatedKeyHolder);
-        
+
         return generatedKeyHolder.getKey().intValue();
     }
 
@@ -69,19 +68,19 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> getPostsByTopicId(int topicId) {
+    public List<Post> getPostsByTopicId(final int topicId) {
         return jdbcTemplate.query(sql.getProperty(GET_POSTS_BY_TOPIC_ID), postRowMapper, topicId);
     }
 
     @Override
-    public List<Post> getLimitedPostsByTopicId(final int topicId, 
+    public List<Post> getLimitedPostsByTopicId(final int topicId,
                                                final int resultsOnPageNumber,
                                                final int limitNumberOfPostsInResult) {
         final int startAtPostNumber = resultsOnPageNumber * limitNumberOfPostsInResult;
-        return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC_ID), 
-                                  postRowMapper, 
-                                  topicId, 
-                                  startAtPostNumber, 
+        return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC_ID),
+                                  postRowMapper,
+                                  topicId,
+                                  startAtPostNumber,
                                   limitNumberOfPostsInResult);
     }
 }

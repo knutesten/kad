@@ -43,21 +43,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(final User user) {
-        String localeString = null;
-        String countryCode = null;
-        if (user.getLocale() != null)
-            localeString = user.getLocale().toString();
-        if (user.getCountry() != null)
-            countryCode = user.getCountry().getCode();
         jdbcTemplate.update(sql.getProperty(UPDATE_USER), user.getEmail(),
                                                           user.getHash(),
                                                           user.getSalt(),
                                                           user.getFullName(),
-                                                          countryCode,
-                                                          localeString,
+                                                          getCountryCode(user),
+                                                          getLocaleString(user),
                                                           user.getUsername());
     }
-    
+
     @Override
     public User getUserById(final int id) {
         try {
