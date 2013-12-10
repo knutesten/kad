@@ -32,9 +32,6 @@ public class CountryDaoImplTest {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        MockDatabaseUtility.executeScript(SQL_DROP_TABLES);
-        MockDatabaseUtility.executeScript(SQL_COUNTRIES);
-
         final Properties sql        = new PropertiesProvider().createSqlProperties();
         final DataSource dataSource = MockDatabaseUtility.getMockDataSource();
 

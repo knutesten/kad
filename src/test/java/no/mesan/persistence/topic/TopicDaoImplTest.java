@@ -36,11 +36,6 @@ public class TopicDaoImplTest {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        MockDatabaseUtility.executeScript(SQL_DROP_TABLES);
-        MockDatabaseUtility.executeScript(SQL_COUNTRIES);
-        MockDatabaseUtility.executeScript(SQL_USERS);
-        MockDatabaseUtility.executeScript(SQL_FORUM);
-
         hestemann = mock(User.class);
         when(hestemann.getUsername()).thenReturn("hestemann");
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
