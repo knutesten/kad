@@ -15,7 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 public class CategoryRowMapper implements RowMapper<Category> {
     @Override
     public Category mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
+        final int    id   = resultSet.getInt("category_id");
         final String name = resultSet.getString("category_name");
-        return new Category(name);
+        return new Category(id, name);
     }
 }

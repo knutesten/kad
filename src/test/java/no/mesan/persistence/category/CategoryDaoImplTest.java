@@ -26,9 +26,9 @@ import javax.sql.DataSource;
  */
 public class CategoryDaoImplTest {
     private static final CategoryDao categoryDao = new CategoryDaoImpl();
-    private static final Category hester  = new Category("Hester");
-    private static final Category griser  = new Category("Griser");
-    private static final Category kameler = new Category("Kameler");
+    private static final Category hester  = new Category(1, "Hester");
+    private static final Category griser  = new Category(2, "Griser");
+    private static final Category kameler = new Category(3, "Kameler");
 
     @BeforeClass
     public static void beforeClass() throws Exception {

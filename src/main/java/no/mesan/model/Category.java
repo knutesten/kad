@@ -7,8 +7,10 @@ package no.mesan.model;
  */
 public class Category {
     private String name;
+    private final int id;
 
-    public Category(final String name) {
+    public Category(final int id, final String name) {
+        this.id   = id;
         this.name = name;
     }
 
@@ -24,8 +26,12 @@ public class Category {
     public boolean equals(final Object object) {
         if (object instanceof Category) {
             final Category that = (Category) object;
-            return name.equals(that.name);
+            return name.equals(that.name) && id == that.id;
         }
         return false;
+    }
+
+    public int getId() {
+        return id;
     }
 }
