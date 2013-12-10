@@ -34,9 +34,9 @@ public class PostDaoImpl implements PostDao {
         jdbcTemplate.update(
             new PreparedStatementCreator() {
                 @Override
-                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
                     final PreparedStatement preparedStatement =
-                            connection.prepareStatement(sql.getProperty(CREATE_POST), new String[] {"post_id"});
+                            connection.prepareStatement(sql.getProperty(CREATE_POST));
                     preparedStatement.setString(1, post.getCreatedBy().getUsername());
                     preparedStatement.setLong  (2, post.getCreatedTime().getTime());
                     preparedStatement.setString(3, post.getContent());

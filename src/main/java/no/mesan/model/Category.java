@@ -19,4 +19,13 @@ public class Category {
     public void setName(final String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (object instanceof Category) {
+            final Category that = (Category) object;
+            return name.equals(that.name);
+        }
+        return false;
+    }
 }
