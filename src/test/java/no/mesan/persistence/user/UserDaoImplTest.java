@@ -38,6 +38,7 @@ public class UserDaoImplTest {
         final Properties sql        = new PropertiesProvider().createSqlProperties();
         final DataSource dataSource = MockDatabaseUtility.getMockDataSource();
 
+        @SuppressWarnings("unchecked")
         final Map<String, Country> countryCache = mock(Map.class);
         when(countryCache.containsKey(anyString())).thenReturn(true);
         final UserRowMapper userRowMapper = new UserRowMapper();

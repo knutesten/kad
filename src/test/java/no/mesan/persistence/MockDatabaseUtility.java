@@ -2,11 +2,7 @@ package no.mesan.persistence;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
 
