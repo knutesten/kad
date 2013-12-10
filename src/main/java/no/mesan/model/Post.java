@@ -21,12 +21,8 @@ public class Post {
         this.content = content;
     }
     
-    public Post(final int postId, 
-                final User createdBy, 
-                final Date createdTime, 
-                final User lastEditedBy, 
-                final Date lastEditedTime, 
-                final String content) {
+    public Post(final int postId, final User createdBy, final Date createdTime, 
+                final User lastEditedBy, final Date lastEditedTime, final String content) {
         this.postId = postId;
         this.createdBy = createdBy;
         this.createdTime = createdTime;

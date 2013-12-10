@@ -6,10 +6,12 @@ package no.mesan.persistence;
  * @author Knut Esten Melandsø Nekså
  */
 public class SqlAndDataSetFileNames {
-    private static final String SQL_PREFIX = "database/create_tables/";
-    public static final String SQL_COUNTRIES = SQL_PREFIX + "create_countries_tables.sql";
-    public static final String SQL_USERS     = SQL_PREFIX + "create_user_tables.sql";
-    public static final String SQL_FORUM     = SQL_PREFIX + "create_forum_tables.sql";
+    private static final String SQL_PREFIX      = "database/create_tables/";
+    private static final String SQL_DROP_PREFIX = "database/drop_tables/";
+    public static final String SQL_COUNTRIES    = SQL_PREFIX + "create_countries_tables.sql";
+    public static final String SQL_USERS        = SQL_PREFIX + "create_user_tables.sql";
+    public static final String SQL_FORUM        = SQL_PREFIX + "create_forum_tables.sql";
+    public static final String SQL_DROP_TABLES  = SQL_DROP_PREFIX + "drop_tables.sql";
 
     private static final String DATA_SET_PREFIX = "database/test_data_sets/";
     public static final String DATA_SET_COUNTRIES          = DATA_SET_PREFIX + "countries.xml";

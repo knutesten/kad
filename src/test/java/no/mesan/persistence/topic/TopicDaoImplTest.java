@@ -36,6 +36,7 @@ public class TopicDaoImplTest {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
+        MockDatabaseUtility.executeScript(SQL_DROP_TABLES);
         MockDatabaseUtility.executeScript(SQL_COUNTRIES);
         MockDatabaseUtility.executeScript(SQL_USERS);
         MockDatabaseUtility.executeScript(SQL_FORUM);

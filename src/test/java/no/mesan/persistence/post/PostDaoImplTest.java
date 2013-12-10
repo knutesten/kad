@@ -37,6 +37,7 @@ public class PostDaoImplTest {
     
     @BeforeClass
     public static void beforeClass() throws Exception {
+        MockDatabaseUtility.executeScript(SQL_DROP_TABLES);
         MockDatabaseUtility.executeScript(SQL_COUNTRIES);
         MockDatabaseUtility.executeScript(SQL_USERS);
         MockDatabaseUtility.executeScript(SQL_FORUM);
@@ -68,7 +69,7 @@ public class PostDaoImplTest {
         final User.Builder hestemannBuilder = new User.Builder("hestemann", "hest@hest.no", "pass1", "salt1");
         hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO"));
         hestemann = new User(hestemannBuilder);
-        }
+    }
     
     private static void initializeTestPosts() {
         TEST_POST = new Post(1, testmann, new Date(0), testmann, new Date(15), "testpost med edit");
@@ -91,7 +92,7 @@ public class PostDaoImplTest {
     
     @Test
     public void getPostByIdShouldReturnNullWhenTheIdDoesNotExist() {
-        final Post post = postDao.getPostById(10);
+        final Post post = postDao.getPostById(4502);
         assertNull(post);
     }
 
