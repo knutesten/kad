@@ -12,9 +12,10 @@ import java.util.List;
  */
 public interface TopicDao {
 
-    public void createTopic(Topic topic);
-    public void updateTopic(Topic topic);
+    public void createTopic(final Topic topic);
+    public void updateTopic(final Topic topic);
     public Topic getTopicByTitle(final String title);
     public List<Topic> getTopicsByCreator(final User creator);
     public int getNumberOfPostsInTopic(final int topicId);
+    public Topic getTopicByTopicId(final int topicId);
 }

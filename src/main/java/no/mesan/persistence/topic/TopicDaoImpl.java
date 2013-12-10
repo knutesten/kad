@@ -42,12 +42,21 @@ public class TopicDaoImpl implements TopicDao {
                                                            topic.getCreatedTime().getTime(),
                                                            topic.getTitle());
     }
-
+    
+    @Override
+    public Topic getTopicByTopicId(final int topicId) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_TOPIC_BY_TOPIC_ID), topicRowMapper, topicId);
+        } catch(EmptyResultDataAccessException erdae) {
+            return null;
+        }
+    }
+    
     @Override
     public Topic getTopicByTitle(final String title) {
         try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_TOPIC_BY_TITLE), topicRowMapper, title);
-        } catch(EmptyResultDataAccessException erda){
+        } catch(EmptyResultDataAccessException erdae) {
             return null;
         }
     }

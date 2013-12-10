@@ -67,6 +67,18 @@ public class TopicDaoImplTest {
     }
 
     @Test
+    public void getTopicByTopicIdShouldReturnHesterErFineTopicWhenInputIs1() {
+        final Topic hesterErFine = topicDao.getTopicByTopicId(1);
+        topicsAreEqual(HESTER_ER_FINE, hesterErFine);
+    }
+    
+    @Test
+    public void getTopicByTopicIdShouldReturnNullWhenTheTopicDoesNotExist() {
+        final Topic noTopic = topicDao.getTopicByTopicId(123123);
+        assertNull(noTopic);
+    }
+    
+    @Test
     public void getTopicByTitleShouldReturnHesterErFineTopicWhenInputIsHesterErFine() {
         final Topic hesterErFine = topicDao.getTopicByTitle("Hester er fine");
         topicsAreEqual(HESTER_ER_FINE, hesterErFine);
