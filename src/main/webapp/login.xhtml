@@ -1,29 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: deanl
-  Date: 29.11.13
-  Time: 13:40
--->
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html">
 
 <h:body>
-    <form method="post" action="j_security_check" name="loginForm">
-        <h:panelGrid columns="2">
-            <h:outputLabel id="userNameLabel" for="j_username" value="#{i18n['login.username']}" />
-            <h:inputText id="j_username" />
-            <h:outputLabel id="passwordLabel" for="j_password" value="#{i18n['login.password']}" />
-            <h:inputSecret id="j_password" />
-            <h:panelGroup>
-                <h:commandButton action="j_security_check" type="submit" value="#{i18n['login.login']}" />
-            </h:panelGroup>
-        </h:panelGrid>
-    </form>
+    <h:form>
+        <h:inputText value="#{loginController.username}"/>
+        <h:inputSecret value="#{loginController.password}"/>
+        <h:commandButton value="Login" action="#{loginController.login}"/>
+    </h:form>
 </h:body>
 </html>
 
