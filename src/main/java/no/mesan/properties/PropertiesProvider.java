@@ -13,18 +13,20 @@ import javax.enterprise.inject.Produces;
  * @author Knut Esten Melandsø Nekså
  */
 public class PropertiesProvider {
-    public static final String DATABASE_JNDI        = "database_jndi";
+    public static final String DATABASE_JNDI = "database_jndi";
 
-    public static final String CREATE_USER          = "create_user";
-    public static final String UPDATE_USER          = "update_user";
-    public static final String GET_USER_BY_USERNAME = "get_user_by_username";
-    public static final String GET_USER_BY_ID       = "get_user_by_id";
-    public static final String GET_USER_BY_EMAIL    = "get_user_by_email";
-    public static final String GET_USERS            = "get_users";
-    public static final String GET_USER_GROUPS      = "get_user_groups";
+    public static final String CREATE_USER                = "create_user";
+    public static final String UPDATE_USER                = "update_user";
+    public static final String GET_USER_BY_USERNAME       = "get_user_by_username";
+    public static final String GET_USER_BY_ID             = "get_user_by_id";
+    public static final String GET_USER_BY_EMAIL          = "get_user_by_email";
+    public static final String GET_USERS                  = "get_users";
+    public static final String ADD_USER_TO_USERGROUP      = "add_user_to_usergroup";
+    public static final String REMOVE_USER_FROM_USERGROUP = "remove_user_from_usergroup";
+    public static final String GET_USER_GROUP_ID_BY_NAME  = "get_user_group_id_by_name";
+    public static final String GET_USER_GROUPS            = "get_user_groups";
 
     public static final String GET_COUNTRIES       = "get_countries";
-
     public static final String GET_COUNTRY_BY_CODE = "get_country_by_code";
     public static final String GET_COUNTRY_BY_NAME = "get_country_by_name";
 
@@ -35,7 +37,7 @@ public class PropertiesProvider {
     public static final String GET_TOPIC_BY_CREATOR          = "get_topic_by_creator";
     public static final String GET_NUMBER_OF_POSTS_IN_TOPIC  = "get_number_of_posts_in_topic";
     public static final String GET_LIMITED_POSTS_BY_TOPIC_ID = "get_limited_posts_by_topic_id";
-    public static final String GET_TOPICS_BY_CATEGORY         = "get_topics_by_category";
+    public static final String GET_TOPICS_BY_CATEGORY        = "get_topics_by_category";
 
     public static final String CREATE_POST           = "create_post";
     public static final String UPDATE_POST           = "update_post";

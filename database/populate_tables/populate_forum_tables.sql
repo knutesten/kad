@@ -7,7 +7,10 @@ INSERT INTO topics
   (topic_id, topic_title, topic_createdBy, topic_createdTime)
 VALUES
   ('1','Test Topic','admin','10'),
-  ('2', 'New Test Topic','admin','300');
+  ('2', 'New Test Topic','admin','300'),
+  ('3','Gris1 Topic','admin','100'),
+  ('4','Gris2 Topic','admin','200'),
+  ('5','Gris3 Topic','admin','3000');
 
 -- -----------------------------------------------------
 -- Populate posts table
