@@ -1,5 +1,6 @@
 package no.mesan.persistence.user;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -20,7 +21,7 @@ import org.powermock.reflect.Whitebox;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static no.mesan.persistence.SqlAndDataSetFileNames.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -32,6 +33,7 @@ public class UserDaoImplTest {
     private static final UserDao userDao = new UserDaoImpl();
     private static User hestemann;
     private static User grisemann;
+    private static User testmann;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -59,6 +61,9 @@ public class UserDaoImplTest {
         final User.Builder grisemannBuilder = new User.Builder("grisemann", "gris@gris.no", "pass2", "salt2");
         grisemannBuilder.fullName("Gris Grisson").locale(new Locale("en", "GB"));
         grisemann = new User(grisemannBuilder);
+        final User.Builder testmannBuilder = new User.Builder("testmann", "test@testesen.no", "pass3", "salt3");
+        testmannBuilder.fullName("").locale(new Locale("en", "GB"));
+        testmann = new User(testmannBuilder);
     }
 
     @Before
@@ -110,13 +115,41 @@ public class UserDaoImplTest {
         assertUserEquals(hestemann, usersFromDatabase.get(0));
         assertUserEquals(grisemann, usersFromDatabase.get(1));
     }
+    
+    @Test
+    public void addUserToUserGroupShouldAddGrisemannToTheUserUserGroupWhenInputIsGrisemannAndUser() {
+        userDao.addUserToUserGroup(grisemann, "user");
+        final List<SimplePrincipal> userGroups = userDao.getUserGroups("grisemann");
+        final SimplePrincipal user = new SimplePrincipal("user");
+        assertEquals(user, userGroups.get(0));
+    }
+    
+    @Test
+    public void removeUserFromUserGroupShouldRemoveTestmannFromTheAdminUserGroupWhenInputIsTestmannAndAdmin() {
+        userDao.removeUserFromUserGroup(testmann, "admin");
+        final List<SimplePrincipal> emptyList = Collections.emptyList();
+        final List<SimplePrincipal> noUserGroups = userDao.getUserGroups("testmann");
+        assertEquals(emptyList, noUserGroups);
+    }
 
+    @Test
+    public void getUserGroupIdByNameShouldReturn1WhenInputIsUser() {
+        final int expectedUserGroupId = 1;
+        final int userGroupId = userDao.getUserGroupIdByName("user");
+        assertEquals(expectedUserGroupId, userGroupId);
+    }
+    
+    @Test
+    public void getUserGroupIdByNameShouldReturnNullWhenInputIsAUserGroupThatDoesNotExist() {
+        final Integer userGroupId = userDao.getUserGroupIdByName("ausergroupthatdoesnotexist");
+        assertNull(userGroupId);
+    }
+    
     @Test
     public void getUserGroupsShouldReturnAllAdminAndUserUserGroupsForUserHestemann() {
         final List<SimplePrincipal> userGroups = userDao.getUserGroups("hestemann");
         final SimplePrincipal user  = new SimplePrincipal("user");
         final SimplePrincipal admin = new SimplePrincipal("admin");
-
         assertEquals(user,  userGroups.get(0));
         assertEquals(admin, userGroups.get(1));
     }

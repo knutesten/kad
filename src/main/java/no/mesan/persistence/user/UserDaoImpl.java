@@ -85,6 +85,27 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void addUserToUserGroup(final User user, final String userGroupName) {
+        jdbcTemplate.update(sql.getProperty(ADD_USER_TO_USERGROUP), user.getUsername(), userGroupName);
+    }
+
+    @Override
+    public void removeUserFromUserGroup(final User user, final String userGroupName) {
+        jdbcTemplate.update(sql.getProperty(REMOVE_USER_FROM_USERGROUP), user.getUsername(), userGroupName);
+    }
+    
+    @Override
+    public Integer getUserGroupIdByName(final String userGroupName) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_GROUP_ID_BY_NAME), 
+                                               Integer.class, 
+                                               userGroupName);
+        } catch (EmptyResultDataAccessException erdae) {
+            return null;
+        }
+    }
+
+    @Override
     public List<SimplePrincipal> getUserGroups(final String username) {
         return jdbcTemplate.query(sql.getProperty(GET_USER_GROUPS), userGroupRowMapper, username);
     }

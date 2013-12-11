@@ -56,7 +56,6 @@ public class NewUserController {
     @PostConstruct
     public void init() {
         countries = countryDao.getCountries();
-
     }
 
     public void registerNewUser() {
@@ -67,6 +66,7 @@ public class NewUserController {
         final String salt     = encryption.generateSalt();
         final String hash     = encryption.generatePasswordHash(password, salt);
         final Country country = countryDao.getCountryByName(countryName);
+        final String defaultUserGroup = "user";
 
         final User.Builder userBuilder = new User.Builder(username, email, hash, salt);
         userBuilder.locale(locale)
@@ -74,6 +74,7 @@ public class NewUserController {
 
         final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
+        userDao.addUserToUserGroup(newUser, defaultUserGroup);
     }
 
     boolean confirmPassword() {
