@@ -115,7 +115,7 @@ public class TopicDaoImplTest {
     @Test
     public void getTopicsByCategoryShouldGetAllTopicsFromHesterCategoryWhenInputIsHesterCategory() throws Exception {
         MockDatabaseUtility.createDataSet(DATA_SET_TOPIC_IN_CATEGORY);
-        final Category hester = new Category(1, "Hester");
+        final Category hester = new Category(1, "Hester", mock(Topic.class));
         final List<Topic> topicsInCategory = topicDao.getTopicsByCategory(hester, 1, 2);
         assertEquals(2, topicsInCategory.size());
         topicsAreEqual(HESTER_ER_FINE, topicsInCategory.get(0));

@@ -64,6 +64,22 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean equals(final Object object) {
+        if (object instanceof User) {
+            final User that = (User) object;
+            return username.equals(that.username) &&
+                   email   .equals(that.email)    &&
+                   hash    .equals(that.hash)     &&
+                   fullName.equals(that.fullName) &&
+                   country .equals(that.country)  &&
+                   salt    .equals(that.salt)     &&
+                   locale  .equals(that.locale);
+
+        }
+        return false;
+    }
+
     public String getUsername() {
         return username;
     }

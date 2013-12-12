@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <categories category_id="1" category_name="Hester" />
-    <categories category_id="2" category_name="Griser" />
-    <categories category_id="3" category_name="Kameler"/>
+    <categories category_id="1" category_name="Hester"  category_lastUpdatedTopicId="1"/>
+    <categories category_id="2" category_name="Griser"  category_lastUpdatedTopicId="2"/>
+    <categories category_id="3" category_name="Kameler" category_lastUpdatedTopicId="3"/>
 </dataset>

@@ -10,9 +10,10 @@ public class Category {
     private Topic lastUpdatedTopic;
     private final int id;
 
-    public Category(final int id, final String name) {
-        this.id   = id;
-        this.name = name;
+    public Category(final int id, final String name, final Topic lastUpdatedTopic) {
+        this.id               = id;
+        this.name             = name;
+        this.lastUpdatedTopic = lastUpdatedTopic;
     }
 
     public String getName() {
@@ -27,7 +28,9 @@ public class Category {
     public boolean equals(final Object object) {
         if (object instanceof Category) {
             final Category that = (Category) object;
-            return name.equals(that.name) && id == that.id;
+            return name.equals(that.name) &&
+                   id == that.id          &&
+                   lastUpdatedTopic.equals(that.lastUpdatedTopic);
         }
         return false;
     }
@@ -35,6 +38,14 @@ public class Category {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public Topic getLastUpdatedTopic() {
+        return lastUpdatedTopic;
+    }
+
+    public void setLastUpdatedTopic(final Topic lastUpdatedTopic) {
+        this.lastUpdatedTopic = lastUpdatedTopic;
     }
 
     public int getId() {

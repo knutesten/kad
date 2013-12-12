@@ -25,6 +25,18 @@ public class Topic {
         return title;
     }
 
+    @Override
+    public boolean equals(final Object object) {
+        if (object instanceof Topic) {
+            final Topic that = (Topic) object;
+            return title.equals(that.title)             &&
+                   createdBy.equals(that.createdBy)     &&
+                   createdTime.equals(that.createdTime) &&
+                   id == that.id;
+        }
+        return false;
+    }
+
     public void setTitle(final String title) {
         this.title = title;
     }
