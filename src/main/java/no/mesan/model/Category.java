@@ -28,9 +28,14 @@ public class Category {
     public boolean equals(final Object object) {
         if (object instanceof Category) {
             final Category that = (Category) object;
+
+            boolean topicsAreEqual = lastUpdatedTopic == null && that.lastUpdatedTopic == null;
+            if (lastUpdatedTopic != null)
+                topicsAreEqual = lastUpdatedTopic.equals(that.lastUpdatedTopic);
+
             return name.equals(that.name) &&
                    id == that.id          &&
-                   lastUpdatedTopic.equals(that.lastUpdatedTopic);
+                   topicsAreEqual;
         }
         return false;
     }

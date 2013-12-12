@@ -22,9 +22,13 @@ public class CategoryRowMapper implements RowMapper<Category> {
 
     @Override
     public Category mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
-        final int    id               = resultSet.getInt("category_id");
-        final String name             = resultSet.getString("category_name");
-        final Topic  lastUpdatedTopic = topicDao.getTopicById(resultSet.getInt("category_lastUpdatedTopicId"));
+        final int    id                  = resultSet.getInt("category_id");
+        final String name                = resultSet.getString("category_name");
+        final Integer lastUpdatedTopicId = (Integer) resultSet.getObject("category_lastUpdatedTopicId");
+
+        Topic lastUpdatedTopic = null;
+        if (lastUpdatedTopicId != null)
+            lastUpdatedTopic = topicDao.getTopicById(lastUpdatedTopicId);
         return new Category(id, name, lastUpdatedTopic);
     }
 }

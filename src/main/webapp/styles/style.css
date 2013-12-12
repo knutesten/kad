@@ -1,3 +1,7 @@
 .ui-accordion .ui-accordion-content {
     padding: 0;
 }
+
+.hide-header thead {
+    display: none;
+}

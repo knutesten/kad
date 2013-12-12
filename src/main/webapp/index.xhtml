@@ -6,8 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jstl/core">
 
 <h:body>
 
@@ -19,11 +18,12 @@
                           var="category">
             <p:tab title="#{category.name}" disabled="#{frontPageController.disableTab(category)}">
                 <p:dataTable value="#{frontPageController.getTopicsByCategory(category)}"
-                             var="topic">
-                    <p:column headerText="#{i18n['front_page.topic_created_by_header']}">
-                        #{topic.createdBy}
-                    </p:column>
-                    <p:column headerText="#{i18n['front_page.topic_title_header']}">
+                             var="topic"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             rows="10"
+                             styleClass="hide-header">
+                    <p:column>
                         #{topic.title}
                     </p:column>
                 </p:dataTable>
