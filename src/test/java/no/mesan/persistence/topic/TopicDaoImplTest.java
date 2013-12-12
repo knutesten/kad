@@ -164,7 +164,7 @@ public class TopicDaoImplTest {
         final String title     = "Hester er kule";
         final Date  createdTime = new Date();
         final Topic newTopic   = new Topic(4, title, hestemann, createdTime);
-        topicDao.createTopic(newTopic);
+        topicDao.createTopic(newTopic, null);
 
         final Topic newTopicFromDatabase = topicDao.getTopicByTitle(title);
         topicsAreEqual(newTopic, newTopicFromDatabase);

@@ -1,5 +1,6 @@
 package no.mesan.persistence.topic;
 
+import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
@@ -7,9 +8,15 @@ import no.mesan.properties.Sql;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import javax.inject.Inject;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
@@ -29,10 +36,27 @@ public class TopicDaoImpl implements TopicDao {
     private TopicRowMapper topicRowMapper;
 
     @Override
-    public void createTopic(final Topic topic){
-        jdbcTemplate.update(sql.getProperty(CREATE_TOPIC), topic.getTitle(),
-                                                           topic.getCreatedBy().getUsername(),
-                                                           topic.getCreatedTime().getTime());
+    public void createTopic(final Topic topic, final Category category){
+        final KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+            new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
+                    final PreparedStatement preparedStatement =
+                            connection.prepareStatement(sql.getProperty(CREATE_TOPIC));
+                    preparedStatement.setString(1, topic.getTitle());
+                    preparedStatement.setString(2, topic.getCreatedBy().getUsername());
+                    preparedStatement.setLong(3, topic.getCreatedTime().getTime());
+                    return preparedStatement;
+                }
+            },
+            generatedKeyHolder);
+
+        topic.setId(generatedKeyHolder.getKey().intValue());
+        
+        
+        jdbcTemplate.update(sql.getProperty(ADD_TOPIC_TO_CATEGORY), topic.getId(),
+                                                                    category.getId());
     }
 
     @Override

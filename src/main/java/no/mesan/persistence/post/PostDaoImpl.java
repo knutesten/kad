@@ -29,7 +29,7 @@ public class PostDaoImpl implements PostDao {
     private PostRowMapper postRowMapper;
 
     @Override
-    public int createPost(final Post post) {
+    public void createPost(final Post post) {
         final KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
             new PreparedStatementCreator() {
@@ -45,7 +45,7 @@ public class PostDaoImpl implements PostDao {
             },
             generatedKeyHolder);
 
-        return generatedKeyHolder.getKey().intValue();
+        post.setPostId(generatedKeyHolder.getKey().intValue());
     }
 
     @Override

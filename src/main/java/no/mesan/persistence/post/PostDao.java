@@ -10,7 +10,7 @@ import no.mesan.model.Post;
  * @author Anders Grotthing Moe
  */
 public interface PostDao {
-    public int createPost(final Post post);
+    public void createPost(final Post post);
     public void updatePost(final Post post);
     public Post getPostById(final int id);
     public List<Post> getPostsByTopicId(final int topicId);

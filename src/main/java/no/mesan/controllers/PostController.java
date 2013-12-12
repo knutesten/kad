@@ -31,8 +31,8 @@ public class PostController {
         String content = "Dette er jo en ny flott testpost fra admin hestemannen";
         Post post = new Post(createdBy, createdTime, content);
         
-        int postId = postDao.createPost(post);
-        System.out.println("New POST with id: " + postId);
+        postDao.createPost(post);
+        System.out.println("New POST with id: " + post.getPostId());
         //Stuff must be done about such things as what kind of topic its in and ....
         
     }
