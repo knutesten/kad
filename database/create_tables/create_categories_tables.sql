@@ -1,7 +1,7 @@
 CREATE TABLE categories (
   category_id                 INT          NOT NULL AUTO_INCREMENT,
-  category_lastUpdatedTopicId INT,
   category_name               VARCHAR(255) NOT NULL UNIQUE,
+  category_lastUpdatedTopicId INT,
   PRIMARY KEY (category_id),
   FOREIGN KEY (category_lastUpdatedTopicId)
     REFERENCES topics(topic_id)
