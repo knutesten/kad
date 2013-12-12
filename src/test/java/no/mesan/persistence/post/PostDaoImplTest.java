@@ -159,49 +159,49 @@ public class PostDaoImplTest {
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAListWithTheCorrectPostsBasedOnTheLimit() {
         final int topicId = 1;
-        final int limitNumberOfPostsInResult = 2;
-        final int numberOfPostsOnPageThatIsNotFull = 1;
-        int resultsOnPageNumber = 0;
-        List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, limitNumberOfPostsInResult);
+        final int userLimitedNumberOfPosts = 2;
+        final int expectedNumberOfPostsOnPageThatIsNotFull = 1;
+        int pageNumber = 1;
+        List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
         postsAreEqual(TEST_POST_ONE, posts.get(0));
         postsAreEqual(TEST_POST_THREE, posts.get(1));
-        assertEquals(limitNumberOfPostsInResult, posts.size());
+        assertEquals(userLimitedNumberOfPosts, posts.size());
         
-        resultsOnPageNumber = 1;
-        posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, limitNumberOfPostsInResult);
+        pageNumber = 2;
+        posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
         postsAreEqual(TEST_POST_FOUR, posts.get(0));
         postsAreEqual(TEST_POST_FIVE, posts.get(1));
-        assertEquals(limitNumberOfPostsInResult, posts.size());
+        assertEquals(userLimitedNumberOfPosts, posts.size());
         
-        resultsOnPageNumber = 2;
-        posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, limitNumberOfPostsInResult);
+        pageNumber = 3;
+        posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
         postsAreEqual(TEST_POST_SIX, posts.get(0));
-        assertEquals(numberOfPostsOnPageThatIsNotFull, posts.size());
+        assertEquals(expectedNumberOfPostsOnPageThatIsNotFull, posts.size());
     }
 
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAnEmptyListWhenThereAreNoPostsOnTheGivenPage() {
         final int topicId = 1;
-        final int limitNumberOfPostsInResult = 2;
+        final int userLimitedNumberOfPosts = 2;
         final int resultsOnPageNumber = 123123;
         final List<Post> emptyPostList = Collections.emptyList();
-        List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, limitNumberOfPostsInResult);
+        List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, userLimitedNumberOfPosts);
         assertEquals(emptyPostList, posts);
     }
     
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAllPostsBelongingToTheTopicIfTheLimitIsLargerThanPostCount() {
             final int topicId = 1;
-            final int numberOfPostsInResult = 5;
-            final int limitNumberOfPostsInResult = 20;
-            final int resultsOnPageNumber = 0;
-            final List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, limitNumberOfPostsInResult);
+            final int expectedNumberOfPostsInResult = 5;
+            final int userLimitedNumberOfPosts = 20;
+            final int resultsOnPageNumber = 1;
+            final List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, userLimitedNumberOfPosts);
             postsAreEqual(TEST_POST_ONE, posts.get(0));
             postsAreEqual(TEST_POST_THREE, posts.get(1));
             postsAreEqual(TEST_POST_FOUR, posts.get(2));
             postsAreEqual(TEST_POST_FIVE, posts.get(3));
             postsAreEqual(TEST_POST_SIX, posts.get(4));
-            assertEquals(numberOfPostsInResult, posts.size());
+            assertEquals(expectedNumberOfPostsInResult, posts.size());
     }
     
     private void postsAreEqual(final Post expected, final Post actual) {

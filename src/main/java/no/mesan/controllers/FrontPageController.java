@@ -50,7 +50,7 @@ public class FrontPageController {
 
     private List<Topic> getTopicsByCategoryCache(final Category category) {
         if (!topicsInCategoryCache.containsKey(category))
-            topicsInCategoryCache.put(category, topicDao.getTopicsByCategory(category, 1, 10));
+            topicsInCategoryCache.put(category, topicDao.getTopicsByCategory(category.getId(), 1, 10));
         return topicsInCategoryCache.get(category);
     }
 }
