@@ -1,5 +1,6 @@
 package no.mesan.persistence.topic;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.MockDatabaseUtility;
@@ -34,6 +34,10 @@ public class TopicDaoImplTest {
     private static Topic HESTER_ER_FINE;
     private static Topic HESTER_ER_SKUMLE;
     private static Topic HESTER_ER_STYGGE;
+    private static Topic TEST_1;
+    private static Topic TEST_2;
+    private static Topic TEST_3;
+    private static Topic TEST_4;
     private static User hestemann;
 
     @BeforeClass
@@ -44,9 +48,13 @@ public class TopicDaoImplTest {
         when(grisemann.getUsername()).thenReturn("grisemann");
 
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
-        HESTER_ER_STYGGE = new Topic(3, "Hester er stygge", grisemann, new Date(10));
+        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10));
         HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20));
-
+        TEST_1           = new Topic(4, "test1", hestemann, new Date(30));
+        TEST_2           = new Topic(5, "test2", hestemann, new Date(40));
+        TEST_3           = new Topic(6, "test3", hestemann, new Date(50));
+        TEST_4           = new Topic(7, "test4", hestemann, new Date(60));
+        
         final TopicRowMapper topicRowMapper = new TopicRowMapper();
         final Map<String, User> userCache = new HashMap<>();
         userCache.put("hestemann", hestemann);
@@ -62,7 +70,9 @@ public class TopicDaoImplTest {
 
     @Before
     public void before() throws Exception {
+        MockDatabaseUtility.createDataSet(DATA_SET_CATEGOIRES);
         MockDatabaseUtility.createDataSet(DATA_SET_TOPICS);
+        MockDatabaseUtility.createDataSet(DATA_SET_TOPIC_IN_CATEGORY);
         MockDatabaseUtility.createDataSet(DATA_SET_POSTS);
         MockDatabaseUtility.createDataSet(DATA_SET_POST_IN_TOPIC);
     }
@@ -98,10 +108,14 @@ public class TopicDaoImplTest {
     }
 
     @Test
-    public void getTopicByCreatorShouldReturnHestemannsTwoTopicsWhenInputIsHestemann() {
+    public void getTopicByCreatorShouldReturnHestemannsSixTopicsWhenInputIsHestemann() {
         final List<Topic> topics = topicDao.getTopicsByCreator(hestemann);
-        topicsAreEqual(topics.get(0), HESTER_ER_SKUMLE);
-        topicsAreEqual(topics.get(1), HESTER_ER_FINE);
+        topicsAreEqual(TEST_4, topics.get(0));
+        topicsAreEqual(TEST_3, topics.get(1));
+        topicsAreEqual(TEST_2, topics.get(2));
+        topicsAreEqual(TEST_1, topics.get(3));
+        topicsAreEqual(HESTER_ER_SKUMLE, topics.get(4));
+        topicsAreEqual(HESTER_ER_FINE, topics.get(5));
     }
 
     @Test
@@ -111,15 +125,38 @@ public class TopicDaoImplTest {
         final List<Topic> topics = topicDao.getTopicsByCreator(userWithNoTopics);
         assertEquals(0, topics.size());
     }
-
+    
     @Test
-    public void getTopicsByCategoryShouldGetAllTopicsFromHesterCategoryWhenInputIsHesterCategory() throws Exception {
-        MockDatabaseUtility.createDataSet(DATA_SET_TOPIC_IN_CATEGORY);
-        final Category hester = new Category(1, "Hester", mock(Topic.class));
-        final List<Topic> topicsInCategory = topicDao.getTopicsByCategory(hester, 1, 2);
-        assertEquals(2, topicsInCategory.size());
-        topicsAreEqual(HESTER_ER_FINE, topicsInCategory.get(0));
-        topicsAreEqual(HESTER_ER_STYGGE, topicsInCategory.get(1));
+    public void getTopicsByCategoryShouldReturnAListWithTheCorrectTopicsBasedOnTheLimit() {
+        final int categoryId = 1;
+        final int userLimitedNumberOfTopics = 2;
+        final int expectedNumberOfTopicsOnPageThatIsNotFull = 1;
+        int pageNumber = 1;
+        List<Topic> topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        topicsAreEqual(TEST_4, topics.get(0));
+        topicsAreEqual(TEST_3, topics.get(1));
+        assertEquals(userLimitedNumberOfTopics, topics.size());
+        
+        pageNumber = 2;
+        topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        topicsAreEqual(TEST_2, topics.get(0));
+        topicsAreEqual(TEST_1, topics.get(1));
+        assertEquals(userLimitedNumberOfTopics, topics.size());
+        
+        pageNumber = 4;
+        topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        topicsAreEqual(HESTER_ER_FINE, topics.get(0));
+        assertEquals(expectedNumberOfTopicsOnPageThatIsNotFull, topics.size());
+    }
+    
+    @Test
+    public void getLimitedTopicsByCategoryShouldReturnAnEmptyListWhenThereAreNoTopicsOnTheGivenPage() {
+        final int categoryId = 1;
+        final int userLimitedNumberOfTopics = 2;
+        final int pageNumber = 123123123;
+        final List<Topic> emptyPostList = Collections.emptyList();
+        List<Topic> topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        assertEquals(emptyPostList, topics);
     }
 
     @Test

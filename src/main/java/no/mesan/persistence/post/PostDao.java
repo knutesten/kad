@@ -15,6 +15,6 @@ public interface PostDao {
     public Post getPostById(final int id);
     public List<Post> getPostsByTopicId(final int topicId);
     public List<Post> getLimitedPostsByTopicId(final int topicId, 
-                                               final int resultsOnPageNumber,
-                                               final int limitNumberOfPostsInResult);
+                                               final int pageNumber,
+                                               final int userLimitedNumberOfPosts);
 }

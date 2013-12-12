@@ -1,6 +1,5 @@
 package no.mesan.persistence.topic;
 
-import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.properties.Sql;
@@ -54,10 +53,15 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public List<Topic> getTopicsByCategory(final Category category, final int startId, final int numberOfTopics) {
-        return jdbcTemplate.query(sql.getProperty(GET_TOPICS_BY_CATEGORY), topicRowMapper, category.getId(),
-                                                                                           startId,
-                                                                                           numberOfTopics);
+    public List<Topic> getTopicsByCategory(final int categoryId, 
+                                           final int pageNumber, 
+                                           final int userLimitedNumberOfTopics) {
+        final int startAtTopicNumber = (pageNumber - 1) * userLimitedNumberOfTopics;
+        return jdbcTemplate.query(sql.getProperty(GET_TOPICS_BY_CATEGORY), 
+                                  topicRowMapper, 
+                                  categoryId,
+                                  startAtTopicNumber,
+                                  userLimitedNumberOfTopics);
     }
 
     @Override

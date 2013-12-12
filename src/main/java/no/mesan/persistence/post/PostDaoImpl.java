@@ -74,13 +74,13 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Post> getLimitedPostsByTopicId(final int topicId,
-                                               final int resultsOnPageNumber,
-                                               final int limitNumberOfPostsInResult) {
-        final int startAtPostNumber = resultsOnPageNumber * limitNumberOfPostsInResult;
+                                               final int pageNumber,
+                                               final int userLimitedNumberOfPosts) {
+        final int startAtPostNumber = (pageNumber - 1) * userLimitedNumberOfPosts;
         return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC_ID),
                                   postRowMapper,
                                   topicId,
                                   startAtPostNumber,
-                                  limitNumberOfPostsInResult);
+                                  userLimitedNumberOfPosts);
     }
 }
