@@ -45,7 +45,7 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public Topic getTopicByTopicId(final int topicId) {
+    public Topic getTopicById(final int topicId) {
         try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_TOPIC_BY_TOPIC_ID), topicRowMapper, topicId);
         } catch(EmptyResultDataAccessException erdae) {

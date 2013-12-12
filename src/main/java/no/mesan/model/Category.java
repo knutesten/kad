@@ -7,6 +7,7 @@ package no.mesan.model;
  */
 public class Category {
     private String name;
+    private Topic lastUpdatedTopic;
     private final int id;
 
     public Category(final int id, final String name) {
