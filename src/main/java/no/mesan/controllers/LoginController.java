@@ -2,7 +2,7 @@ package no.mesan.controllers;
 
 import java.io.IOException;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ import no.mesan.persistence.user.UserDao;
  * @author Knut Esten Melandsø Nekså
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class LoginController {
     private String username;
     private String password;
