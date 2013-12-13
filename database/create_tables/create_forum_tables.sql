@@ -1,20 +1,40 @@
--- -----------------------------------------------------
+-- -------------------------------------------------------------------------
 -- Create topic table
--- -----------------------------------------------------
+-- -------------------------------------------------------------------------
+CREATE TABLE categories (
+  category_id                 INT          NOT NULL AUTO_INCREMENT,
+  category_name               VARCHAR(255) NOT NULL UNIQUE,
+  category_lastUpdatedTopicId INT,
+  PRIMARY KEY (category_id)
+);
+
+-- -------------------------------------------------------------------------
+-- Create topic table
+-- -------------------------------------------------------------------------
 CREATE TABLE topics (
   topic_id           INT          NOT NULL AUTO_INCREMENT,
   topic_title        VARCHAR(255) NOT NULL UNIQUE,
   topic_createdBy    VARCHAR(30)  NOT NULL,
   topic_createdTime  BIGINT       NOT NULL,
+  topic_categoryId   INT          NOT NULL,
 
   PRIMARY KEY (topic_id),
   FOREIGN KEY (topic_createdBy)
-    REFERENCES users(user_username)
+    REFERENCES users(user_username),
+  FOREIGN KEY (topic_categoryId)
+    REFERENCES categories(category_Id)
 );
 
--- -----------------------------------------------------
+-- -------------------------------------------------------------------------
+-- Add foreign key constraint to Categories table for the last updated topic
+-- -------------------------------------------------------------------------
+ALTER TABLE categories ADD
+  FOREIGN KEY (category_lastUpdatedTopicId)
+    REFERENCES topics(topic_id);
+
+-- -------------------------------------------------------------------------
 -- Create post table
--- -----------------------------------------------------
+-- -------------------------------------------------------------------------
 CREATE TABLE posts (
   post_id             INT           NOT NULL AUTO_INCREMENT,
   post_createdBy      VARCHAR(30)   NOT NULL,
@@ -31,10 +51,9 @@ CREATE TABLE posts (
 
  );
 
--- -----------------------------------------------------
+-- -------------------------------------------------------------------------
 -- Create postInTopic table
--- -----------------------------------------------------
-
+-- -------------------------------------------------------------------------
 CREATE TABLE postInTopic (
   postInTopic_postId            INT NOT NULL,
   postInTopic_topicId           INT NOT NULL,

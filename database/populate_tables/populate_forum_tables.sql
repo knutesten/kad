@@ -3,47 +3,58 @@ USE kad;
 -- Populate topics table
 -- -----------------------------------------------------
 
+INSERT INTO categories (category_id, category_name) VALUES ('1', 'Hester'),
+                                                           ('2', 'Griser'),
+                                                           ('3', 'Kameler'),
+                                                           ('4', 'Kuer'),
+                                                           ('5', 'Høns'),
+                                                           ('6', 'Fugler');
+
+-- -----------------------------------------------------
+-- Populate topics table
+-- -----------------------------------------------------
+
 INSERT INTO topics
-  (topic_id, topic_title, topic_createdBy, topic_createdTime)
+  (topic_id, topic_title, topic_createdBy, topic_createdTime, topic_categoryId)
 VALUES
-  ('1','Test Topic','admin','10'),
-  ('2','New Test Topic','admin','300'),
-  ('3','Gris1 Topic','admin','100'),
-  ('4','Gris2 Topic','admin','200'),
-  ('5','Gris3 Topic','admin','3000'),
-  ('6','Hest1 Topic','admin','100'),
-  ('7','Hest2 Topic','admin','200'),
-  ('8','Hest3 Topic','admin','300'),
-  ('9','Kamel1 Topic','admin','100'),
-  ('10','Kamel2 Topic','admin','200'),
-  ('11','Kamel3 Topic','admin','300'),  
-  ('12','Ku1 Topic','admin','100'),
-  ('13','Ku2 Topic','admin','200'),
-  ('14','Ku3 Topic','admin','300'),
-  ('15','Høne1 Topic','admin','100'),
-  ('16','Høne2 Topic','admin','200'),
-  ('17','Høne3 Topic','admin','300'),
-  ('18','Høne4 Topic','admin','400'),
-  ('19','Høne5 Topic','admin','500'),
-  ('20','Høne6 Topic','admin','600'), 
-  ('21','Høne7 Topic','admin','700'),
-  ('22','Høne8 Topic','admin','800'),
-  ('23','Høne9 Topic','admin','900'),
-  ('24','Høne10 Topic','admin','1000'),
-  ('25','Høne11 Topic','admin','1100'),
-  ('26','Høne12 Topic','admin','1200'),
-  ('27','Hest4 Topic','admin','400'),
-  ('28','Hest5 Topic','admin','500'),
-  ('29','Hest6 Topic','admin','600'),
-  ('30','Hest7 Topic','admin','700'),
-  ('31','Hest8 Topic','admin','800'),
-  ('32','Hest9 Topic','admin','900'),
-  ('33','Hest10 Topic','admin','1000'),
-  ('34','Hest11 Topic','admin','1100'),
-  ('35','Hest12 Topic','admin','1200'),
-  ('36','Hest13 Topic','admin','1300'),
-  ('37','Hest14 Topic','admin','1400'),
-  ('38','Hest15 Topic','admin','1500');
+  ('1','Test Topic','admin','10','1'),
+  ('2','New Test Topic','admin','300','1'),
+  ('3','Gris1 Topic','admin','100','2'),
+  ('4','Gris2 Topic','admin','200','2'),
+  ('5','Gris3 Topic','admin','3000','2'),
+  ('6','Hest1 Topic','admin','100','1'),
+  ('7','Hest2 Topic','admin','200','1'),
+  ('8','Hest3 Topic','admin','300','1'),
+  ('9','Kamel1 Topic','admin','100','3'),
+  ('10','Kamel2 Topic','admin','200','3'),
+  ('11','Kamel3 Topic','admin','300','3'),  
+  ('12','Ku1 Topic','admin','100','4'),
+  ('13','Ku2 Topic','admin','200','4'),
+  ('14','Ku3 Topic','admin','300','4'),
+  ('15','Høne1 Topic','admin','100','5'),
+  ('16','Høne2 Topic','admin','200','5'),
+  ('17','Høne3 Topic','admin','300','5'),
+  ('18','Høne4 Topic','admin','400','5'),
+  ('19','Høne5 Topic','admin','500','5'),
+  ('20','Høne6 Topic','admin','600','5'), 
+  ('21','Høne7 Topic','admin','700','5'),
+  ('22','Høne8 Topic','admin','800','5'),
+  ('23','Høne9 Topic','admin','900','5'),
+  ('24','Høne10 Topic','admin','1000','5'),
+  ('25','Høne11 Topic','admin','1100','5'),
+  ('26','Høne12 Topic','admin','1200','5'),
+  ('27','Hest4 Topic','admin','400','1'),
+  ('28','Hest5 Topic','admin','500','1'),
+  ('29','Hest6 Topic','admin','600','1'),
+  ('30','Hest7 Topic','admin','700','1'),
+  ('31','Hest8 Topic','admin','800','1'),
+  ('32','Hest9 Topic','admin','900','1'),
+  ('33','Hest10 Topic','admin','1000','1'),
+  ('34','Hest11 Topic','admin','1100','1'),
+  ('35','Hest12 Topic','admin','1200','1'),
+  ('36','Hest13 Topic','admin','1300','1'),
+  ('37','Hest14 Topic','admin','1400','1'),
+  ('38','Hest15 Topic','admin','1500','1');
 
 -- -----------------------------------------------------
 -- Populate posts table

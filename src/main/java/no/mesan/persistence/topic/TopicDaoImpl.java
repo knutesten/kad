@@ -47,6 +47,7 @@ public class TopicDaoImpl implements TopicDao {
                         preparedStatement.setString(1, topic.getTitle());
                         preparedStatement.setString(2, topic.getCreatedBy().getUsername());
                         preparedStatement.setLong(3, topic.getCreatedTime().getTime());
+                        preparedStatement.setInt(4, category.getId());
                         return preparedStatement;
                     }
                 },
