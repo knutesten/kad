@@ -69,19 +69,27 @@ public class User {
 
     @Override
     public String toString() {
-        return username;
+        return String.format("{username=%s, email=%s, hash=%s, fullName=%s, country=%s, salt=%s, locale=%s, id=%d",
+                username, email, hash, fullName, country, salt, locale, id);
     }
 
     @Override
     public boolean equals(final Object object) {
         if (object instanceof User) {
             final User that = (User) object;
+
+            boolean fullNamesAreEqual = fullName == null && that.fullName == null;
+            if (fullName != null) fullNamesAreEqual = fullName.equals(that.fullName);
+
+            boolean countriesAreEqual = country == null && that.country == null;
+            if (country != null) countriesAreEqual = country.equals(that.country);
+
             return username.equals(that.username) &&
                    email   .equals(that.email)    &&
                    hash    .equals(that.hash)     &&
-                   fullName.equals(that.fullName) &&
-                   country .equals(that.country)  &&
                    salt    .equals(that.salt)     &&
+                   fullNamesAreEqual              &&
+                   countriesAreEqual              &&
                    id      ==      that.id        &&
                    locale  .equals(that.locale);
 

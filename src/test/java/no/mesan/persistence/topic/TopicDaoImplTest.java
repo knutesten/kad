@@ -125,7 +125,6 @@ public class TopicDaoImplTest {
     public void getTopicByCreatorShouldReturnAnEmptyArrayListWhenUserHasNoTopics() {
         final User userWithNoTopics = mock(User.class);
         when(userWithNoTopics.getUsername()).thenReturn("userWithNoTopics");
-        when(userWithNoTopics.getId()).thenReturn(null);
         final List<Topic> topics = topicDao.getTopicsByCreator(userWithNoTopics);
         assertEquals(0, topics.size());
     }
@@ -178,7 +177,7 @@ public class TopicDaoImplTest {
         topicsAreEqual(newTopic, newTopicFromDatabase);
     }
 
-    
+
 //TODO FIX THIS TEST
 //    @Test
 //    public void updateTopicShouldUpdateExistingTopicWithNewValues() {

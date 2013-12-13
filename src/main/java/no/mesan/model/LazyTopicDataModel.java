@@ -7,6 +7,7 @@ import no.mesan.persistence.topic.TopicDao;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
+import org.primefaces.model.SortOrder;
 
 /**
  * TODO
@@ -22,14 +23,14 @@ public class LazyTopicDataModel extends LazyDataModel<Topic> {
         this.category = category;
     }
 
+
     @Override
-    public List<Topic> load(final int first, final int pageSize,
-                            final List<SortMeta> multiSortMeta, final Map<String, String> filters) {
+    public List<Topic> load(final int first, final int pageSize, final String sortField, final SortOrder sortOrder, final Map<String, String> filters) {
         return topicDao.getLimitedTopicsByCategory(category, first, pageSize);
     }
 
     @Override
     public int getRowCount() {
-        return 1_000_036;
+        return 160_000;
     }
 }

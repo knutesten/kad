@@ -56,13 +56,13 @@ public class UserDaoImplTest {
 
     private static void initializeTestUsers() {
         final User.Builder hestemannBuilder = new User.Builder("hestemann", "hest@hest.no", "pass1", "salt1");
-        hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO"));
+        hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO")).id(1);
         hestemann = new User(hestemannBuilder);
         final User.Builder grisemannBuilder = new User.Builder("grisemann", "gris@gris.no", "pass2", "salt2");
-        grisemannBuilder.fullName("Gris Grisson").locale(new Locale("en", "GB"));
+        grisemannBuilder.fullName("Gris Grisson").locale(new Locale("en", "GB")).id(2);
         grisemann = new User(grisemannBuilder);
         final User.Builder testmannBuilder = new User.Builder("testmann", "test@testesen.no", "pass3", "salt3");
-        testmannBuilder.fullName("").locale(new Locale("en", "GB"));
+        testmannBuilder.fullName("").locale(new Locale("en", "GB")).id(3);
         testmann = new User(testmannBuilder);
     }
 
@@ -80,13 +80,13 @@ public class UserDaoImplTest {
         final User reddhare = new User(reddhareBuilder);
         userDao.createUser(reddhare);
         final User reddhareFromDatabase = userDao.getUserByUsername("reddhare");
-        assertUserEquals(reddhare, reddhareFromDatabase);
+        assertEquals(reddhare, reddhareFromDatabase);
     }
 
     @Test
     public void updateUserShouldUpdateTheUserInDatabaseWithUpdatedValues() {
         final User.Builder hestemannBuilder = new User.Builder("hestemann", "hest@hest.no", "pass1", "salt1");
-        hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO"));
+        hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO")).id(1);
         final User hestemannUpdated = new User(hestemannBuilder);
         hestemannUpdated.setHash("newPass");
         hestemannUpdated.setEmail("email@email.com");
@@ -94,28 +94,34 @@ public class UserDaoImplTest {
         hestemannUpdated.setLocale(new Locale("en", "US"));
         userDao.updateUser(hestemannUpdated);
         final User updatedHestemannFromDatabase = userDao.getUserByUsername("hestemann");
-        assertUserEquals(hestemannUpdated, updatedHestemannFromDatabase);
+        assertEquals(hestemannUpdated, updatedHestemannFromDatabase);
     }
 
     @Test
     public void getUserByUsernameShouldReturnHestemannUserWhenInputIsHestemann() {
         final User hestemannFromDatabase = userDao.getUserByUsername("hestemann");
-        assertUserEquals(hestemann, hestemannFromDatabase);
+        assertEquals(hestemann, hestemannFromDatabase);
     }
 
     @Test
     public void getUserByEmailShouldReturnHestemannUserWhenInputIsHestemannEmail() {
         final User hestemannFromDatabase = userDao.getUserByEmail("hest@hest.no");
-        assertUserEquals(hestemann, hestemannFromDatabase);
+        assertEquals(hestemann, hestemannFromDatabase);
+    }
+
+    @Test
+    public void getUserByIdShouldReturnHestemannWhenInputIs1() {
+        final User userFromDatabase = userDao.getUserById(1);
+        assertEquals(hestemann, userFromDatabase);
     }
 
     @Test
     public void getUsersShoudReturnAllUsers() {
         final List<User> usersFromDatabase = userDao.getUsers();
-        assertUserEquals(hestemann, usersFromDatabase.get(0));
-        assertUserEquals(grisemann, usersFromDatabase.get(1));
+        assertEquals(hestemann, usersFromDatabase.get(0));
+        assertEquals(grisemann, usersFromDatabase.get(1));
     }
-    
+
     @Test
     public void addUserToUserGroupShouldAddGrisemannToTheUserUserGroupWhenInputIsGrisemannAndUser() {
         userDao.addUserToUserGroup(grisemann, "user");
@@ -123,7 +129,7 @@ public class UserDaoImplTest {
         final SimplePrincipal user = new SimplePrincipal("user");
         assertEquals(user, userGroups.get(0));
     }
-    
+
     @Test
     public void removeUserFromUserGroupShouldRemoveTestmannFromTheAdminUserGroupWhenInputIsTestmannAndAdmin() {
         userDao.removeUserFromUserGroup(testmann, "admin");
@@ -138,13 +144,13 @@ public class UserDaoImplTest {
         final int userGroupId = userDao.getUserGroupIdByName("user");
         assertEquals(expectedUserGroupId, userGroupId);
     }
-    
+
     @Test
     public void getUserGroupIdByNameShouldReturnNullWhenInputIsAUserGroupThatDoesNotExist() {
         final Integer userGroupId = userDao.getUserGroupIdByName("ausergroupthatdoesnotexist");
         assertNull(userGroupId);
     }
-    
+
     @Test
     public void getUserGroupsShouldReturnAllAdminAndUserUserGroupsForUserHestemann() {
         final List<SimplePrincipal> userGroups = userDao.getUserGroups("hestemann");
@@ -152,14 +158,5 @@ public class UserDaoImplTest {
         final SimplePrincipal admin = new SimplePrincipal("admin");
         assertEquals(user,  userGroups.get(0));
         assertEquals(admin, userGroups.get(1));
-    }
-
-    private void assertUserEquals(final User expected, final User actual) {
-        assertEquals(expected.getUsername(), actual.getUsername());
-        assertEquals(expected.getEmail(),    actual.getEmail());
-        assertEquals(expected.getHash(),     actual.getHash());
-        assertEquals(expected.getSalt(),     actual.getSalt());
-        assertEquals(expected.getFullName(), actual.getFullName());
-        assertEquals(expected.getLocale(),   actual.getLocale());
     }
 }
