@@ -20,22 +20,22 @@ import java.util.Map;
 public class TopicRowMapper implements RowMapper<Topic> {
     @Inject
     private UserDao userDao;
-    private final Map<String, User> userCache = new HashMap<>();
+    private final Map<Integer, User> userCache = new HashMap<>();
 
     @Override
     public Topic mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
         final int id = resultSet.getInt("topic_id");
-        final String title = resultSet.getString("topic_title");
-        final User createdBy = getUser(resultSet.getString("topic_createdBy"));
+        final User createdBy = getUser(resultSet.getInt("topic_createdBy"));
         final Date createdTime = new Date(resultSet.getLong("topic_createdTime"));
-
+        final String title = resultSet.getString("topic_title");
+        
         return new Topic(id, title, createdBy, createdTime);
     }
 
-    private User getUser(final String username){
-        if(!userCache.containsKey(username)){
-            userCache.put(username, userDao.getUserByUsername(username));
+    private User getUser(final Integer userId){
+        if(!userCache.containsKey(userId)){
+            userCache.put(userId, userDao.getUserById(userId));
         }
-        return userCache.get(username);
+        return userCache.get(userId);
     }
 }

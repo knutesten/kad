@@ -44,10 +44,10 @@ public class TopicDaoImpl implements TopicDao {
                     public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
                         final PreparedStatement preparedStatement =
                                 connection.prepareStatement(sql.getProperty(CREATE_TOPIC), new String[]{"topic_id"});
-                        preparedStatement.setString(1, topic.getTitle());
-                        preparedStatement.setString(2, topic.getCreatedBy().getUsername());
-                        preparedStatement.setLong(3, topic.getCreatedTime().getTime());
-                        preparedStatement.setInt(4, category.getId());
+                        preparedStatement.setString(1, topic.getCreatedBy().getUsername());
+                        preparedStatement.setLong(2, topic.getCreatedTime().getTime());
+                        preparedStatement.setInt(3, category.getId());
+                        preparedStatement.setString(4, topic.getTitle());
                         return preparedStatement;
                     }
                 },
@@ -57,11 +57,9 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public void updateTopic(final Topic topic){
-        jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), topic.getTitle(),
-                                                           topic.getCreatedBy().getUsername(),
-                                                           topic.getCreatedTime().getTime(),
-                                                           topic.getTitle());
+    public void updateTopic(final Topic oldTopic, final Topic newTopic){
+        jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), newTopic.getTitle(),
+                                                           oldTopic.getTitle());
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface TopicDao {
     public void createTopic(final Topic topic, final Category categroy);
-    public void updateTopic(final Topic topic);
+    public void updateTopic(final Topic oldTopic, final Topic newTopic);
     public Topic getTopicByTitle(final String title);
     public List<Topic> getTopicsByCreator(final User creator);
     public int getNumberOfPostsInTopic(final int topicId);
