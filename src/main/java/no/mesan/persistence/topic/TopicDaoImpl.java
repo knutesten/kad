@@ -109,4 +109,13 @@ public class TopicDaoImpl implements TopicDao {
             return 0;
         }
     }
+
+    @Override
+    public int getNumberOfTopicsInCategory(Category category) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_NUMBER_OF_TOPICS_IN_CATEGORY), Integer.class, category.getId());
+        } catch(DataAccessException dae) {
+            return 0;
+        }
+    }
 }

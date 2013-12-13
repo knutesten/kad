@@ -20,4 +20,5 @@ public interface TopicDao {
     public Topic getTopicById(final int topicId);
     public List<Topic> getLimitedTopicsByCategory(final Category category, final int first, final int pageSize);
     public List<Topic> getTopicsByCategory(final Category category);
+    public int getNumberOfTopicsInCategory(final Category category);
 }
