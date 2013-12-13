@@ -73,7 +73,6 @@ public class TopicDaoImplTest {
     public void before() throws Exception {
         MockDatabaseUtility.createDataSet(DATA_SET_CATEGOIRES);
         MockDatabaseUtility.createDataSet(DATA_SET_TOPICS);
-        MockDatabaseUtility.createDataSet(DATA_SET_TOPIC_IN_CATEGORY);
         MockDatabaseUtility.createDataSet(DATA_SET_POSTS);
         MockDatabaseUtility.createDataSet(DATA_SET_POST_IN_TOPIC);
     }

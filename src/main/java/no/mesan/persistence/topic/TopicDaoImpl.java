@@ -54,9 +54,6 @@ public class TopicDaoImpl implements TopicDao {
                 generatedKeyHolder);
 
         topic.setId(generatedKeyHolder.getKey().intValue());
-
-        jdbcTemplate.update(sql.getProperty(ADD_TOPIC_TO_CATEGORY), category.getId(),
-                                                                    topic.getId());
     }
 
     @Override

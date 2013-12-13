@@ -38,7 +38,6 @@ public class MockDatabaseUtility {
             executeScript(SQL_COUNTRIES);
             executeScript(SQL_USERS);
             executeScript(SQL_FORUM);
-            executeScript(SQL_CATEGORIES);
         } catch (SQLException e) {
             e.printStackTrace();
         }

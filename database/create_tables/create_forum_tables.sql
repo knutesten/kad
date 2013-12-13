@@ -26,13 +26,6 @@ CREATE TABLE topics (
 );
 
 -- -------------------------------------------------------------------------
--- Add foreign key constraint to Categories table for the last updated topic
--- -------------------------------------------------------------------------
-ALTER TABLE categories ADD
-  FOREIGN KEY (category_lastUpdatedTopicId)
-    REFERENCES topics(topic_id);
-
--- -------------------------------------------------------------------------
 -- Create post table
 -- -------------------------------------------------------------------------
 CREATE TABLE posts (
@@ -65,3 +58,15 @@ CREATE TABLE postInTopic (
   FOREIGN KEY (postInTopic_topicId)
     REFERENCES topics(topic_id)
 );
+
+-- -------------------------------------------------------------------------
+-- Add foreign key constraint to Categories table for the last updated topic
+-- -------------------------------------------------------------------------
+ALTER TABLE categories ADD
+  FOREIGN KEY (category_lastUpdatedTopicId)
+    REFERENCES topics(topic_id);
+    
+-- -------------------------------------------------------------------------
+-- Add index on topic_categoryId in topics
+-- -------------------------------------------------------------------------
+CREATE INDEX topic_createdTime on topics(topic_createdTime desc);

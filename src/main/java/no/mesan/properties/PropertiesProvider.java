@@ -47,8 +47,6 @@ public class PropertiesProvider {
 
     public static final String GET_CATEGORIES       = "get_categories";
     public static final String GET_CATEGORY_BY_NAME = "get_category_by_name";
-    public static final String ADD_TOPIC_TO_CATEGORY = "add_topic_to_category";
-
 
     @Produces @Sql
     public Properties createSqlProperties() throws IOException {

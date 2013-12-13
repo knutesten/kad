@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <topics topic_id="1" topic_title="Hester er fine"   topic_createdBy="hestemann" topic_createdTime="0" />
-    <topics topic_id="2" topic_title="Hester er stygge" topic_createdBy="grisemann" topic_createdTime="10" />
-    <topics topic_id="3" topic_title="Hester er skumle" topic_createdBy="hestemann" topic_createdTime="20" />
-    <topics topic_id="4" topic_title="test1" topic_createdBy="hestemann" topic_createdTime="30" />
-    <topics topic_id="5" topic_title="test2" topic_createdBy="hestemann" topic_createdTime="40" />
-    <topics topic_id="6" topic_title="test3" topic_createdBy="hestemann" topic_createdTime="50" />
-    <topics topic_id="7" topic_title="test4" topic_createdBy="hestemann" topic_createdTime="60" />
+    <topics topic_id="1" topic_title="Hester er fine"   topic_createdBy="hestemann" topic_createdTime="0" topic_categoryId="1" />
+    <topics topic_id="2" topic_title="Hester er stygge" topic_createdBy="grisemann" topic_createdTime="10" topic_categoryId="1" />
+    <topics topic_id="3" topic_title="Hester er skumle" topic_createdBy="hestemann" topic_createdTime="20" topic_categoryId="1" />
+    <topics topic_id="4" topic_title="test1" topic_createdBy="hestemann" topic_createdTime="30" topic_categoryId="1" />
+    <topics topic_id="5" topic_title="test2" topic_createdBy="hestemann" topic_createdTime="40" topic_categoryId="1" />
+    <topics topic_id="6" topic_title="test3" topic_createdBy="hestemann" topic_createdTime="50" topic_categoryId="1" />
+    <topics topic_id="7" topic_title="test4" topic_createdBy="hestemann" topic_createdTime="60" topic_categoryId="1" />
 </dataset>
