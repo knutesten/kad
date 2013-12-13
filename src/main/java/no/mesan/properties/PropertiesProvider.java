@@ -37,7 +37,8 @@ public class PropertiesProvider {
     public static final String GET_TOPIC_BY_CREATOR          = "get_topic_by_creator";
     public static final String GET_NUMBER_OF_POSTS_IN_TOPIC  = "get_number_of_posts_in_topic";
     public static final String GET_LIMITED_POSTS_BY_TOPIC_ID = "get_limited_posts_by_topic_id";
-    public static final String GET_TOPICS_BY_CATEGORY        = "get_topics_by_category";
+    public static final String GET_LIMITED_TOPICS_BY_CATEGORY = "get_limited_topics_by_category";
+    public static final String GET_TOPICS_BY_CATEGORY         = "get_topics_by_category";
 
     public static final String CREATE_POST           = "create_post";
     public static final String UPDATE_POST           = "update_post";

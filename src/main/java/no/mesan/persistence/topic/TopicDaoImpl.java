@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -40,24 +39,23 @@ public class TopicDaoImpl implements TopicDao {
     public void createTopic(final Topic topic, final Category category){
         final KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
-            new PreparedStatementCreator() {
-                @Override
-                public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
-                    final PreparedStatement preparedStatement =
-                            connection.prepareStatement(sql.getProperty(CREATE_TOPIC));
-                    preparedStatement.setString(1, topic.getTitle());
-                    preparedStatement.setString(2, topic.getCreatedBy().getUsername());
-                    preparedStatement.setLong(3, topic.getCreatedTime().getTime());
-                    return preparedStatement;
-                }
-            },
-            generatedKeyHolder);
+                new PreparedStatementCreator() {
+                    @Override
+                    public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
+                        final PreparedStatement preparedStatement =
+                                connection.prepareStatement(sql.getProperty(CREATE_TOPIC), new String[]{"topic_id"});
+                        preparedStatement.setString(1, topic.getTitle());
+                        preparedStatement.setString(2, topic.getCreatedBy().getUsername());
+                        preparedStatement.setLong(3, topic.getCreatedTime().getTime());
+                        return preparedStatement;
+                    }
+                },
+                generatedKeyHolder);
 
         topic.setId(generatedKeyHolder.getKey().intValue());
-        
-        
-        jdbcTemplate.update(sql.getProperty(ADD_TOPIC_TO_CATEGORY), topic.getId(),
-                                                                    category.getId());
+
+        jdbcTemplate.update(sql.getProperty(ADD_TOPIC_TO_CATEGORY), category.getId(),
+                                                                    topic.getId());
     }
 
     @Override
@@ -78,15 +76,20 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public List<Topic> getTopicsByCategory(final int categoryId, 
-                                           final int pageNumber, 
-                                           final int userLimitedNumberOfTopics) {
+    public List<Topic> getLimitedTopicsByCategory(final Category category,
+                                                  final int pageNumber,
+                                                  final int userLimitedNumberOfTopics) {
         final int startAtTopicNumber = (pageNumber - 1) * userLimitedNumberOfTopics;
-        return jdbcTemplate.query(sql.getProperty(GET_TOPICS_BY_CATEGORY), 
-                                  topicRowMapper, 
-                                  categoryId,
+        return jdbcTemplate.query(sql.getProperty(GET_LIMITED_TOPICS_BY_CATEGORY),
+                                  topicRowMapper,
+                                  category.getId(),
                                   startAtTopicNumber,
                                   userLimitedNumberOfTopics);
+    }
+
+    @Override
+    public List<Topic> getTopicsByCategory(final Category category) {
+        return jdbcTemplate.query(sql.getProperty(GET_TOPICS_BY_CATEGORY), topicRowMapper, category.getId());
     }
 
     @Override

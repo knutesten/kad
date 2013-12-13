@@ -105,17 +105,16 @@ public class PostDaoImplTest {
         final Date createdTime = new Date();
         final String content = "Dette er en ny post generert av testen";
         final Post newPost = new Post(hestemann, createdTime, content);
-        final int newPostId = postDao.createPost(newPost);
-        newPost.setPostId(newPostId);
+        postDao.createPost(newPost);
 
-        final Post newPostFromDatabase = postDao.getPostById(newPostId);
+        final Post newPostFromDatabase = postDao.getPostById(newPost.getPostId());
         postsAreEqualWithoutEdit(newPost, newPostFromDatabase);
     }
 
     @Test
     public void updatePostShouldUpdateExistingTopicWithNewValues() {
-        final Post updatedPost = new Post(TEST_POST_TWO.getPostId(), 
-                                          TEST_POST_TWO.getCreatedBy(), 
+        final Post updatedPost = new Post(TEST_POST_TWO.getPostId(),
+                                          TEST_POST_TWO.getCreatedBy(),
                                           TEST_POST_TWO.getCreatedTime(),
                                           TEST_POST_TWO.getLastEditedBy(),
                                           TEST_POST_TWO.getLastEditedTime(),
@@ -134,7 +133,7 @@ public class PostDaoImplTest {
         final Post postEditedByAnotherUser = postDao.getPostById(TEST_POST_THREE.getPostId());
         assertNotEquals(postEditedByAnotherUser.getCreatedBy(), postEditedByAnotherUser.getLastEditedBy());
     }
-    
+
     @Test
     public void getPostsByTopicIdShouldReturnAllPostsForThatTopic() {
         final int topicId = 1;
@@ -147,7 +146,7 @@ public class PostDaoImplTest {
         postsAreEqual(TEST_POST_SIX, posts.get(4));
         assertEquals(numberOfPostsInResult, posts.size());
     }
-    
+
     @Test
     public void getPostsByTopicIdShouldReturnAnEmptyListWhenTheTopicDoesNotExist() {
         final int topicId = 123123;
@@ -155,7 +154,7 @@ public class PostDaoImplTest {
         final List<Post> posts = postDao.getPostsByTopicId(topicId);
         assertEquals(emptyPostList, posts);
     }
-    
+
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAListWithTheCorrectPostsBasedOnTheLimit() {
         final int topicId = 1;
@@ -166,13 +165,13 @@ public class PostDaoImplTest {
         postsAreEqual(TEST_POST_ONE, posts.get(0));
         postsAreEqual(TEST_POST_THREE, posts.get(1));
         assertEquals(userLimitedNumberOfPosts, posts.size());
-        
+
         pageNumber = 2;
         posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
         postsAreEqual(TEST_POST_FOUR, posts.get(0));
         postsAreEqual(TEST_POST_FIVE, posts.get(1));
         assertEquals(userLimitedNumberOfPosts, posts.size());
-        
+
         pageNumber = 3;
         posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
         postsAreEqual(TEST_POST_SIX, posts.get(0));
@@ -188,7 +187,7 @@ public class PostDaoImplTest {
         List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, userLimitedNumberOfPosts);
         assertEquals(emptyPostList, posts);
     }
-    
+
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAllPostsBelongingToTheTopicIfTheLimitIsLargerThanPostCount() {
             final int topicId = 1;
@@ -203,7 +202,7 @@ public class PostDaoImplTest {
             postsAreEqual(TEST_POST_SIX, posts.get(4));
             assertEquals(expectedNumberOfPostsInResult, posts.size());
     }
-    
+
     private void postsAreEqual(final Post expected, final Post actual) {
         assertEquals(expected.getPostId(), actual.getPostId());
         assertEquals(expected.getCreatedBy().getUsername(), actual.getCreatedBy().getUsername());

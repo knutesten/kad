@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.MockDatabaseUtility;
@@ -33,7 +34,7 @@ public class TopicDaoImplTest {
     private static final TopicDao topicDao = new TopicDaoImpl();
     private static Topic HESTER_ER_FINE;
     private static Topic HESTER_ER_SKUMLE;
-    private static Topic HESTER_ER_STYGGE;
+//    private static Topic HESTER_ER_STYGGE;
     private static Topic TEST_1;
     private static Topic TEST_2;
     private static Topic TEST_3;
@@ -48,13 +49,13 @@ public class TopicDaoImplTest {
         when(grisemann.getUsername()).thenReturn("grisemann");
 
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
-        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10));
+//        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10));
         HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20));
         TEST_1           = new Topic(4, "test1", hestemann, new Date(30));
         TEST_2           = new Topic(5, "test2", hestemann, new Date(40));
         TEST_3           = new Topic(6, "test3", hestemann, new Date(50));
         TEST_4           = new Topic(7, "test4", hestemann, new Date(60));
-        
+
         final TopicRowMapper topicRowMapper = new TopicRowMapper();
         final Map<String, User> userCache = new HashMap<>();
         userCache.put("hestemann", hestemann);
@@ -125,46 +126,50 @@ public class TopicDaoImplTest {
         final List<Topic> topics = topicDao.getTopicsByCreator(userWithNoTopics);
         assertEquals(0, topics.size());
     }
-    
+
     @Test
     public void getTopicsByCategoryShouldReturnAListWithTheCorrectTopicsBasedOnTheLimit() {
-        final int categoryId = 1;
+        final Category category = mock(Category.class);
+        when(category.getId()).thenReturn(1);
         final int userLimitedNumberOfTopics = 2;
         final int expectedNumberOfTopicsOnPageThatIsNotFull = 1;
         int pageNumber = 1;
-        List<Topic> topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        List<Topic> topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
         topicsAreEqual(TEST_4, topics.get(0));
         topicsAreEqual(TEST_3, topics.get(1));
         assertEquals(userLimitedNumberOfTopics, topics.size());
-        
+
         pageNumber = 2;
-        topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
         topicsAreEqual(TEST_2, topics.get(0));
         topicsAreEqual(TEST_1, topics.get(1));
         assertEquals(userLimitedNumberOfTopics, topics.size());
-        
+
         pageNumber = 4;
-        topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
         topicsAreEqual(HESTER_ER_FINE, topics.get(0));
         assertEquals(expectedNumberOfTopicsOnPageThatIsNotFull, topics.size());
     }
-    
+
     @Test
     public void getLimitedTopicsByCategoryShouldReturnAnEmptyListWhenThereAreNoTopicsOnTheGivenPage() {
-        final int categoryId = 1;
+        final Category category = mock(Category.class);
+        when(category.getId()).thenReturn(1);
         final int userLimitedNumberOfTopics = 2;
         final int pageNumber = 123123123;
         final List<Topic> emptyPostList = Collections.emptyList();
-        List<Topic> topics = topicDao.getTopicsByCategory(categoryId, pageNumber, userLimitedNumberOfTopics);
+        final List<Topic> topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
         assertEquals(emptyPostList, topics);
     }
 
     @Test
     public void createTopicShouldCreateANewTopicInTheDatabase() {
+        final Category category = mock(Category.class);
+        when(category.getId()).thenReturn(1);
         final String title     = "Hester er kule";
         final Date  createdTime = new Date();
         final Topic newTopic   = new Topic(4, title, hestemann, createdTime);
-        topicDao.createTopic(newTopic, null);
+        topicDao.createTopic(newTopic, category);
 
         final Topic newTopicFromDatabase = topicDao.getTopicByTitle(title);
         topicsAreEqual(newTopic, newTopicFromDatabase);

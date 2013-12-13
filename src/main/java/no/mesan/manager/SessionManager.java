@@ -29,7 +29,7 @@ public class SessionManager implements Serializable {
         postsPerPage = 10;
     }
 
-    private User getUser() {
+     public User getUser() {
         try {
             return (User) httpSession.getAttribute("user");
         } catch (Exception e) {
@@ -65,12 +65,12 @@ public class SessionManager implements Serializable {
         user.setLocale(locale);
         setUser(user);
     }
-    
+
     public int getPostsPerPage() {
         //TODO Check users postPerPage setting when it is implemented
         return postsPerPage;
     }
-    
+
     public void setPostsPerPage(final int postsPerPage) {
         //TODO Set users postPerPage setting if this is not a guest session.
         this.postsPerPage = postsPerPage;

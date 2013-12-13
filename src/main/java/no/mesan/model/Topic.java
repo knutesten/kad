@@ -11,9 +11,13 @@ public class Topic {
     private String title;
     private final User createdBy;
     private final Date createdTime;
-    private final int id;
+    private Integer id;
 
-    public Topic(final int id, final String title, final User createdBy, final Date createdTime){
+    public Topic(final String title, final User createdBy) {
+        this(null, title, createdBy, new Date());
+    }
+
+    public Topic(final Integer id, final String title, final User createdBy, final Date createdTime){
         this.id =id;
         this.title = title;
         this.createdBy = createdBy;
@@ -32,7 +36,7 @@ public class Topic {
             return title.equals(that.title)             &&
                    createdBy.equals(that.createdBy)     &&
                    createdTime.equals(that.createdTime) &&
-                   id == that.id;
+                   id.equals(that.id);
         }
         return false;
     }
@@ -55,5 +59,9 @@ public class Topic {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(final int id) {
+        this.id = id;
     }
 }

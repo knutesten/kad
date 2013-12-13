@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import no.mesan.manager.SessionManager;
 import no.mesan.model.Category;
 import no.mesan.model.Topic;
 import no.mesan.persistence.category.CategoryDao;
@@ -50,7 +51,16 @@ public class FrontPageController {
 
     private List<Topic> getTopicsByCategoryCache(final Category category) {
         if (!topicsInCategoryCache.containsKey(category))
-            topicsInCategoryCache.put(category, topicDao.getTopicsByCategory(category.getId(), 1, 10));
+            topicsInCategoryCache.put(category, topicDao.getTopicsByCategory(category));
         return topicsInCategoryCache.get(category);
+    }
+
+    @Inject
+    private SessionManager sessionManager;
+    public void addSomeTopics() {
+        for (int i = 1; i < 1_000_000; i++) {
+            final Topic topic = new Topic("hest " + i, sessionManager.getUser());
+            topicDao.createTopic(topic, categories.get(0));
+        }
     }
 }

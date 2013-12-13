@@ -18,5 +18,6 @@ public interface TopicDao {
     public List<Topic> getTopicsByCreator(final User creator);
     public int getNumberOfPostsInTopic(final int topicId);
     public Topic getTopicById(final int topicId);
-    public List<Topic> getTopicsByCategory(final int categoryId, final int pageNumber, final int userLimitedNumberOfTopics);
+    public List<Topic> getLimitedTopicsByCategory(final Category category, final int pageNumber, final int userLimitedNumberOfTopics);
+    public List<Topic> getTopicsByCategory(final Category category);
 }

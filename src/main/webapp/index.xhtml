@@ -12,6 +12,9 @@
 
 <ui:composition template="templates/layout.xhtml">
     <ui:define name="content">
+        <h:form>
+            <h:commandButton value="test" action="#{frontPageController.addSomeTopics}"/>
+        </h:form>
         <p:accordionPanel dynamic="true"
                           cache="true"
                           value="#{frontPageController.categories}"
