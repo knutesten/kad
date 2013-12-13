@@ -169,7 +169,6 @@ public class TopicDaoImplTest {
         final Category category = mock(Category.class);
         when(category.getId()).thenReturn(1);
         final String title     = "Hester er kule";
-        final Date  createdTime = new Date();
         final Topic newTopic   = new Topic(title, hestemann);
         topicDao.createTopic(newTopic, category);
 
@@ -204,5 +203,21 @@ public class TopicDaoImplTest {
         final int numberOfPostsInTopicThatDoesNotExist = 0;
         final int numberOfPostsInTopicThatDoesNotExistFromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
         assertEquals(numberOfPostsInTopicThatDoesNotExist, numberOfPostsInTopicThatDoesNotExistFromDatabase);
+    }
+    
+    @Test
+    public void getNumberOfTopicsInCategoryShouldReturnSevenWhenThereAreSevenTopicsInACategory() {
+        final Category category = new Category(1, "Hester", HESTER_ER_FINE);
+        final int expectedNumberOfTopics = 7;
+        final int numberOfTopicsInHesterCategoryFromDatabase = topicDao.getNumberOfTopicsInCategory(category);
+        assertEquals(expectedNumberOfTopics, numberOfTopicsInHesterCategoryFromDatabase);
+    }
+    
+    @Test
+    public void getNumberOfTopicsInCategoryShouldReturn0IfTheCategoryDoesNotExist() {
+        final Category category = new Category(13131313, "No Category", null);
+        final int expectedNumberOfTopics = 0;
+        final int numberOfTopicsInCategoryFromDatabase = topicDao.getNumberOfTopicsInCategory(category);
+        assertEquals(expectedNumberOfTopics, numberOfTopicsInCategoryFromDatabase);
     }
 }
