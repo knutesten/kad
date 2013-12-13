@@ -44,7 +44,7 @@ public class TopicDaoImpl implements TopicDao {
                     public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
                         final PreparedStatement preparedStatement =
                                 connection.prepareStatement(sql.getProperty(CREATE_TOPIC), new String[]{"topic_id"});
-                        preparedStatement.setString(1, topic.getCreatedBy().getId());
+                        preparedStatement.setInt(1, topic.getCreatedBy().getId());
                         preparedStatement.setLong(2, topic.getCreatedTime().getTime());
                         preparedStatement.setInt(3, category.getId());
                         preparedStatement.setString(4, topic.getTitle());
