@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <ui:repeat value="#{categoriesController.categories}" var="category">
+                <div>
+                    <h:link outcome="category">
+                        <f:param name="category" value="#{category.name}"/>
+                        <h:outputText value="#{category.name}"/>
+                    </h:link>
+                </div>
+            </ui:repeat>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

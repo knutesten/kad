@@ -42,7 +42,7 @@ public class Category {
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return name.hashCode() ^ id;
     }
 
     public Topic getLastUpdatedTopic() {

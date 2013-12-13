@@ -1,5 +1,6 @@
 package no.mesan.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  *
  * @author Dean Lozo
  */
-public class Topic {
+public class Topic implements Serializable {
     private String title;
     private final User createdBy;
     private final Date createdTime;

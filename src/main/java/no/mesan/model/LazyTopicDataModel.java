@@ -6,7 +6,6 @@ import java.util.Map;
 import no.mesan.persistence.topic.TopicDao;
 
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
 /**

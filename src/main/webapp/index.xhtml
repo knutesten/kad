@@ -6,15 +6,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
 
 <h:body>
 
 <ui:composition template="templates/layout.xhtml">
     <ui:define name="content">
-        <h:form>
-            <h:commandButton value="test" action="#{frontPageController.addSomeTopics}"/>
-        </h:form>
         <p:accordionPanel dynamic="true"
                           cache="true"
                           value="#{frontPageController.categories}"
@@ -24,8 +21,11 @@
                              var="topic"
                              paginator="true"
                              paginatorPosition="bottom"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                              rows="10"
                              lazy="true"
+                             id="teit"
+                             first="1"
                              styleClass="hide-header">
                     <p:column>
                         <h:outputText value="#{topic.title}"/>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <f:metadata>
+                <f:viewParam name="category" value="#{categoryController.category}" converter="#{categoryConverter}"/>
+            </f:metadata>
+
+            <h:outputText value="#{categoryController.category.name}" />
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

@@ -9,10 +9,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import no.mesan.manager.SessionManager;
 import no.mesan.model.Category;
 import no.mesan.model.LazyTopicDataModel;
-import no.mesan.model.Topic;
 import no.mesan.persistence.category.CategoryDao;
 import no.mesan.persistence.topic.TopicDao;
 
@@ -54,14 +52,5 @@ public class FrontPageController {
         if (!topicsInCategoryCache.containsKey(category))
             topicsInCategoryCache.put(category, new LazyTopicDataModel(topicDao, category));
         return topicsInCategoryCache.get(category);
-    }
-
-    @Inject
-    private SessionManager sessionManager;
-    public void addSomeTopics() {
-        for (int i = 1; i < 1_000_000; i++) {
-            final Topic topic = new Topic("hest " + i, sessionManager.getUser());
-            topicDao.createTopic(topic, categories.get(0));
-        }
     }
 }
