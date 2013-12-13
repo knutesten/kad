@@ -29,6 +29,7 @@ public class UserRowMapper implements RowMapper<User> {
 
     @Override
     public User mapRow(final ResultSet resultSet, final int i) throws SQLException {
+        final int    id       = resultSet.getInt   ("user_id");
         final String username = resultSet.getString("user_username");
         final String email    = resultSet.getString("user_email");
         final String hash     = resultSet.getString("user_hash");
@@ -40,7 +41,8 @@ public class UserRowMapper implements RowMapper<User> {
         final User.Builder builder = new User.Builder(username, email, hash, salt);
         builder.fullName(fullName)
                .locale(locale)
-               .country(country);
+               .country(country)
+               .id(id);
 
         return new User(builder);
     }

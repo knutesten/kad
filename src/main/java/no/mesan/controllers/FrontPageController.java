@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import no.mesan.manager.SessionManager;
 import no.mesan.model.Category;
+import no.mesan.model.LazyTopicDataModel;
 import no.mesan.model.Topic;
 import no.mesan.persistence.category.CategoryDao;
 import no.mesan.persistence.topic.TopicDao;
@@ -25,7 +26,7 @@ import no.mesan.persistence.topic.TopicDao;
 @RequestScoped
 public class FrontPageController {
     private List<Category> categories;
-    private final Map<Category, List<Topic>> topicsInCategoryCache = new HashMap<>();
+    private final Map<Category, LazyTopicDataModel> topicsInCategoryCache = new HashMap<>();
 
     @Inject
     private CategoryDao categoryDao;
@@ -41,17 +42,17 @@ public class FrontPageController {
         return categories;
     }
 
-    public List<Topic> getTopicsByCategory(final Category category) {
+    public LazyTopicDataModel getTopicsByCategory(final Category category) {
         return getTopicsByCategoryCache(category);
     }
 
     public boolean disableTab(final Category category) {
-        return getTopicsByCategoryCache(category).isEmpty();
+        return getTopicsByCategoryCache(category).getRowCount() == 0;
     }
 
-    private List<Topic> getTopicsByCategoryCache(final Category category) {
+    private LazyTopicDataModel getTopicsByCategoryCache(final Category category) {
         if (!topicsInCategoryCache.containsKey(category))
-            topicsInCategoryCache.put(category, topicDao.getTopicsByCategory(category));
+            topicsInCategoryCache.put(category, new LazyTopicDataModel(topicDao, category));
         return topicsInCategoryCache.get(category);
     }
 

@@ -9,6 +9,7 @@ import java.util.Locale;
  * @author Anders Grotthing Moe
  */
 public class User {
+    private int id;
     private final String username;
     private String email;
     private String hash;
@@ -18,6 +19,7 @@ public class User {
     private Locale locale;
 
     public static class Builder {
+        private int id;
         private final String username;
         private final String email;
         private final String hash;
@@ -47,6 +49,11 @@ public class User {
             this.locale = locale;
             return this;
         }
+
+        public Builder id(final int id) {
+            this.id = id;
+            return this;
+        }
     }
 
     public User(final Builder builder) {
@@ -57,6 +64,7 @@ public class User {
         country  = builder.country;
         salt     = builder.salt;
         locale   = builder.locale;
+        id       = builder.id;
     }
 
     @Override
@@ -74,6 +82,7 @@ public class User {
                    fullName.equals(that.fullName) &&
                    country .equals(that.country)  &&
                    salt    .equals(that.salt)     &&
+                   id      ==      that.id        &&
                    locale  .equals(that.locale);
 
         }
@@ -126,5 +135,13 @@ public class User {
 
     public void setLocale(final Locale locale) {
         this.locale = locale;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(final int id) {
+        this.id = id;
     }
 }
