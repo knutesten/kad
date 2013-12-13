@@ -7,4 +7,3 @@ USE kad;
 SOURCE create_countries_tables.sql;
 SOURCE create_user_tables.sql;
 SOURCE create_forum_tables.sql;
-SOURCE create_categories_tables.sql;
