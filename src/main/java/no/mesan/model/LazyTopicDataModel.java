@@ -31,6 +31,6 @@ public class LazyTopicDataModel extends LazyDataModel<Topic> {
 
     @Override
     public int getRowCount() {
-        return 160_000;
+        return topicDao.getNumberOfTopicsInCategory(category);
     }
 }
