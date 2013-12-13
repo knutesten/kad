@@ -46,8 +46,10 @@ public class TopicDaoImplTest {
     public static void beforeClass() throws Exception {
         hestemann = mock(User.class);
         when(hestemann.getUsername()).thenReturn("hestemann");
+        when(hestemann.getId()).thenReturn(1);
         grisemann = mock(User.class);
         when(grisemann.getUsername()).thenReturn("grisemann");
+        when(grisemann.getId()).thenReturn(2);
 
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
 //        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10));
@@ -123,6 +125,7 @@ public class TopicDaoImplTest {
     public void getTopicByCreatorShouldReturnAnEmptyArrayListWhenUserHasNoTopics() {
         final User userWithNoTopics = mock(User.class);
         when(userWithNoTopics.getUsername()).thenReturn("userWithNoTopics");
+        when(userWithNoTopics.getId()).thenReturn(null);
         final List<Topic> topics = topicDao.getTopicsByCreator(userWithNoTopics);
         assertEquals(0, topics.size());
     }
@@ -131,22 +134,22 @@ public class TopicDaoImplTest {
     public void getTopicsByCategoryShouldReturnAListWithTheCorrectTopicsBasedOnTheLimit() {
         final Category category = mock(Category.class);
         when(category.getId()).thenReturn(1);
-        final int userLimitedNumberOfTopics = 2;
+        final int pageSize = 2;
         final int expectedNumberOfTopicsOnPageThatIsNotFull = 1;
-        int pageNumber = 1;
-        List<Topic> topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
+        int first = 0;
+        List<Topic> topics = topicDao.getLimitedTopicsByCategory(category, first, pageSize);
         topicsAreEqual(TEST_4, topics.get(0));
         topicsAreEqual(TEST_3, topics.get(1));
-        assertEquals(userLimitedNumberOfTopics, topics.size());
+        assertEquals(pageSize, topics.size());
 
-        pageNumber = 2;
-        topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
+        first = 2;
+        topics = topicDao.getLimitedTopicsByCategory(category, first, pageSize);
         topicsAreEqual(TEST_2, topics.get(0));
         topicsAreEqual(TEST_1, topics.get(1));
-        assertEquals(userLimitedNumberOfTopics, topics.size());
+        assertEquals(pageSize, topics.size());
 
-        pageNumber = 4;
-        topics = topicDao.getLimitedTopicsByCategory(category, pageNumber, userLimitedNumberOfTopics);
+        first = 6;
+        topics = topicDao.getLimitedTopicsByCategory(category, first, pageSize);
         topicsAreEqual(HESTER_ER_FINE, topics.get(0));
         assertEquals(expectedNumberOfTopicsOnPageThatIsNotFull, topics.size());
     }
@@ -168,7 +171,7 @@ public class TopicDaoImplTest {
         when(category.getId()).thenReturn(1);
         final String title     = "Hester er kule";
         final Date  createdTime = new Date();
-        final Topic newTopic   = new Topic(4, title, hestemann, createdTime);
+        final Topic newTopic   = new Topic(title, hestemann);
         topicDao.createTopic(newTopic, category);
 
         final Topic newTopicFromDatabase = topicDao.getTopicByTitle(title);

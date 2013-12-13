@@ -44,7 +44,7 @@ public class TopicDaoImpl implements TopicDao {
                     public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
                         final PreparedStatement preparedStatement =
                                 connection.prepareStatement(sql.getProperty(CREATE_TOPIC), new String[]{"topic_id"});
-                        preparedStatement.setString(1, topic.getCreatedBy().getUsername());
+                        preparedStatement.setString(1, topic.getCreatedBy().getId());
                         preparedStatement.setLong(2, topic.getCreatedTime().getTime());
                         preparedStatement.setInt(3, category.getId());
                         preparedStatement.setString(4, topic.getTitle());
@@ -73,14 +73,13 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public List<Topic> getLimitedTopicsByCategory(final Category category,
-                                                  final int pageNumber,
-                                                  final int userLimitedNumberOfTopics) {
-        final int startAtTopicNumber = (pageNumber - 1) * userLimitedNumberOfTopics;
+                                                  final int first,
+                                                  final int pageSize) {
         return jdbcTemplate.query(sql.getProperty(GET_LIMITED_TOPICS_BY_CATEGORY),
                                   topicRowMapper,
                                   category.getId(),
-                                  startAtTopicNumber,
-                                  userLimitedNumberOfTopics);
+                                  first,
+                                  pageSize);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public List<Topic> getTopicsByCreator(final User creator) {
-        return jdbcTemplate.query(sql.getProperty(GET_TOPIC_BY_CREATOR), topicRowMapper, creator.getUsername());
+        return jdbcTemplate.query(sql.getProperty(GET_TOPIC_BY_CREATOR), topicRowMapper, creator.getId());
     }
 
     @Override
