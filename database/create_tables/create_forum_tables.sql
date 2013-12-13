@@ -13,14 +13,14 @@ CREATE TABLE categories (
 -- -------------------------------------------------------------------------
 CREATE TABLE topics (
   topic_id           INT          NOT NULL AUTO_INCREMENT,
-  topic_title        VARCHAR(255) NOT NULL UNIQUE,
-  topic_createdBy    VARCHAR(30)  NOT NULL,
+  topic_createdBy    INT          NOT NULL,
   topic_createdTime  BIGINT       NOT NULL,
   topic_categoryId   INT          NOT NULL,
+  topic_title        VARCHAR(255) NOT NULL UNIQUE,
 
   PRIMARY KEY (topic_id),
   FOREIGN KEY (topic_createdBy)
-    REFERENCES users(user_username),
+    REFERENCES users(user_id),
   FOREIGN KEY (topic_categoryId)
     REFERENCES categories(category_Id)
 );
