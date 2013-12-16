@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:body>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewParam name="topic" value="#{topicController.topic}" converter="#{topicConverter}"/>
+            </f:metadata>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:dataTable value="#{topicController.posts}"
+                         var="post"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {JumpToPageDropdown}"
+                         rows="10"
+                         lazy="true">
+                <p:column headerText="#{topicController.topic.title}">
+                    <h:outputText value="#{post.content}"/>
+                </p:column>
+            </p:dataTable>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>
