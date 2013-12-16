@@ -5,3 +5,19 @@
 .hide-header thead {
     display: none;
 }
+
+.ui-icon-seek-end {
+    background-position: -64px -157px;
+}
+
+.ui-icon-seek-next {
+    background-position: -32px -157px;
+}
+
+.ui-icon-seek-first {
+    background-position: -80px -157px;
+}
+
+.ui-icon-seek-prev {
+    background-position: -48px -157px;
+}
