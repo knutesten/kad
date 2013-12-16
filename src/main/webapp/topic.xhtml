@@ -11,21 +11,20 @@
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="metadata">
             <f:metadata>
-                <f:viewParam name="category" value="#{categoryController.category}" converter="#{categoryConverter}"/>
+                <f:viewParam name="topic" value="#{topicController.topic}" converter="#{topicConverter}"/>
             </f:metadata>
         </ui:define>
 
         <ui:define name="content">
-            <p:dataTable value="#{categoryController.topics}"
-                         var="topic"
+            <p:dataTable value="#{topicController.posts}"
+                         var="post"
                          paginator="true"
                          paginatorPosition="bottom"
                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {JumpToPageDropdown}"
                          rows="10"
                          lazy="true">
-                <p:column headerText="#{categoryController.category.name}">
-                    <span class="row-topic-title"><h:outputText value="#{topic.title}"/></span>
-                    <span class="row-topic-created-by"><h:outputText value="#{topic.createdBy.username}"/></span>
+                <p:column headerText="#{topicController.topic.title}">
+                    <h:outputText value="#{post.content}"/>
                 </p:column>
             </p:dataTable>
         </ui:define>
