@@ -30,17 +30,17 @@ CREATE TABLE topics (
 -- -------------------------------------------------------------------------
 CREATE TABLE posts (
   post_id             INT           NOT NULL AUTO_INCREMENT,
-  post_createdBy      VARCHAR(30)   NOT NULL,
+  post_createdBy      INT           NOT NULL,
   post_createdTime    BIGINT        NOT NULL,
-  post_lastEditedBy   VARCHAR(30),
-  post_lastEditedTime BIGINT,
+  post_lastEditedBy   INT,
+  post_lastEditedTime BIGINT        NOT NULL,
   post_content        TEXT          NOT NULL,
 
   PRIMARY KEY (post_id),
   FOREIGN KEY (post_createdBy)
-    REFERENCES users(user_username),
+    REFERENCES users(user_id),
   FOREIGN KEY (post_lastEditedBy)
-    REFERENCES users(user_username)
+    REFERENCES users(user_id)
 
  );
 

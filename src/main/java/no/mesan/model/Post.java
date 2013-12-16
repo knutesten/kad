@@ -8,22 +8,22 @@ import java.util.Date;
  * @author Anders Grotthing Moe
  */
 public class Post {
-    private int postId;
+    private int id;
     private final User createdBy;
     private final Date createdTime;
     private User lastEditedBy;
     private Date lastEditedTime;
     private String content;
     
-    public Post(final User createdBy, final Date createdTime, final String content) {
+    public Post(final User createdBy, final String content) {
         this.createdBy = createdBy;
-        this.createdTime = createdTime;
+        this.createdTime = new Date();
         this.content = content;
     }
     
-    public Post(final int postId, final User createdBy, final Date createdTime, 
+    public Post(final int id, final User createdBy, final Date createdTime, 
                 final User lastEditedBy, final Date lastEditedTime, final String content) {
-        this.postId = postId;
+        this.id = id;
         this.createdBy = createdBy;
         this.createdTime = createdTime;
         this.lastEditedBy = lastEditedBy;
@@ -64,11 +64,11 @@ public class Post {
         this.content = content;
     }
 
-    public int getPostId() {
-        return postId;
+    public int getId() {
+        return id;
     }
 
-    public void setPostId(final int postId) {
-        this.postId = postId;
+    public void setId(final int id) {
+        this.id = id;
     }
 }

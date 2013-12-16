@@ -2,6 +2,8 @@ package no.mesan.persistence.post;
 
 import static no.mesan.persistence.SqlAndDataSetFileNames.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 
 import java.util.Collections;
 import java.util.Date;
@@ -20,6 +22,7 @@ import org.powermock.reflect.Whitebox;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import no.mesan.model.Post;
+import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.MockDatabaseUtility;
 import no.mesan.properties.PropertiesProvider;
@@ -48,10 +51,9 @@ public class PostDaoImplTest {
         initializeTestUsers();
         initializeTestPosts();
 
-        final Map<String, User> userCache = new HashMap<>();
-        userCache.put(null, null);
-        userCache.put("hestemann", hestemann);
-        userCache.put("testmann", testmann);
+        final Map<Integer, User> userCache = new HashMap<>();
+        userCache.put(1, hestemann);
+        userCache.put(3, testmann);
 
         final PostRowMapper postRowMapper = new PostRowMapper();
         Whitebox.setInternalState(postRowMapper, "userCache", userCache);
@@ -66,13 +68,15 @@ public class PostDaoImplTest {
         final User.Builder testmannBuilder = new User.Builder("testmann", "test@testesen.no", "pass3", "salt3");
         testmannBuilder.fullName("").locale(new Locale("en", "GB"));
         testmann = new User(testmannBuilder);
+        testmann.setId(3);
         final User.Builder hestemannBuilder = new User.Builder("hestemann", "hest@hest.no", "pass1", "salt1");
         hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO"));
         hestemann = new User(hestemannBuilder);
+        hestemann.setId(1);
     }
 
     private static void initializeTestPosts() {
-        TEST_POST_ONE = new Post(1, testmann, new Date(0), testmann, new Date(15), "testpost med edit");
+        TEST_POST_ONE = new Post(1, testmann, new Date(1), testmann, new Date(15), "testpost med edit");
         TEST_POST_TWO = new Post(2, testmann, new Date(10), null, null, "Dette er en testpost uten edit");
         TEST_POST_THREE= new Post(3, testmann, new Date(20), hestemann, new Date(25), "Dette er en post edited av en annen bruker");
         TEST_POST_FOUR = new Post(4, testmann, new Date(30), hestemann, new Date(89), "Whoopdie");
@@ -102,18 +106,19 @@ public class PostDaoImplTest {
 
     @Test
     public void createPostShouldCreateANewPostInTheDatabase() {
-        final Date createdTime = new Date();
+        final Topic topic = mock(Topic.class);
+        when(topic.getId()).thenReturn(3);
         final String content = "Dette er en ny post generert av testen";
-        final Post newPost = new Post(hestemann, createdTime, content);
-        postDao.createPost(newPost);
-
-        final Post newPostFromDatabase = postDao.getPostById(newPost.getPostId());
+        final Post newPost = new Post(hestemann, content);
+        postDao.createPost(newPost, topic);
+        
+        final Post newPostFromDatabase = postDao.getPostById(newPost.getId());
         postsAreEqualWithoutEdit(newPost, newPostFromDatabase);
     }
 
     @Test
     public void updatePostShouldUpdateExistingTopicWithNewValues() {
-        final Post updatedPost = new Post(TEST_POST_TWO.getPostId(),
+        final Post updatedPost = new Post(TEST_POST_TWO.getId(),
                                           TEST_POST_TWO.getCreatedBy(),
                                           TEST_POST_TWO.getCreatedTime(),
                                           TEST_POST_TWO.getLastEditedBy(),
@@ -124,13 +129,13 @@ public class PostDaoImplTest {
         updatedPost.setContent("Nå har den en edit :)");
         postDao.updatePost(updatedPost);
 
-        final Post updatedPostFromDatabase = postDao.getPostById(updatedPost.getPostId());
+        final Post updatedPostFromDatabase = postDao.getPostById(updatedPost.getId());
         postsAreEqual(updatedPost, updatedPostFromDatabase);
     }
 
     @Test
     public void aPostEditedByAnotherUserShouldShowAsEditedByAnotherUser() {
-        final Post postEditedByAnotherUser = postDao.getPostById(TEST_POST_THREE.getPostId());
+        final Post postEditedByAnotherUser = postDao.getPostById(TEST_POST_THREE.getId());
         assertNotEquals(postEditedByAnotherUser.getCreatedBy(), postEditedByAnotherUser.getLastEditedBy());
     }
 
@@ -204,7 +209,7 @@ public class PostDaoImplTest {
     }
 
     private void postsAreEqual(final Post expected, final Post actual) {
-        assertEquals(expected.getPostId(), actual.getPostId());
+        assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getCreatedBy().getUsername(), actual.getCreatedBy().getUsername());
         assertEquals(expected.getCreatedTime(), actual.getCreatedTime());
         assertEquals(expected.getLastEditedBy().getUsername(), actual.getLastEditedBy().getUsername());
@@ -213,7 +218,7 @@ public class PostDaoImplTest {
     }
 
     private void postsAreEqualWithoutEdit(final Post expected, final Post actual) {
-        assertEquals(expected.getPostId(), actual.getPostId());
+        assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getCreatedBy().getUsername(), actual.getCreatedBy().getUsername());
         assertEquals(expected.getCreatedTime(), actual.getCreatedTime());
         assertEquals(expected.getContent(), actual.getContent());

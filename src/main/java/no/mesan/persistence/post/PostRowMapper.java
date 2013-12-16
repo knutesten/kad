@@ -18,14 +18,14 @@ public class PostRowMapper implements RowMapper<Post> {
 
     @Inject
     private UserDao userDao;
-    private final Map<String, User> userCache = new HashMap<>();
+    private final Map<Integer, User> userCache = new HashMap<>();
     
     @Override
     public Post mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
         final int postId = resultSet.getInt("post_id");
-        final User createdBy = getUser(resultSet.getString("post_createdBy"));
+        final User createdBy = getUser(resultSet.getInt("post_createdBy"));
         final Date createdTime = createDate(resultSet.getLong("post_createdTime"));
-        final User lastEditedBy = getUser(resultSet.getString("post_lastEditedBy"));
+        final User lastEditedBy = getUser((Integer)resultSet.getObject("post_lastEditedBy"));
         final Date lastEditedTime = createDate(resultSet.getLong("post_lastEditedTime"));
         final String content = resultSet.getString("post_content");
         
@@ -33,16 +33,16 @@ public class PostRowMapper implements RowMapper<Post> {
         return post;
     }
     
-    private User getUser(final String username){
-        if(!userCache.containsKey(username)){
-            userCache.put(username, userDao.getUserByUsername(username));
+    private User getUser(final Integer userId){
+        if(userId == null)
+            return null;
+        if(!userCache.containsKey(userId)){
+            userCache.put(userId, userDao.getUserById(userId));
         }
-        return userCache.get(username);
+        return userCache.get(userId);
     }
 
     private Date createDate(Long dateTime) {
-        if (dateTime == null)
-            return null;
         return new Date(dateTime);
     }
 }

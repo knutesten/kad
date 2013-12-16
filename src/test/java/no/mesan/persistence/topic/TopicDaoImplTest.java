@@ -40,15 +40,20 @@ public class TopicDaoImplTest {
     private static Topic TEST_3;
     private static Topic TEST_4;
     private static User hestemann;
+    private static User grisemann;
+    private static User testmann;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
         hestemann = mock(User.class);
         when(hestemann.getUsername()).thenReturn("hestemann");
         when(hestemann.getId()).thenReturn(1);
-        final User grisemann = mock(User.class);
+        grisemann = mock(User.class);
         when(grisemann.getUsername()).thenReturn("grisemann");
         when(grisemann.getId()).thenReturn(2);
+        testmann = mock(User.class);
+        when(testmann.getUsername()).thenReturn("testmann");
+        when(testmann.getId()).thenReturn(3);
 
         HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
 //        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10));
@@ -62,6 +67,7 @@ public class TopicDaoImplTest {
         final Map<Integer, User> userCache = new HashMap<>();
         userCache.put(1, hestemann);
         userCache.put(2, grisemann);
+        userCache.put(3, testmann);
         Whitebox.setInternalState(topicRowMapper, "userCache", userCache);
 
         final Properties sql        = new PropertiesProvider().createSqlProperties();
