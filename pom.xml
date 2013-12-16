@@ -23,7 +23,7 @@
         <commons.pool.version>20030825.183949</commons.pool.version>
         <mockito.version>1.9.5</mockito.version>
         <powermock.version>1.5.1</powermock.version>
-        <primefaces.version>4.0</primefaces.version>
+        <primefaces.version>4.1-SNAPSHOT</primefaces.version>
     </properties>
 
     <repositories>

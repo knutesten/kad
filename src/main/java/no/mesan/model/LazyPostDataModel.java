@@ -24,12 +24,11 @@ public class LazyPostDataModel extends LazyDataModel<Post> {
 
     @Override
     public int getRowCount() {
-        return 10;
+        return postDao.getNumberOfPostsInTopic(topic);
     }
 
     @Override
     public List<Post> load(final int first, final int pageSize, final String sortField, final SortOrder sortOrder, final Map<String, String> filters) {
-//        return postDao.getLimitedPostsByTopicId(topic, first, pageSize);
-        return null;
+        return postDao.getLimitedPostsByTopic(topic, first, pageSize);
     }
 }

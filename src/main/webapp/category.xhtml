@@ -20,11 +20,16 @@
                          var="topic"
                          paginator="true"
                          paginatorPosition="bottom"
-                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink} {JumpToPageDropdown}"
+                         paginatorTemplate="{JumpToPageNumberInput} {PreviousPageLink} {NextPageLink}"
                          rows="10"
                          lazy="true">
                 <p:column headerText="#{categoryController.category.name}">
-                    <span class="row-topic-title"><h:outputText value="#{topic.title}"/></span>
+                    <span class="row-topic-title">
+                        <h:link outcome="topic">
+                            <f:param name="topic" value="#{topic.title}"/>
+                            <h:outputText value="#{topic.title}"/>
+                        </h:link>
+                    </span>
                     <span class="row-topic-created-by"><h:outputText value="#{topic.createdBy.username}"/></span>
                 </p:column>
             </p:dataTable>
