@@ -9,10 +9,10 @@ import java.util.Date;
  * @author Dean Lozo
  */
 public class Topic implements Serializable {
+    private Integer id;
     private String title;
     private final User createdBy;
     private final Date createdTime;
-    private Integer id;
 
     public Topic(final String title, final User createdBy) {
         this(null, title, createdBy, new Date());

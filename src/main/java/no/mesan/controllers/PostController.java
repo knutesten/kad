@@ -1,12 +1,11 @@
 package no.mesan.controllers;
 
-import java.util.Date;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import no.mesan.model.Post;
+import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.post.PostDao;
 import no.mesan.persistence.user.UserDao;
@@ -24,16 +23,23 @@ public class PostController {
     @Inject
     private PostDao postDao;
     
+    private Topic topic;
+    
     //TODO this is just a test
     public void createPost() {
         User createdBy = userDao.getUserByUsername("admin");
-        Date createdTime = new Date();
         String content = "Dette er jo en ny flott testpost fra admin hestemannen";
-        Post post = new Post(createdBy, createdTime, content);
+        Post post = new Post(createdBy, content);
         
-        postDao.createPost(post);
-        System.out.println("New POST with id: " + post.getPostId());
-        //Stuff must be done about such things as what kind of topic its in and ....
-        
+        postDao.createPost(post, topic);
+        System.out.println("New POST with id: " + post.getId());
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(final Topic topic) {
+        this.topic = topic;
     }
 }

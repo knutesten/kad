@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <posts post_id="1" post_createdBy="testmann" post_createdTime="0" post_lastEditedBy="testmann" post_lastEditedTime="15" post_content="testpost med edit" />
-    <posts post_id="2" post_createdBy="testmann" post_createdTime="10" post_lastEditedBy="" post_lastEditedTime="0" post_content="Dette er en testpost uten edit" />
-    <posts post_id="3" post_createdBy="testmann" post_createdTime="20" post_lastEditedBy="hestemann" post_lastEditedTime="25" post_content="Dette er en post edited av en annen bruker" />
-    <posts post_id="4" post_createdBy="testmann" post_createdTime="30" post_lastEditedBy="hestemann" post_lastEditedTime="89" post_content="Whoopdie" />
-    <posts post_id="5" post_createdBy="testmann" post_createdTime="40" post_lastEditedBy="hestemann" post_lastEditedTime="78" post_content="Doopdie" />
-    <posts post_id="6" post_createdBy="testmann" post_createdTime="50" post_lastEditedBy="hestemann" post_lastEditedTime="78" post_content="Doo" />
+    <posts post_id="1" post_createdBy="3" post_createdTime="1" post_lastEditedBy="3" post_lastEditedTime="15" post_content="testpost med edit" />
+    <posts post_id="2" post_createdBy="3" post_createdTime="10" post_lastEditedBy="3" post_lastEditedTime="0" post_content="Dette er en testpost uten edit" />
+    <posts post_id="3" post_createdBy="3" post_createdTime="20" post_lastEditedBy="1" post_lastEditedTime="25" post_content="Dette er en post edited av en annen bruker" />
+    <posts post_id="4" post_createdBy="3" post_createdTime="30" post_lastEditedBy="1" post_lastEditedTime="89" post_content="Whoopdie" />
+    <posts post_id="5" post_createdBy="3" post_createdTime="40" post_lastEditedBy="1" post_lastEditedTime="78" post_content="Doopdie" />
+    <posts post_id="6" post_createdBy="3" post_createdTime="50" post_lastEditedBy="1" post_lastEditedTime="78" post_content="Doo" />
+    <posts post_id="7" post_createdBy="3" post_createdTime="60" post_lastEditedBy="1" post_lastEditedTime="99" post_content="kmakm" />
 </dataset>
  
