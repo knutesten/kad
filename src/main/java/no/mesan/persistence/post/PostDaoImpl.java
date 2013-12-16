@@ -46,8 +46,13 @@ public class PostDaoImpl implements PostDao {
                 }
             },
             generatedKeyHolder);
-
         post.setId(generatedKeyHolder.getKey().intValue());
+        
+        updatePostInTopic(post, topic);
+    }
+
+    private void updatePostInTopic(final Post post, final Topic topic) {
+        jdbcTemplate.update(sql.getProperty(UPDATE_POST_IN_TOPIC_WITH_NEW_POST));
     }
 
     @Override
@@ -70,19 +75,29 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
+    public Post getLastPostByTopic(Topic topic) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_LAST_POST_BY_TOPIC), 
+                                               postRowMapper, 
+                                               topic.getId());
+        } catch(EmptyResultDataAccessException erda) {
+            return null;
+        }
+    }
+    
+    @Override
     public List<Post> getPostsByTopicId(final int topicId) {
         return jdbcTemplate.query(sql.getProperty(GET_POSTS_BY_TOPIC_ID), postRowMapper, topicId);
     }
 
     @Override
-    public List<Post> getLimitedPostsByTopicId(final int topicId,
-                                               final int pageNumber,
-                                               final int userLimitedNumberOfPosts) {
-        final int startAtPostNumber = (pageNumber - 1) * userLimitedNumberOfPosts;
-        return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC_ID),
+    public List<Post> getLimitedPostsByTopic(final Topic topic,
+                                               final int first,
+                                               final int pageSize) {
+        return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC),
                                   postRowMapper,
-                                  topicId,
-                                  startAtPostNumber,
-                                  userLimitedNumberOfPosts);
+                                  topic.getId(),
+                                  first,
+                                  pageSize);
     }
 }

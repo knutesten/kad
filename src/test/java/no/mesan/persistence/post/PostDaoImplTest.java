@@ -40,6 +40,7 @@ public class PostDaoImplTest {
     private static Post TEST_POST_FOUR;
     private static Post TEST_POST_FIVE;
     private static Post TEST_POST_SIX;
+    private static Post TEST_POST_SEVEN;
     private static User testmann;
     private static User hestemann;
 
@@ -82,6 +83,8 @@ public class PostDaoImplTest {
         TEST_POST_FOUR = new Post(4, testmann, new Date(30), hestemann, new Date(89), "Whoopdie");
         TEST_POST_FIVE = new Post(5, testmann, new Date(40), hestemann, new Date(78), "Doopdie");
         TEST_POST_SIX = new Post(6, testmann, new Date(50), hestemann, new Date(78), "Doo");
+        TEST_POST_SEVEN = new Post(7, testmann, new Date(60), hestemann, new Date(99), "kmakm");
+
     }
 
     @Before
@@ -114,6 +117,9 @@ public class PostDaoImplTest {
         
         final Post newPostFromDatabase = postDao.getPostById(newPost.getId());
         postsAreEqualWithoutEdit(newPost, newPostFromDatabase);
+        
+        //createdPost should also have updated postInTopic
+        
     }
 
     @Test
@@ -137,6 +143,22 @@ public class PostDaoImplTest {
     public void aPostEditedByAnotherUserShouldShowAsEditedByAnotherUser() {
         final Post postEditedByAnotherUser = postDao.getPostById(TEST_POST_THREE.getId());
         assertNotEquals(postEditedByAnotherUser.getCreatedBy(), postEditedByAnotherUser.getLastEditedBy());
+    }
+    
+    @Test
+    public void getLastPostByTopicShouldReturnTestPostSixWhenInputIsHesterErFineTopic() {
+        final Topic hesterErFineTopic = mock(Topic.class);
+        when(hesterErFineTopic.getId()).thenReturn(1);
+        final Post lastPostByTopic = postDao.getLastPostByTopic(hesterErFineTopic);
+        postsAreEqual(TEST_POST_SIX, lastPostByTopic);
+    }
+    
+    @Test
+    public void getLastPostByTopicShouldReturnNullWhenThereIsNoPostsInInputTopic() {
+        final Topic topicWithNoPosts = mock(Topic.class);
+        when(topicWithNoPosts.getId()).thenReturn(122113);
+        final Post lastPostByTopic = postDao.getLastPostByTopic(topicWithNoPosts);
+        assertNull(lastPostByTopic);
     }
 
     @Test
@@ -162,50 +184,53 @@ public class PostDaoImplTest {
 
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAListWithTheCorrectPostsBasedOnTheLimit() {
-        final int topicId = 1;
-        final int userLimitedNumberOfPosts = 2;
+        final Topic topic = mock(Topic.class);
+        when(topic.getId()).thenReturn(1);
+        final int pageSize = 2;
         final int expectedNumberOfPostsOnPageThatIsNotFull = 1;
-        int pageNumber = 1;
-        List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
+        int first = 0;
+        List<Post> posts = postDao.getLimitedPostsByTopic(topic, first, pageSize);
         postsAreEqual(TEST_POST_ONE, posts.get(0));
         postsAreEqual(TEST_POST_THREE, posts.get(1));
-        assertEquals(userLimitedNumberOfPosts, posts.size());
+        assertEquals(pageSize, posts.size());
 
-        pageNumber = 2;
-        posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
+        first = 2;
+        posts = postDao.getLimitedPostsByTopic(topic, first, pageSize);
         postsAreEqual(TEST_POST_FOUR, posts.get(0));
         postsAreEqual(TEST_POST_FIVE, posts.get(1));
-        assertEquals(userLimitedNumberOfPosts, posts.size());
+        assertEquals(pageSize, posts.size());
 
-        pageNumber = 3;
-        posts = postDao.getLimitedPostsByTopicId(topicId, pageNumber, userLimitedNumberOfPosts);
+        first = 4;
+        posts = postDao.getLimitedPostsByTopic(topic, first, pageSize);
         postsAreEqual(TEST_POST_SIX, posts.get(0));
         assertEquals(expectedNumberOfPostsOnPageThatIsNotFull, posts.size());
     }
 
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAnEmptyListWhenThereAreNoPostsOnTheGivenPage() {
-        final int topicId = 1;
+        final Topic topic = mock(Topic.class);
+        when(topic.getId()).thenReturn(1);
         final int userLimitedNumberOfPosts = 2;
         final int resultsOnPageNumber = 123123;
         final List<Post> emptyPostList = Collections.emptyList();
-        List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, userLimitedNumberOfPosts);
+        List<Post> posts = postDao.getLimitedPostsByTopic(topic, resultsOnPageNumber, userLimitedNumberOfPosts);
         assertEquals(emptyPostList, posts);
     }
 
     @Test
     public void getLimitedPostsByTopicIdShouldReturnAllPostsBelongingToTheTopicIfTheLimitIsLargerThanPostCount() {
-            final int topicId = 1;
-            final int expectedNumberOfPostsInResult = 5;
-            final int userLimitedNumberOfPosts = 20;
-            final int resultsOnPageNumber = 1;
-            final List<Post> posts = postDao.getLimitedPostsByTopicId(topicId, resultsOnPageNumber, userLimitedNumberOfPosts);
-            postsAreEqual(TEST_POST_ONE, posts.get(0));
-            postsAreEqual(TEST_POST_THREE, posts.get(1));
-            postsAreEqual(TEST_POST_FOUR, posts.get(2));
-            postsAreEqual(TEST_POST_FIVE, posts.get(3));
-            postsAreEqual(TEST_POST_SIX, posts.get(4));
-            assertEquals(expectedNumberOfPostsInResult, posts.size());
+        final Topic topic = mock(Topic.class);
+        when(topic.getId()).thenReturn(1);
+        final int expectedNumberOfPostsInResult = 5;
+        final int pageSize = 20;
+        final int first = 0;
+        final List<Post> posts = postDao.getLimitedPostsByTopic(topic, first, pageSize);
+        postsAreEqual(TEST_POST_ONE, posts.get(0));
+        postsAreEqual(TEST_POST_THREE, posts.get(1));
+        postsAreEqual(TEST_POST_FOUR, posts.get(2));
+        postsAreEqual(TEST_POST_FIVE, posts.get(3));
+        postsAreEqual(TEST_POST_SIX, posts.get(4));
+        assertEquals(expectedNumberOfPostsInResult, posts.size());
     }
 
     private void postsAreEqual(final Post expected, final Post actual) {
