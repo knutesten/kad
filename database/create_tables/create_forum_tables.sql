@@ -53,6 +53,7 @@ CREATE TABLE postInTopic (
   postInTopic_postNumberInTopic INT NOT NULL,
 
   PRIMARY KEY (postInTopic_postId, postInTopic_topicId),
+  UNIQUE (postInTopic_topicId, postInTopic_postNumberInTopic),
   FOREIGN KEY (postInTopic_postId)
     REFERENCES posts(post_id),
   FOREIGN KEY (postInTopic_topicId)
