@@ -53,7 +53,10 @@ public class PostDaoImpl implements PostDao {
     }
 
     private void updatePostInTopic(final Post post, final Topic topic) {
-        jdbcTemplate.update(sql.getProperty(UPDATE_POST_IN_TOPIC_WITH_NEW_POST));
+        jdbcTemplate.update(sql.getProperty(UPDATE_POST_IN_TOPIC_WITH_NEW_POST),
+                            post.getId(),
+                            topic.getId(),
+                            topic.getId());
     }
 
     @Override
@@ -76,7 +79,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public Post getLastPostByTopic(Topic topic) {
+    public Post getLastPostByTopic(final Topic topic) {
         try {
             return jdbcTemplate.queryForObject(sql.getProperty(GET_LAST_POST_BY_TOPIC), 
                                                postRowMapper, 

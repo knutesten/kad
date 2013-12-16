@@ -116,9 +116,6 @@ public class PostDaoImplTest {
         
         final Post newPostFromDatabase = postDao.getPostById(newPost.getId());
         postsAreEqualWithoutEdit(newPost, newPostFromDatabase);
-        
-        //createdPost should also have updated postInTopic
-        
     }
 
     @Test
