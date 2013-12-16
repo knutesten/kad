@@ -19,4 +19,5 @@ public interface PostDao {
     public List<Post> getLimitedPostsByTopic(final Topic topic, 
                                                final int first,
                                                final int pageSize);
+    public int getNumberOfPostsInTopic(final Topic topic);
 }

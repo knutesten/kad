@@ -195,22 +195,6 @@ public class TopicDaoImplTest {
 //    }
 
     @Test
-    public void getNumberOfPostsInTopicShouldReturnTheNumberOfPostsInTheTopic() {
-        final int topicId = 1;
-        final int numberOfPostsInTopicWithId1 = 5;
-        final int numberOfPostsInTopicWithId1FromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
-        assertEquals(numberOfPostsInTopicWithId1, numberOfPostsInTopicWithId1FromDatabase);
-    }
-
-    @Test
-    public void getNumberOfPostsInTopicShouldReturn0IfTheTopicDoesNotExist() {
-        final int topicId = 13031;
-        final int numberOfPostsInTopicThatDoesNotExist = 0;
-        final int numberOfPostsInTopicThatDoesNotExistFromDatabase = topicDao.getNumberOfPostsInTopic(topicId);
-        assertEquals(numberOfPostsInTopicThatDoesNotExist, numberOfPostsInTopicThatDoesNotExistFromDatabase);
-    }
-
-    @Test
     public void getNumberOfTopicsInCategoryShouldReturnSevenWhenThereAreSevenTopicsInACategory() {
         final Category category = new Category(1, "Hester", HESTER_ER_FINE);
         final int expectedNumberOfTopics = 7;

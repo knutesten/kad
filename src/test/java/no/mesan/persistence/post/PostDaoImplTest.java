@@ -4,7 +4,6 @@ import static no.mesan.persistence.SqlAndDataSetFileNames.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -233,6 +232,24 @@ public class PostDaoImplTest {
         assertEquals(expectedNumberOfPostsInResult, posts.size());
     }
 
+    @Test
+    public void getNumberOfPostsInTopicShouldReturnTheNumberOfPostsInTheTopic() {
+        final Topic topic = mock(Topic.class);
+        when(topic.getId()).thenReturn(1);
+        final int numberOfPostsInTopicWithId1 = 5;
+        final int numberOfPostsInTopicWithId1FromDatabase = postDao.getNumberOfPostsInTopic(topic);
+        assertEquals(numberOfPostsInTopicWithId1, numberOfPostsInTopicWithId1FromDatabase);
+    }
+
+    @Test
+    public void getNumberOfPostsInTopicShouldReturn0IfTheTopicDoesNotExist() {
+        final Topic topic = mock(Topic.class);
+        when(topic.getId()).thenReturn(1123213);
+        final int numberOfPostsInTopicThatDoesNotExist = 0;
+        final int numberOfPostsInTopicThatDoesNotExistFromDatabase = postDao.getNumberOfPostsInTopic(topic);
+        assertEquals(numberOfPostsInTopicThatDoesNotExist, numberOfPostsInTopicThatDoesNotExistFromDatabase);
+    }
+    
     private void postsAreEqual(final Post expected, final Post actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getCreatedBy().getUsername(), actual.getCreatedBy().getUsername());
@@ -248,5 +265,4 @@ public class PostDaoImplTest {
         assertEquals(expected.getCreatedTime(), actual.getCreatedTime());
         assertEquals(expected.getContent(), actual.getContent());
     }
-
 }

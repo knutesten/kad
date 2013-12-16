@@ -14,6 +14,7 @@ import no.mesan.model.Post;
 import no.mesan.model.Topic;
 import no.mesan.properties.Sql;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -92,12 +93,21 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Post> getLimitedPostsByTopic(final Topic topic,
-                                               final int first,
-                                               final int pageSize) {
+                                             final int first,
+                                             final int pageSize) {
         return jdbcTemplate.query(sql.getProperty(GET_LIMITED_POSTS_BY_TOPIC),
                                   postRowMapper,
                                   topic.getId(),
                                   first,
                                   pageSize);
+    }
+
+    @Override
+    public int getNumberOfPostsInTopic(final Topic topic) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_NUMBER_OF_POSTS_IN_TOPIC), Integer.class, topic.getId());
+        } catch(DataAccessException dae) {
+            return 0;
+        }
     }
 }
