@@ -1,15 +1,11 @@
 package no.mesan.controllers.converters;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import no.mesan.model.Category;
 import no.mesan.persistence.category.CategoryDao;
 
 /**

@@ -16,6 +16,7 @@ import org.primefaces.model.SortOrder;
 public class LazyTopicDataModel extends LazyDataModel<Topic> {
     private final TopicDao topicDao;
     private final Category category;
+    private Integer rowCount;
 
     public LazyTopicDataModel(final TopicDao topicDao, final Category category) {
         this.topicDao = topicDao;
@@ -30,6 +31,8 @@ public class LazyTopicDataModel extends LazyDataModel<Topic> {
 
     @Override
     public int getRowCount() {
-        return topicDao.getNumberOfTopicsInCategory(category);
+        if (rowCount == null)
+            rowCount = topicDao.getNumberOfTopicsInCategory(category);
+        return rowCount;
     }
 }
