@@ -181,19 +181,18 @@ public class TopicDaoImplTest {
         topicsAreEqual(newTopic, newTopicFromDatabase);
     }
 
-//TODO FIX THIS TEST
-//    @Test
-//    public void updateTopicShouldUpdateExistingTopicWithNewValues() {
-//        final Topic  oldTopic = new Topic(HESTER_ER_FINE.getId(), HESTER_ER_FINE.getTitle(),
-//                HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime());
-//        final String newTitle = "Hester er stygge";
-//        oldTopic.setTitle(newTitle);
-//        topicDao.updateTopic(oldTopic);
-//
-//        final Topic updatedTopicFromDatabase = topicDao.getTopicByTitle(newTitle);
-//        topicsAreEqual(oldTopic, updatedTopicFromDatabase);
-//    }
+    @Test
+    public void updateTopicShouldUpdateExistingTopicWithNewValues() {
+        final Topic newTopic = new Topic(HESTER_ER_FINE.getId(), HESTER_ER_FINE.getTitle(),
+                HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime());
+        final String newTitle = "Hester er rare";
+        newTopic.setTitle(newTitle);
+        topicDao.updateTopic(HESTER_ER_FINE, newTopic);
 
+        final Topic updatedTopicFromDatabase = topicDao.getTopicById(HESTER_ER_FINE.getId());
+        topicsAreEqual(newTopic, updatedTopicFromDatabase);
+    }
+    
     @Test
     public void getNumberOfTopicsInCategoryShouldReturnSevenWhenThereAreSevenTopicsInACategory() {
         final Category category = new Category(1, "Hester", HESTER_ER_FINE);

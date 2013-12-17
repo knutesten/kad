@@ -58,8 +58,13 @@ public class TopicDaoImpl implements TopicDao {
 
     @Override
     public void updateTopic(final Topic oldTopic, final Topic newTopic){
-        jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), newTopic.getTitle(),
-                                                           oldTopic.getTitle());
+        try {
+            jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), newTopic.getTitle(),
+                                                           oldTopic.getId());
+        } catch(DataAccessException dae) {
+            System.err.println("Could not update topic with new title: ");
+            dae.printStackTrace();
+        }
     }
 
     @Override

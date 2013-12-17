@@ -25,6 +25,7 @@ public class KadLoginModule extends UsernamePasswordLoginModule{
     private User user;
 
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public void initialize(final Subject subject, final CallbackHandler callbackHandler,
                            final Map sharedState, final Map options) {
