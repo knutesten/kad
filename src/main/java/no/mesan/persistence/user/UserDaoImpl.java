@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
                 @Override
                 public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
                     final PreparedStatement preparedStatement =
-                            connection.prepareStatement(sql.getProperty(CREATE_USER));
+                            connection.prepareStatement(sql.getProperty(CREATE_USER), new String[]{"user_id"});
                     preparedStatement.setString(1, user.getUsername());
                     preparedStatement.setString(2, user.getEmail());
                     preparedStatement.setString(3, user.getHash());
