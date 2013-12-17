@@ -57,7 +57,7 @@ public class TopicDaoImpl implements TopicDao {
     }
 
     @Override
-    public void updateTopic(final Topic oldTopic, final Topic newTopic){
+    public void updateTopic(final Topic newTopic, final Topic oldTopic){
         try {
             jdbcTemplate.update(sql.getProperty(UPDATE_TOPIC), newTopic.getTitle(),
                                                            oldTopic.getId());

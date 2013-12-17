@@ -40,13 +40,13 @@ public class PropertiesProvider {
     public static final String GET_TOPICS_BY_CATEGORY         = "get_topics_by_category";
     public static final String GET_NUMBER_OF_TOPICS_IN_CATEGORY = "get_number_of_topics_in_category";
 
-    public static final String CREATE_POST                        = "create_post";
-    public static final String UPDATE_POST_IN_TOPIC_WITH_NEW_POST = "update_post_in_topic_with_new_post";
-    public static final String UPDATE_POST                        = "update_post";
-    public static final String GET_POST_BY_ID                     = "get_post_by_id";
-    public static final String GET_LAST_POST_BY_TOPIC             = "get_last_post_by_topic";
-    public static final String GET_POSTS_BY_TOPIC_ID              = "get_posts_by_topic_id";
-    public static final String GET_NUMBER_OF_POSTS_IN_TOPIC       = "get_number_of_posts_in_topic";
+    public static final String CREATE_POST                      = "create_post";
+    public static final String ADD_POST_TO_POST_IN_TOPIC        = "add_post_to_post_in_topic";
+    public static final String UPDATE_POST                      = "update_post";
+    public static final String GET_POST_BY_ID                   = "get_post_by_id";
+    public static final String GET_LAST_POST_BY_TOPIC           = "get_last_post_by_topic";
+    public static final String GET_POSTS_BY_TOPIC_ID            = "get_posts_by_topic_id";
+    public static final String GET_NUMBER_OF_POSTS_IN_TOPIC     = "get_number_of_posts_in_topic";
 
 
     public static final String GET_CATEGORIES       = "get_categories";

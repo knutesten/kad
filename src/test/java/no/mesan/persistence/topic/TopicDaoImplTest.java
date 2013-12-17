@@ -187,7 +187,7 @@ public class TopicDaoImplTest {
                 HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime());
         final String newTitle = "Hester er rare";
         newTopic.setTitle(newTitle);
-        topicDao.updateTopic(HESTER_ER_FINE, newTopic);
+        topicDao.updateTopic(newTopic, HESTER_ER_FINE);
 
         final Topic updatedTopicFromDatabase = topicDao.getTopicById(HESTER_ER_FINE.getId());
         topicsAreEqual(newTopic, updatedTopicFromDatabase);

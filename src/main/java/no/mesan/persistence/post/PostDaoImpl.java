@@ -49,11 +49,11 @@ public class PostDaoImpl implements PostDao {
             generatedKeyHolder);
         post.setId(generatedKeyHolder.getKey().intValue());
         
-        updatePostInTopic(post, topic);
+        addPostToPostInTopic(post, topic);
     }
 
-    private void updatePostInTopic(final Post post, final Topic topic) {
-        jdbcTemplate.update(sql.getProperty(UPDATE_POST_IN_TOPIC_WITH_NEW_POST),
+    private void addPostToPostInTopic(final Post post, final Topic topic) {
+        jdbcTemplate.update(sql.getProperty(ADD_POST_TO_POST_IN_TOPIC),
                             post.getId(),
                             topic.getId(),
                             topic.getId());
