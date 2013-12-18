@@ -1,7 +1,5 @@
 package no.mesan.persistence.topic;
 
-import no.mesan.model.Category;
-import no.mesan.model.Post;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.post.PostDao;
@@ -36,8 +34,9 @@ public class TopicRowMapper implements RowMapper<Topic> {
         final Date createdTime = new Date(resultSet.getLong("topic_createdTime"));
         final String title = resultSet.getString("topic_title");
         
-        final Topic topic = new Topic(id, title, createdBy, createdTime, null);
+        final Topic topic = new Topic(id, title, createdBy, createdTime);
         topic.setLastPost(postDao.getLastPostByTopic(topic));
+        topic.setNumberOfPosts(postDao.getNumberOfPostsInTopic(topic));
         
         return topic;
     }

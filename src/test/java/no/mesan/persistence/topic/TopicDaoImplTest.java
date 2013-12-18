@@ -58,13 +58,13 @@ public class TopicDaoImplTest {
         when(testmann.getUsername()).thenReturn("testmann");
         when(testmann.getId()).thenReturn(3);
 
-        HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0), null);
+        HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
 //        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10), null);
-        HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20), null);
-        TEST_1           = new Topic(4, "test1", hestemann, new Date(30), null);
-        TEST_2           = new Topic(5, "test2", hestemann, new Date(40), null);
-        TEST_3           = new Topic(6, "test3", hestemann, new Date(50), null);
-        TEST_4           = new Topic(7, "test4", hestemann, new Date(60), null);
+        HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20));
+        TEST_1           = new Topic(4, "test1", hestemann, new Date(30));
+        TEST_2           = new Topic(5, "test2", hestemann, new Date(40));
+        TEST_3           = new Topic(6, "test3", hestemann, new Date(50));
+        TEST_4           = new Topic(7, "test4", hestemann, new Date(60));
 
         post = new Post(1, testmann, new Date(1), testmann, new Date(15), "testpost med edit");
         
@@ -193,7 +193,7 @@ public class TopicDaoImplTest {
     @Test
     public void updateTopicShouldUpdateExistingTopicWithNewValues() {
         final Topic newTopic = new Topic(HESTER_ER_FINE.getId(), HESTER_ER_FINE.getTitle(),
-                HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime(), null);
+                HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime());
         final String newTitle = "Hester er rare";
         newTopic.setTitle(newTitle);
         topicDao.updateTopic(newTopic);

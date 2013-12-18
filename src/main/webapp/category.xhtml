@@ -32,6 +32,16 @@
                     </span>
                     <span class="row-topic-created-by"><h:outputText value="#{topic.createdBy.username}"/></span>
                 </p:column>
+                <p:column headerText="#{i18n['category.stats']}">
+                    <span class="row-topic-stats">
+                        #{topic.numberOfPosts} #{i18n['category.posts']}
+                    </span>
+                </p:column>
+                <p:column headerText="#{i18n['category.lastPost']}">
+                    <span class="row-topic-lastPost">
+                        #{topic.lastPost.createdBy.username} #{topic.lastPost.lastEditedTime}
+                    </span>
+                </p:column>
             </p:dataTable>
         </ui:define>
     </ui:composition>

@@ -14,18 +14,18 @@ public class Topic implements Serializable {
     private String title;
     private final User createdBy;
     private final Date createdTime;
+    private int numberOfPosts;
     private Post lastPost;
 
     public Topic(final String title, final User createdBy) {
-        this(null, title, createdBy, new Date(), null);
+        this(null, title, createdBy, new Date());
     }
 
-    public Topic(final Integer id, final String title, final User createdBy, final Date createdTime, final Post lastPost){
+    public Topic(final Integer id, final String title, final User createdBy, final Date createdTime){
         this.id =id;
         this.title = title;
         this.createdBy = createdBy;
         this.createdTime = createdTime;
-        this.lastPost = lastPost;
     }
 
     @Override
@@ -75,5 +75,13 @@ public class Topic implements Serializable {
 
     public void setLastPost(final Post lastPost) {
         this.lastPost = lastPost;
+    }
+
+    public int getNumberOfPosts() {
+        return numberOfPosts;
+    }
+
+    public void setNumberOfPosts(final int numberOfPosts) {
+        this.numberOfPosts = numberOfPosts;
     }
 }
