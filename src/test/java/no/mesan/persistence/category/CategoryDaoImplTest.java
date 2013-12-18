@@ -31,8 +31,8 @@ import javax.sql.DataSource;
  */
 public class CategoryDaoImplTest {
     private static final CategoryDao categoryDao = new CategoryDaoImpl();
-    private static final Topic topic1 = new Topic(1, "title1", mock(User.class) , new Date(0));
-    private static final Topic topic2 = new Topic(2, "title2", mock(User.class) , new Date(10));
+    private static final Topic topic1 = new Topic(1, "title1", mock(User.class) , new Date(0), null);
+    private static final Topic topic2 = new Topic(2, "title2", mock(User.class) , new Date(10), null);
     private static final Category hester  = new Category(1, "Hester",  topic1);
     private static final Category griser  = new Category(2, "Griser",  topic2);
     private static final Category kameler = new Category(3, "Kameler", null);

@@ -8,21 +8,24 @@ import java.util.Date;
  *
  * @author Dean Lozo
  */
+@SuppressWarnings("serial")
 public class Topic implements Serializable {
     private Integer id;
     private String title;
     private final User createdBy;
     private final Date createdTime;
+    private Post lastPost;
 
     public Topic(final String title, final User createdBy) {
-        this(null, title, createdBy, new Date());
+        this(null, title, createdBy, new Date(), null);
     }
 
-    public Topic(final Integer id, final String title, final User createdBy, final Date createdTime){
+    public Topic(final Integer id, final String title, final User createdBy, final Date createdTime, final Post lastPost){
         this.id =id;
         this.title = title;
         this.createdBy = createdBy;
         this.createdTime = createdTime;
+        this.lastPost = lastPost;
     }
 
     @Override
@@ -64,5 +67,13 @@ public class Topic implements Serializable {
 
     public void setId(final int id) {
         this.id = id;
+    }
+
+    public Post getLastPost() {
+        return lastPost;
+    }
+
+    public void setLastPost(final Post lastPost) {
+        this.lastPost = lastPost;
     }
 }

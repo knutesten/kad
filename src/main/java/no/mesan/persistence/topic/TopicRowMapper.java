@@ -1,11 +1,16 @@
 package no.mesan.persistence.topic;
 
+import no.mesan.model.Category;
+import no.mesan.model.Post;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
+import no.mesan.persistence.post.PostDao;
 import no.mesan.persistence.user.UserDao;
+
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.inject.Inject;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -20,6 +25,8 @@ import java.util.Map;
 public class TopicRowMapper implements RowMapper<Topic> {
     @Inject
     private UserDao userDao;
+    @Inject
+    private PostDao postDao;
     private final Map<Integer, User> userCache = new HashMap<>();
 
     @Override
@@ -29,7 +36,10 @@ public class TopicRowMapper implements RowMapper<Topic> {
         final Date createdTime = new Date(resultSet.getLong("topic_createdTime"));
         final String title = resultSet.getString("topic_title");
         
-        return new Topic(id, title, createdBy, createdTime);
+        final Topic topic = new Topic(id, title, createdBy, createdTime, null);
+        topic.setLastPost(postDao.getLastPostByTopic(topic));
+        
+        return topic;
     }
 
     private User getUser(final Integer userId){

@@ -10,9 +10,11 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import no.mesan.model.Category;
+import no.mesan.model.Post;
 import no.mesan.model.Topic;
 import no.mesan.model.User;
 import no.mesan.persistence.MockDatabaseUtility;
+import no.mesan.persistence.post.PostDao;
 import no.mesan.properties.PropertiesProvider;
 
 import org.junit.Before;
@@ -42,6 +44,7 @@ public class TopicDaoImplTest {
     private static User hestemann;
     private static User grisemann;
     private static User testmann;
+    private static Post post;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -55,20 +58,26 @@ public class TopicDaoImplTest {
         when(testmann.getUsername()).thenReturn("testmann");
         when(testmann.getId()).thenReturn(3);
 
-        HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0));
-//        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10));
-        HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20));
-        TEST_1           = new Topic(4, "test1", hestemann, new Date(30));
-        TEST_2           = new Topic(5, "test2", hestemann, new Date(40));
-        TEST_3           = new Topic(6, "test3", hestemann, new Date(50));
-        TEST_4           = new Topic(7, "test4", hestemann, new Date(60));
+        HESTER_ER_FINE   = new Topic(1, "Hester er fine"  , hestemann, new Date(0), null);
+//        HESTER_ER_STYGGE = new Topic(2, "Hester er stygge", grisemann, new Date(10), null);
+        HESTER_ER_SKUMLE = new Topic(3, "Hester er skumle", hestemann, new Date(20), null);
+        TEST_1           = new Topic(4, "test1", hestemann, new Date(30), null);
+        TEST_2           = new Topic(5, "test2", hestemann, new Date(40), null);
+        TEST_3           = new Topic(6, "test3", hestemann, new Date(50), null);
+        TEST_4           = new Topic(7, "test4", hestemann, new Date(60), null);
 
+        post = new Post(1, testmann, new Date(1), testmann, new Date(15), "testpost med edit");
+        
         final TopicRowMapper topicRowMapper = new TopicRowMapper();
         final Map<Integer, User> userCache = new HashMap<>();
         userCache.put(1, hestemann);
         userCache.put(2, grisemann);
         userCache.put(3, testmann);
         Whitebox.setInternalState(topicRowMapper, "userCache", userCache);
+        
+        final PostDao postDao = mock(PostDao.class);
+        when(postDao.getLastPostByTopic(HESTER_ER_FINE)).thenReturn(post);
+        Whitebox.setInternalState(topicRowMapper, "postDao", postDao);
 
         final Properties sql        = new PropertiesProvider().createSqlProperties();
         final DataSource dataSource = MockDatabaseUtility.getMockDataSource();
@@ -184,7 +193,7 @@ public class TopicDaoImplTest {
     @Test
     public void updateTopicShouldUpdateExistingTopicWithNewValues() {
         final Topic newTopic = new Topic(HESTER_ER_FINE.getId(), HESTER_ER_FINE.getTitle(),
-                HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime());
+                HESTER_ER_FINE.getCreatedBy(), HESTER_ER_FINE.getCreatedTime(), null);
         final String newTitle = "Hester er rare";
         newTopic.setTitle(newTitle);
         topicDao.updateTopic(newTopic);
