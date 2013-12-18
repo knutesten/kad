@@ -39,7 +39,13 @@
                 </p:column>
                 <p:column headerText="#{i18n['category.lastPost']}">
                     <span class="row-topic-lastPost">
-                        #{topic.lastPost.createdBy.username} #{topic.lastPost.lastEditedTime}
+                        <h:link outcome="topic">
+                            <f:param name="topic" value="#{topic.title}" />
+                            <h:outputText value="#{topic.lastPost.createdBy.username}" />
+                        </h:link>
+                    </span>
+                    <span class="row-topic-lastPost-time">
+                        #{topic.lastPost.lastEditedTime}
                     </span>
                 </p:column>
             </p:dataTable>
