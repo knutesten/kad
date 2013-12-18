@@ -26,7 +26,7 @@
                 <p:column headerText="#{categoryController.category.name}">
                     <span class="row-topic-title">
                         <h:link outcome="topic">
-                            <f:param name="topic" value="#{topic.title}"/>
+                            <f:param name="topic" value="#{topic.id}"/>
                             <h:outputText value="#{topic.title}"/>
                         </h:link>
                     </span>

@@ -21,3 +21,11 @@
 .ui-icon-seek-prev {
     background-position: -48px -157px;
 }
+
+tr.no-padding td {
+    padding: 0;
+}
+
+.post-input, .post-output {
+    padding: 5px;
+}

@@ -22,9 +22,18 @@
                          paginatorPosition="bottom"
                          paginatorTemplate="{JumpToPageNumberInput} {PreviousPageLink} {NextPageLink}"
                          rows="10"
+                         rowStyleClass="no-padding"
                          lazy="true">
                 <p:column headerText="#{topicController.topic.title}">
-                    <h:outputText value="#{post.content}"/>
+                    <h:form>
+                        <h:outputText id="output" value="#{post.content}" escape="false"/>
+                        <h:panelGroup rendered="#{}">
+                            <p:editor value="#{post.content}"/>
+                            <p:commandButton value="#{i18n['topic.confirmPostEdit']}"
+                                             action="#{topicController.updatePost(post)}"
+                                             update="output"/>
+                        </h:panelGroup>
+                    </h:form>
                 </p:column>
             </p:dataTable>
         </ui:define>

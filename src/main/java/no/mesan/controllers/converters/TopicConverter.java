@@ -19,8 +19,8 @@ public class TopicConverter implements Converter {
     private TopicDao topicDao;
 
     @Override
-    public Object getAsObject(final FacesContext context, final UIComponent component, final String title) {
-        return topicDao.getTopicByTitle(title);
+    public Object getAsObject(final FacesContext context, final UIComponent component, final String id) {
+        return topicDao.getTopicById(Integer.parseInt(id));
     }
 
     @Override
