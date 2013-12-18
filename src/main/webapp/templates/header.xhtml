@@ -8,19 +8,26 @@
 
 <h:body>
     <ui:composition>
-        <h1>HEADER!</h1>
-        <p:commandButton id="loginButton" value="#{i18n['header.login']}" type="button" rendered="#{!sessionManager.isLoggedIn}" />
-        <p:overlayPanel id="loginPanel" for="loginButton" showEffect="clip" hideEffect="puff">
-            <h:form>
-                <h:inputText value="#{loginController.username}"/>
-                <br />
-                <h:inputSecret value="#{loginController.password}"/>
-                <p:commandButton value="#{i18n['header.login']}" action="#{loginController.login}"/>
-            </h:form>
-        </p:overlayPanel>
-        <h:form>
-            <p:commandButton action="#{sessionManager.logout}" value="#{i18n['header.logout']}" rendered="#{sessionManager.isLoggedIn}"/>
-        </h:form>
+        <h:panelGroup layout="block" styleClass="templateHeader">
+            <h:panelGroup layout="block" styleClass="headerTitle">
+                <h1>#{i18n['global.header']}!</h1>
+            </h:panelGroup>
+	        
+	        <h:panelGroup layout="block" styleClass="headerNavigation">
+		        <p:commandButton id="loginButton" value="#{i18n['header.login']}" type="button" rendered="#{!sessionManager.isLoggedIn}" />
+		        <p:overlayPanel id="loginPanel" for="loginButton" showEffect="clip" hideEffect="puff">
+		            <h:form>
+		                <h:inputText value="#{loginController.username}"/>
+		                <br />
+		                <h:inputSecret value="#{loginController.password}"/>
+		                <p:commandButton value="#{i18n['header.login']}" action="#{loginController.login}"/>
+		            </h:form>
+		        </p:overlayPanel>
+		        <h:form>
+		            <p:commandButton action="#{sessionManager.logout}" value="#{i18n['header.logout']}" rendered="#{sessionManager.isLoggedIn}"/>
+		        </h:form>
+            </h:panelGroup>
+        </h:panelGroup>
     </ui:composition>
 </h:body>
 
