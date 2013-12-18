@@ -23,7 +23,12 @@
                          paginatorTemplate="{JumpToPageNumberInput} {PreviousPageLink} {NextPageLink}"
                          rows="10"
                          lazy="true">
-                <p:column headerText="#{topicController.topic.title}">
+                <p:column headerText="#{i18n['topic.author']}">
+                <!-- Should have some more info about author here -->
+                    <h:outputText value="#{post.createdBy.username}" />
+                </p:column>
+                <p:column headerText="#{i18n['topic.topic']}: #{topicController.topic.title}">
+                <!-- Should have some metainfo about the post. Time etc.. -->
                     <h:outputText value="#{post.content}"/>
                 </p:column>
             </p:dataTable>

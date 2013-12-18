@@ -34,18 +34,19 @@
                 </p:column>
                 <p:column headerText="#{i18n['category.stats']}">
                     <span class="row-topic-stats">
+                    <!-- Should maybe have some more stats here? -->
                         #{topic.numberOfPosts} #{i18n['category.posts']}
                     </span>
                 </p:column>
                 <p:column headerText="#{i18n['category.lastPost']}">
                     <span class="row-topic-lastPost">
-                        <h:link outcome="topic">
-                            <f:param name="topic" value="#{topic.title}" />
-                            <h:outputText value="#{topic.lastPost.createdBy.username}" />
-                        </h:link>
+                        #{topic.lastPost.createdBy.username}
                     </span>
                     <span class="row-topic-lastPost-time">
-                        #{topic.lastPost.lastEditedTime}
+                        <h:link outcome="topic">
+                            <f:param name="topic" value="#{topic.title}" />
+                            <h:outputText value="#{topic.lastPost.lastEditedTime}" />
+                        </h:link>
                     </span>
                 </p:column>
             </p:dataTable>

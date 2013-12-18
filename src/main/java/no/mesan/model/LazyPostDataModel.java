@@ -13,6 +13,7 @@ import org.primefaces.model.SortOrder;
  *
  * @author Knut Esten Melandsø Nekså
  */
+@SuppressWarnings("serial")
 public class LazyPostDataModel extends LazyDataModel<Post> {
     private final PostDao postDao;
     private final Topic topic;
