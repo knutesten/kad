@@ -3,14 +3,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 
 <h:body>
     <ui:composition>
         <h1>HEADER!</h1>
-        <h:link outcome="login" value="#{i18n['header.login']}"  rendered="#{!sessionManager.isLoggedIn}"/>
+        <p:commandButton id="loginButton" value="#{i18n['header.login']}" type="button" rendered="#{!sessionManager.isLoggedIn}" />
+        <p:overlayPanel id="loginPanel" for="loginButton" showEffect="clip" hideEffect="puff">
+            <h:form>
+                <h:inputText value="#{loginController.username}"/>
+                <br />
+                <h:inputSecret value="#{loginController.password}"/>
+                <p:commandButton value="#{i18n['header.login']}" action="#{loginController.login}"/>
+            </h:form>
+        </p:overlayPanel>
         <h:form>
-            <h:commandLink action="#{sessionManager.logout}" value="#{i18n['header.logout']}" rendered="#{sessionManager.isLoggedIn}"/>
+            <p:commandButton action="#{sessionManager.logout}" value="#{i18n['header.logout']}" rendered="#{sessionManager.isLoggedIn}"/>
         </h:form>
     </ui:composition>
 </h:body>
