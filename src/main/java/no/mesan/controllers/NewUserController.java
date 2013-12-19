@@ -15,6 +15,7 @@ import no.mesan.controllers.validators.EmailUnique;
 import no.mesan.controllers.validators.UserUnique;
 import no.mesan.model.Country;
 import no.mesan.model.User;
+import no.mesan.model.UserSettings;
 import no.mesan.persistence.user.UserDao;
 import no.mesan.persistence.country.CountryDao;
 
@@ -75,6 +76,7 @@ public class NewUserController {
         final User newUser = new User(userBuilder);
         userDao.createUser(newUser);
         userDao.addUserToUserGroup(newUser, defaultUserGroup);
+        userDao.updateUserSettings(new UserSettings(newUser.getId()));
     }
 
     boolean confirmPassword() {

@@ -18,6 +18,8 @@ public class Post {
     public Post(final User createdBy, final String content) {
         this.createdBy = createdBy;
         this.createdTime = new Date();
+        this.lastEditedBy = createdBy;
+        this.lastEditedTime = this.createdTime;
         this.content = content;
     }
 

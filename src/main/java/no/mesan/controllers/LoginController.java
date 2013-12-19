@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import no.mesan.model.User;
+import no.mesan.model.UserSettings;
 import no.mesan.persistence.user.UserDao;
 
 /**
@@ -34,6 +35,8 @@ public class LoginController {
             request.login(username, password);
             final User user = userDao.getUserByUsername(username);
             context.getSessionMap().put("user", user);
+            final UserSettings userSettings = userDao.getUserSettingsByUser(user);
+            context.getSessionMap().put("userSettings", userSettings);
         } catch (ServletException se) {
             System.out.println(se.getMessage());
         }

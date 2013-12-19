@@ -11,6 +11,7 @@ import java.util.Properties;
 import javax.inject.Inject;
 
 import no.mesan.model.User;
+import no.mesan.model.UserSettings;
 import no.mesan.properties.Sql;
 
 import org.jboss.security.SimplePrincipal;
@@ -33,6 +34,8 @@ public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate;
     @Inject
     private UserRowMapper userRowMapper;
+    @Inject
+    private UserSettingsRowMapper userSettingsRowMapper;
     @Inject
     private UserGroupRowMapper userGroupRowMapper;
 
@@ -74,7 +77,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserById(final int id) {
         try {
-            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_ID), userRowMapper, id);
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_ID), 
+                                               userRowMapper, 
+                                               id);
         } catch (EmptyResultDataAccessException erda) {
             return null;
         }
@@ -83,7 +88,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByUsername(final String username) {
         try {
-            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), userRowMapper, username);
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_USERNAME), 
+                                               userRowMapper, 
+                                               username);
         } catch (EmptyResultDataAccessException erda) {
             return null;
         }
@@ -92,7 +99,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByEmail(final String email) {
         try {
-            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), userRowMapper, email);
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_BY_EMAIL), 
+                                               userRowMapper, 
+                                               email);
         } catch (EmptyResultDataAccessException erda) {
             return null;
         }
@@ -101,6 +110,24 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getUsers() {
         return jdbcTemplate.query(sql.getProperty(GET_USERS), userRowMapper);
+    }
+
+    @Override
+    public void updateUserSettings(UserSettings userSettings) {
+        jdbcTemplate.update(sql.getProperty(UPDATE_USER_SETTINGS),
+                            userSettings.getUserId(),
+                            userSettings.getPostsPerPage());
+    }
+    
+    @Override
+    public UserSettings getUserSettingsByUser(final User user) {
+        try {
+            return jdbcTemplate.queryForObject(sql.getProperty(GET_USER_SETTINGS_BY_ID),
+                                               userSettingsRowMapper,
+                                               user.getId());
+        } catch (EmptyResultDataAccessException erda) {
+            return null;
+        }
     }
 
     @Override

@@ -21,6 +21,8 @@ public class PropertiesProvider {
     public static final String GET_USER_BY_ID             = "get_user_by_id";
     public static final String GET_USER_BY_EMAIL          = "get_user_by_email";
     public static final String GET_USERS                  = "get_users";
+    public static final String UPDATE_USER_SETTINGS       = "update_user_settings";
+    public static final String GET_USER_SETTINGS_BY_ID    = "get_user_settings_by_id";
     public static final String ADD_USER_TO_USERGROUP      = "add_user_to_usergroup";
     public static final String REMOVE_USER_FROM_USERGROUP = "remove_user_from_usergroup";
     public static final String GET_USER_GROUP_ID_BY_NAME  = "get_user_group_id_by_name";

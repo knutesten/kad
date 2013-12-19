@@ -42,7 +42,8 @@ public class PostDaoImpl implements PostDao {
                     preparedStatement.setInt(1, post.getCreatedBy().getId());
                     preparedStatement.setLong(2, post.getCreatedTime().getTime());
                     preparedStatement.setString(3, post.getContent());
-                    preparedStatement.setLong(4, post.getCreatedTime().getTime());
+                    preparedStatement.setInt(4, post.getLastEditedBy().getId());
+                    preparedStatement.setLong(5, post.getLastEditedTime().getTime());
                     return preparedStatement;
                 }
             },

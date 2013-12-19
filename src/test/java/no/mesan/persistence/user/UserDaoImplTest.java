@@ -10,12 +10,14 @@ import javax.sql.DataSource;
 
 import no.mesan.model.Country;
 import no.mesan.model.User;
+import no.mesan.model.UserSettings;
 import no.mesan.persistence.MockDatabaseUtility;
 import no.mesan.properties.PropertiesProvider;
 
 import org.jboss.security.SimplePrincipal;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.powermock.reflect.Whitebox;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,6 +36,7 @@ public class UserDaoImplTest {
     private static User hestemann;
     private static User grisemann;
     private static User testmann;
+    private static UserSettings hestemannSettings;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -50,6 +53,7 @@ public class UserDaoImplTest {
         Whitebox.setInternalState(userDao, "jdbcTemplate",       new JdbcTemplate(dataSource));
         Whitebox.setInternalState(userDao, "userRowMapper",      userRowMapper);
         Whitebox.setInternalState(userDao, "userGroupRowMapper", new UserGroupRowMapper());
+        Whitebox.setInternalState(userDao, "userSettingsRowMapper", new UserSettingsRowMapper());
 
         initializeTestUsers();
     }
@@ -58,6 +62,7 @@ public class UserDaoImplTest {
         final User.Builder hestemannBuilder = new User.Builder("hestemann", "hest@hest.no", "pass1", "salt1");
         hestemannBuilder.fullName("Hest Hestesen").locale(new Locale("no", "NO")).id(1);
         hestemann = new User(hestemannBuilder);
+        hestemannSettings = new UserSettings(1, 10);
         final User.Builder grisemannBuilder = new User.Builder("grisemann", "gris@gris.no", "pass2", "salt2");
         grisemannBuilder.fullName("Gris Grisson").locale(new Locale("en", "GB")).id(2);
         grisemann = new User(grisemannBuilder);
@@ -65,12 +70,13 @@ public class UserDaoImplTest {
         testmannBuilder.fullName("").locale(new Locale("en", "GB")).id(3);
         testmann = new User(testmannBuilder);
     }
-
+    
     @Before
     public void before() throws Exception {
         MockDatabaseUtility.createDataSet(DATA_SET_USERS);
         MockDatabaseUtility.createDataSet(DATA_SET_USER_GROUPS);
         MockDatabaseUtility.createDataSet(DATA_SET_USER_IN_USER_GROUP);
+        MockDatabaseUtility.createDataSet(DATA_SET_USERSETTINGS);
     }
 
     @Test
@@ -95,6 +101,7 @@ public class UserDaoImplTest {
         userDao.updateUser(hestemannUpdated);
         final User updatedHestemannFromDatabase = userDao.getUserByUsername("hestemann");
         assertEquals(hestemannUpdated, updatedHestemannFromDatabase);
+        assertNotEquals(updatedHestemannFromDatabase, hestemann);
     }
 
     @Test
@@ -120,6 +127,32 @@ public class UserDaoImplTest {
         final List<User> usersFromDatabase = userDao.getUsers();
         assertEquals(hestemann, usersFromDatabase.get(0));
         assertEquals(grisemann, usersFromDatabase.get(1));
+    }
+    
+    @Test
+    public void getUserSettingsByUserShouldReturnTheUserSettingsBelongingToHestemannWhenInputIsHestemann() {
+        final UserSettings hestemannSettingsFromDatabase = userDao.getUserSettingsByUser(hestemann);
+        userSettingsAreEqual(hestemannSettings, hestemannSettingsFromDatabase);
+    }
+    
+    @Test
+    public void getUserSettingsByUserShouldReturnNullWhenThereAreNoUserSettingsForInputUser() {
+        final User.Builder userBuilder = new User.Builder("noSettingsUser", "no@settings.user", "pass1", "salt1");
+        userBuilder.fullName("No Settings User").locale(new Locale("no", "NO")).id(12312323);
+        final User noSettingsUser = new User(userBuilder);
+        final UserSettings noUserSettings = userDao.getUserSettingsByUser(noSettingsUser);
+        assertNull(noUserSettings);
+    }    
+    
+    @Ignore
+    @Test
+    public void updateUserSettingsShouldUpdateTheUserSettingsWithNewValuesForChosenUser() {
+        final UserSettings updatedHestemannUserSettings = new UserSettings(hestemannSettings.getUserId(), 20);
+        userDao.updateUserSettings(updatedHestemannUserSettings);
+        
+        final UserSettings updatedUserSettingsFromDatabase = userDao.getUserSettingsByUser(hestemann);
+        userSettingsAreEqual(updatedHestemannUserSettings, updatedUserSettingsFromDatabase);
+        assertNotEquals(updatedUserSettingsFromDatabase, hestemannSettings);
     }
 
     @Test
@@ -158,5 +191,10 @@ public class UserDaoImplTest {
         final SimplePrincipal admin = new SimplePrincipal("admin");
         assertEquals(user,  userGroups.get(0));
         assertEquals(admin, userGroups.get(1));
+    }
+    
+    private void userSettingsAreEqual(final UserSettings expected, final UserSettings actual) {
+        assertEquals(expected.getUserId(), actual.getUserId());
+        assertEquals(expected.getPostsPerPage(), actual.getPostsPerPage());
     }
 }

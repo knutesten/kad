@@ -3,6 +3,7 @@ package no.mesan.persistence.user;
 import java.util.List;
 
 import no.mesan.model.User;
+import no.mesan.model.UserSettings;
 
 import org.jboss.security.SimplePrincipal;
 
@@ -18,6 +19,9 @@ public interface UserDao {
     public User getUserByUsername(final String username);
     public User getUserByEmail(final String email);
     public List<User> getUsers();
+    
+    public void updateUserSettings(final UserSettings userSettings);
+    public UserSettings getUserSettingsByUser(final User user);
 
     public void addUserToUserGroup(final User user, final String userGroupName);
     public void removeUserFromUserGroup(final User user, final String userGroupName);

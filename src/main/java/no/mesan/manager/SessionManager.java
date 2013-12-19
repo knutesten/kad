@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import no.mesan.model.User;
+import no.mesan.model.UserSettings;
 
 @Named
 @SessionScoped
@@ -21,14 +22,14 @@ public class SessionManager implements Serializable {
 
     private HttpSession httpSession;
     private Locale guestLocale;
-    private int postsPerPage;
+    private int guestPostsPerPage;
 
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
         guestLocale = new Locale("no");
-        postsPerPage = 10;
+        guestPostsPerPage = 10;
     }
 
      public User getUser() {
@@ -38,20 +39,32 @@ public class SessionManager implements Serializable {
             return null;
         }
     }
-
-    private void setUser(User user) {
+     
+    private void setUser(final User user) {
         httpSession.setAttribute("user", user);
+    }
+    
+    public UserSettings getUserSettings() {
+        try {
+            return (UserSettings) httpSession.getAttribute("userSettings");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    private void setUserSettings(final UserSettings userSettings) {
+        httpSession.setAttribute("userSettings", userSettings);
     }
 
     public String getUsername() {
-        User user = getUser();
+        final User user = getUser();
         if (user == null)
             return "Guest";
         return getUser().getUsername();
     }
 
     public Locale getLocale() {
-        User user = getUser();
+        final User user = getUser();
         if (user == null)
             return guestLocale;
         Locale locale = getUser().getLocale();
@@ -61,21 +74,30 @@ public class SessionManager implements Serializable {
     }
 
     public void setLocale(final Locale locale) {
-        User user = getUser();
-        if (user == null)
+        final User user = getUser();
+        if (user == null) {
             guestLocale = locale;
+            return;
+        }
         user.setLocale(locale);
         setUser(user);
     }
 
     public int getPostsPerPage() {
-        //TODO Check users postPerPage setting when it is implemented
-        return postsPerPage;
+        final UserSettings userSettings = getUserSettings();
+        if (userSettings == null)
+            return guestPostsPerPage;
+        return userSettings.getPostsPerPage();
     }
 
     public void setPostsPerPage(final int postsPerPage) {
-        //TODO Set users postPerPage setting if this is not a guest session.
-        this.postsPerPage = postsPerPage;
+        final UserSettings userSettings = getUserSettings();
+        if (userSettings == null) {
+            this.guestPostsPerPage = postsPerPage;
+            return;
+        }
+        userSettings.setPostsPerPage(postsPerPage);
+        setUserSettings(userSettings);
     }
 
     public void logout() throws ServletException, IOException {
