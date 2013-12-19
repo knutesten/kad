@@ -26,7 +26,6 @@ public class TopicController {
 
     private Topic topic;
     private LazyPostDataModel posts;
-    private String editorValue;
 
     public LazyPostDataModel getPosts() {
         if (posts == null)
@@ -35,12 +34,15 @@ public class TopicController {
     }
 
     public void updatePost(final Post post) {
+        System.out.println("hallais");
         post.setLastEditedBy(sessionManager.getUser());
         postDao.updatePost(post);
+        editPost = null;
     }
 
     public boolean isEditing(final Post post) {
-        return editPost.equals(post);
+        System.out.println(post);
+        return editPost != null && editPost.equals(post);
     }
 
     public void edit(final Post post) {
@@ -53,13 +55,5 @@ public class TopicController {
 
     public void setTopic(final Topic topic) {
         this.topic = topic;
-    }
-
-    public String getEditorValue() {
-        return editorValue;
-    }
-
-    public void setEditorValue(final String editorValue) {
-        this.editorValue = editorValue;
     }
 }

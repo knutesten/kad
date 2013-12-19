@@ -37,7 +37,7 @@ public class LoginController {
         } catch (ServletException se) {
             System.out.println(se.getMessage());
         }
-        context.redirect("/index.jsf");
+        context.redirect(context.getApplicationContextPath());
     }
 
     public String getUsername() {

@@ -27,12 +27,11 @@
                 <p:column headerText="#{topicController.topic.title}">
                     <h:form>
                         <h:outputText id="output" value="#{post.content}" escape="false"/>
-                        <h:commandLink value="edit" action="#{topicController.edit(post)}" rendered="#{!topicController.isEditing(post)}"
+                        <h:commandLink value="edit" action="#{topicController.edit(post)}" rendered="#{!topicController.isEditing(post)}"/>
                         <h:panelGroup rendered="#{topicController.isEditing(post)}">
                             <p:editor value="#{post.content}"/>
-                            <p:commandButton value="#{i18n['topic.confirmPostEdit']}"
-                                             action="#{topicController.updatePost(post)}"
-                                             update="output"/>
+                            <h:commandButton value="#{i18n['topic.confirmPostEdit']}"
+                                             action="#{topicController.updatePost(post)}"/>
                         </h:panelGroup>
                     </h:form>
                 </p:column>

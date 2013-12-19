@@ -1,10 +1,12 @@
 package no.mesan.manager;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.ServletException;
@@ -76,9 +78,10 @@ public class SessionManager implements Serializable {
         this.postsPerPage = postsPerPage;
     }
 
-    public String logout() throws ServletException{
+    public void logout() throws ServletException, IOException {
         httpSession.invalidate();
-        return "index?faces-redirect=true";
+        final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getApplicationContextPath());
     }
 
     public boolean getIsLoggedIn() {
