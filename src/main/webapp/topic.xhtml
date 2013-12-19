@@ -27,7 +27,8 @@
                 <p:column headerText="#{topicController.topic.title}">
                     <h:form>
                         <h:outputText id="output" value="#{post.content}" escape="false"/>
-                        <h:panelGroup rendered="#{}">
+                        <h:commandLink value="edit" action="#{topicController.edit(post)}" rendered="#{!topicController.isEditing(post)}"
+                        <h:panelGroup rendered="#{topicController.isEditing(post)}">
                             <p:editor value="#{post.content}"/>
                             <p:commandButton value="#{i18n['topic.confirmPostEdit']}"
                                              action="#{topicController.updatePost(post)}"

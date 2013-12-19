@@ -14,14 +14,14 @@ public class Post {
     private User lastEditedBy;
     private Date lastEditedTime;
     private String content;
-    
+
     public Post(final User createdBy, final String content) {
         this.createdBy = createdBy;
         this.createdTime = new Date();
         this.content = content;
     }
-    
-    public Post(final int id, final User createdBy, final Date createdTime, 
+
+    public Post(final int id, final User createdBy, final Date createdTime,
                 final User lastEditedBy, final Date lastEditedTime, final String content) {
         this.id = id;
         this.createdBy = createdBy;
@@ -30,6 +30,19 @@ public class Post {
         this.lastEditedTime = lastEditedTime;
         this.content = content;
 
+    }
+
+    public boolean equals(final Object object) {
+        if (object instanceof Post) {
+            final Post that = (Post) object;
+            return id == that.id &&
+                    createdBy     .equals(that.createdBy)    &&
+                    createdTime   .equals(that.createdTime)  &&
+                    lastEditedBy  .equals(that.lastEditedBy) &&
+                    lastEditedTime.equals(lastEditedTime)    &&
+                    content.equals(content);
+        }
+        return false;
     }
 
     public User getLastEditedBy() {

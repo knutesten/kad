@@ -22,6 +22,7 @@ public class TopicController {
     private PostDao postDao;
     @Inject
     private SessionManager sessionManager;
+    private Post editPost;
 
     private Topic topic;
     private LazyPostDataModel posts;
@@ -36,6 +37,14 @@ public class TopicController {
     public void updatePost(final Post post) {
         post.setLastEditedBy(sessionManager.getUser());
         postDao.updatePost(post);
+    }
+
+    public boolean isEditing(final Post post) {
+        return editPost.equals(post);
+    }
+
+    public void edit(final Post post) {
+        editPost = post;
     }
 
     public Topic getTopic() {
