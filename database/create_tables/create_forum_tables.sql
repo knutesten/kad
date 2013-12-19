@@ -32,7 +32,7 @@ CREATE TABLE posts (
   post_id             INT           NOT NULL AUTO_INCREMENT,
   post_createdBy      INT           NOT NULL,
   post_createdTime    BIGINT        NOT NULL,
-  post_lastEditedBy   INT,
+  post_lastEditedBy   INT           NOT NULL,
   post_lastEditedTime BIGINT        NOT NULL,
   post_content        TEXT          NOT NULL,
 
@@ -66,7 +66,7 @@ CREATE TABLE postInTopic (
 ALTER TABLE categories ADD
   FOREIGN KEY (category_lastUpdatedTopicId)
     REFERENCES topics(topic_id);
-    
+
 -- -------------------------------------------------------------------------
 -- Add index on topic_categoryId in topics
 -- -------------------------------------------------------------------------
