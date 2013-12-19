@@ -81,7 +81,7 @@ public class SessionManager implements Serializable {
     public void logout() throws ServletException, IOException {
         httpSession.invalidate();
         final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        context.redirect(context.getApplicationContextPath());
+        context.redirect(context.getRequestContextPath());
     }
 
     public boolean getIsLoggedIn() {

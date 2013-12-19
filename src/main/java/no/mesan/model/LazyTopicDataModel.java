@@ -24,7 +24,6 @@ public class LazyTopicDataModel extends LazyDataModel<Topic> {
         this.category = category;
     }
 
-
     @Override
     public List<Topic> load(final int first, final int pageSize, final String sortField, final SortOrder sortOrder, final Map<String, String> filters) {
         return topicDao.getLimitedTopicsByCategory(category, first, pageSize);
