@@ -16,6 +16,17 @@ CREATE TABLE users (
 );
 
 -- -----------------------------------------------------
+-- Create userSettings table
+-- -----------------------------------------------------
+CREATE TABLE userSettings(
+    userSetting_userId          INT NOT NULL,
+    userSetting_postsPerPage    INT NOT NULL,
+    PRIMARY KEY (userSetting_userId),
+    FOREIGN KEY (userSetting_userId)
+        REFERENCES users(user_id)
+);
+
+-- -----------------------------------------------------
 -- Create userGroups table
 -- ----------------------------------------------------
 
